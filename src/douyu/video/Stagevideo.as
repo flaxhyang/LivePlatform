@@ -1,6 +1,7 @@
 package douyu.video
 {
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	import flash.events.StageVideoAvailabilityEvent;
@@ -10,34 +11,23 @@ package douyu.video
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
 	
-	import douyu.vo.InfoData;
-	
-	
 	public class Stagevideo extends Sprite
 	{
 		
 		public static const STOP_VIDEO_EVENT:String="stop_video_event";
+		public static const STAGEVIDEO_INITCOMPLETE:String="stagevideo_initcomplete";
 		
-		private var _STREAM_URL:String;
-
-		public function get STREAM_URL():String
-		{
-			return _STREAM_URL;
-		}
-
-
-		public function set STREAM_URL(value:String):void
-		{
-			_STREAM_URL = value;
-		}
+		
 
 		private var netConnection:NetConnection;
 		private var netStream:NetStream;
 		private var svideo:StageVideo;
 		private var addedToStage:Boolean;
-		private var svEnabled:Boolean;
+		private var svEnabled:Boolean=false;
 		
 		private var VideNewW:int;
+		
+		private var sg:Stage;
 		
 
 		public function Stagevideo()
@@ -46,15 +36,23 @@ package douyu.video
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
 		}
 		
-		protected function onAddedToStage(event:Event):void
+		
+		
+		private function onAddedToStage(evt:Event):void
 		{
-			stage.addEventListener(StageVideoAvailabilityEvent.STAGE_VIDEO_AVAILABILITY, onAvail);			
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			sg=stage;
+		}
+		
+		public function initVideo():void{
+			sg.addEventListener(StageVideoAvailabilityEvent.STAGE_VIDEO_AVAILABILITY, onAvail);			
 		}
 		
 		protected function onAvail(event:StageVideoAvailabilityEvent):void{
 			if(event.availability == StageVideoAvailability.AVAILABLE){
 				svEnabled = true;
+			}else{
+				trace("不支持设备");
 			}
 			connectStream();
 		}
@@ -81,6 +79,7 @@ package douyu.video
 			{
 				case "NetConnection.Connect.Success":
 				{
+					this.dispatchEvent(new Event(STAGEVIDEO_INITCOMPLETE));
 					startStream();
 					break;
 				}
@@ -116,24 +115,21 @@ package douyu.video
 			
 //			netStream.client = this;
 			netStream.client = {onMetaData:_metaDataHandler, onCuePoint:_cuePointHandler};
-			svideo = stage.stageVideos[0];
+			svideo = sg.stageVideos[0];
 		
 			svideo.attachNetStream(netStream);
 			
-			VideNewW=stage.stageWidth-InfoData.TopListWidth;
-			svideo.viewPort = new Rectangle(0, 0, VideNewW, stage.stageHeight);
-			
-			netStream.play(STREAM_URL);
+			svideo.viewPort = new Rectangle(0, 0, sg.stageWidth, sg.stageHeight);
 		}
 		
 		protected function _metaDataHandler(info:Object):void {
 			this.metaData = info;
 			if(info.height>info.width){
-				var VideW:int=int(info.width*stage.stageHeight/info.height);
+				var VideW:int=int(info.width*sg.stageHeight/info.height);
 				var newX:Number=VideNewW-VideW>>1;
-				svideo.viewPort = new Rectangle(newX, 0, VideW, stage.stageHeight);
+				svideo.viewPort = new Rectangle(newX, 0, VideW, sg.stageHeight);
 			}else{
-				svideo.viewPort = new Rectangle(0, 0, stage.stageWidth-InfoData.TopListWidth, stage.stageHeight);
+				svideo.viewPort = new Rectangle(0, 0, sg.stageWidth, sg.stageHeight);
 			}
 			
 		}
@@ -144,10 +140,7 @@ package douyu.video
 
 
 		public function PlayMTV(mtv:String):void{
-			trace("mtv="+mtv);
-			netStream.play("/videos/begin.mp4");
-//			netStream.play(mtv);
-		
+			netStream.play(mtv);
 		}
 		
 		public function stopMTV():void{
