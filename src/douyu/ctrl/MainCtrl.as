@@ -8,13 +8,16 @@ package douyu.ctrl
 	
 	import douyu.database.DataBase;
 	import douyu.video.Stagevideo;
-	import douyu.vo.InfoData;
+	import douyu.data.InfoData;
 	
 	public class MainCtrl extends EventDispatcher
 	{
 		private var ifdt:InfoData;
 		private var db:DataBase;
 		private var sv:Stagevideo;
+		
+		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
+		private var thtopctrl:THTopCtrl=THTopCtrl.instant;
 		
 		public function MainCtrl(target:IEventDispatcher=null)
 		{
@@ -36,15 +39,7 @@ package douyu.ctrl
 		}
 		
 		
-		/**
-		 *  启动
-		 */		
-		private function initComplete():void{
-			currInitStep++;
-			if(currInitStep===initStep){
-				sv.PlayMTV("/video/begin.mp4");
-			}
-		}
+		
 		
 		//数据库连接
 		private function initDataBase():void{
@@ -60,7 +55,6 @@ package douyu.ctrl
 				sv.removeEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,initVideo)
 				initComplete();
 			});
-			sv.addEventListener(Stagevideo.STOP_VIDEO_EVENT,nextVideo);
 			sv.initVideo();
 			
 		}
@@ -78,10 +72,19 @@ package douyu.ctrl
 		
 		
 		//-----------------------------------------------------------ctrl		
-		protected function nextVideo(event:Event):void
-		{
-			
+		/**
+		 *  启动
+		 */		
+		private function initComplete():void{
+			currInitStep++;
+			if(currInitStep===initStep){
+				ctrlvideo.play("/douyu/video/begin.mp4");
+				thtopctrl.getTHData();
+			}
 		}
+		
+		
+		//----------------------------------------------------------time
 		
 		
 		

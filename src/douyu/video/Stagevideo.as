@@ -35,9 +35,6 @@ package douyu.video
 			super();
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
 		}
-		
-		
-		
 		private function onAddedToStage(evt:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -120,6 +117,7 @@ package douyu.video
 			svideo.attachNetStream(netStream);
 			
 			svideo.viewPort = new Rectangle(0, 0, sg.stageWidth, sg.stageHeight);
+			
 		}
 		
 		protected function _metaDataHandler(info:Object):void {

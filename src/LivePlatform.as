@@ -3,23 +3,18 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
-	import flash.display3D.Context3DProfile;
 	import flash.events.Event;
 	
-	import douyu.ctrl.CtrlVideo;
 	import douyu.ctrl.MainCtrl;
-	import douyu.database.DataBase;
 	import douyu.video.Stagevideo;
 	import douyu.view.MainView;
-	import douyu.vo.InfoData;
+	import douyu.data.InfoData;
 	
-	import starling.core.Starling;
-	
-	
-	[SWF(width="1470", height="827",backgroundColor="0x000000")]
+//	[SWF(width="1470", height="827",backgroundColor="0x000000")]
+	[SWF(width="470", height="227",backgroundColor="0x000000")]
 	public class LivePlatform extends Sprite
 	{
-		private var mStarling:Starling;
+		private var infodata:InfoData=InfoData.instant;
 		private var stageVideo:Stagevideo;
 
 		public function LivePlatform()
@@ -32,16 +27,15 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			//----------------------------------------------------------starling
-			Starling.handleLostContext = true;
-			mStarling = new Starling(MainView, stage, null, null, "auto", Context3DProfile.BASELINE);
-			mStarling.enableErrorChecking = isDebugBuild();
-			//mStarling.showStats = true;
-			//mStarling.showStatsAt("right", "top", 1);
-			mStarling.start();
+			//
+			infodata.sgWidth=this.stage.stageWidth;
+			infodata.sgHeight=this.stage.stageHeight;
 			//---------------------------------------------------------video
 			var stagevideo:Stagevideo=Stagevideo.instant;
 			this.addChild(stagevideo);
+			//----------------------------------------------------------main view
+			var mainview:MainView=MainView.instant;
+			this.addChild(mainview);
 			//---------------------------------------------------------main ctrl
 			var mainCtrl:MainCtrl=MainCtrl.instant;
 			mainCtrl.LiveInit();

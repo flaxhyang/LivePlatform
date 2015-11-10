@@ -1,7 +1,11 @@
-package douyu.vo
+package douyu.data
 {
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
+	
+	import douyu.data.vo.PlayerData;
+
 	public class InfoData extends EventDispatcher
 	{
 		//work
@@ -28,9 +32,18 @@ package douyu.vo
 //		public static const mmImage:String="d:/mmimage/";
 		
 		
+		public static const fontNames:String = "Microsoft YaHei,微软雅黑,MSYaHei,SimHei,Roboto,Arial,_sans";
 		//
+		public var sgWidth:int;
+		public var sgHeight:int;
 		
-		//----------------------------------------------------------------------------
+		//-----------------------------------------------------------------------------data change event
+		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
+		
+		
+		
+		
+		//----------------------------------------------------------------------------数据 组
 		private var _autoPlayMvNums:Array;
 		/**
 		 * 自动播放歌单列表
@@ -45,7 +58,23 @@ package douyu.vo
 		{
 			_autoPlayMvNums = value;
 		}
-		//----------------------------------------------------------------------------
+		//------------
+		private var _THDatas:Vector.<PlayerData> 
+		/**
+		 * 土豪榜 列表数据
+		 * @return 
+		 */
+		public function get THDatas():Vector.<PlayerData>
+		{
+			return _THDatas;
+		}
+
+		public function set THDatas(value:Vector.<PlayerData>):void
+		{
+			_THDatas = value;
+			this.dispatchEvent(new Event(THTOP_DATA_CHANGE));
+		}
+		
 		
 		
 		
