@@ -9,9 +9,9 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-		public static const DataBaseURL:String="D:/Workspace/minGame/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="D:/Workspace/minGame/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="D:/Workspace/minGame/LivePlatform/TempFile/mtvlist.txt";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
 		public static const MTVURL:String="";
 		public static const MTVImage:String="";
 		

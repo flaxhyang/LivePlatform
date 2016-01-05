@@ -1,6 +1,7 @@
 package douyu.database
 {
 	import flash.data.SQLConnection;
+	import flash.data.SQLResult;
 	import flash.data.SQLStatement;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -10,12 +11,17 @@ package douyu.database
 	import flash.filesystem.File;
 	
 	import douyu.data.InfoData;
+	import douyu.data.vo.PlayerData;
+	
 	
 	public class DataBase extends EventDispatcher
 	{
 		public static const LINK_DATABASE_COMPLETE:String="link_database_complete";
-		private var con:SQLConnection;
 		private var infodata:InfoData;
+		private var con:SQLConnection;
+		private var topallStmt:SQLStatement;//获取鱼丸榜前10名
+		
+		
 
 		public function DataBase(target:IEventDispatcher=null)
 		{
@@ -35,7 +41,9 @@ package douyu.database
 		private function openHandler(evt:SQLEvent):void
 		{
 			this.dispatchEvent(new Event(LINK_DATABASE_COMPLETE));
-			trace("连接数据库成功")
+			trace("连接数据库成功");
+			topallStmt=new SQLStatement();
+			topallStmt.sqlConnection = con;
 		}
 		
 		private function errorHandler(evt:SQLErrorEvent):void
@@ -46,9 +54,44 @@ package douyu.database
 		/**
 		 * 获取 鱼丸榜 数据
 		 * @param num：获取 前几个
-		 */		
+		 */	
 		public function getTHTopData(num:int):void{
-			
+			topallStmt.text = "select * from people order by sumYW desc limit 0,10"; 
+			topallStmt.addEventListener(SQLEvent.RESULT, selectResultHandler);
+			topallStmt.addEventListener(SQLErrorEvent.ERROR, selectErrorHandler);
+			topallStmt.execute(); 
+		}
+		
+		protected function selectResultHandler(event:SQLEvent):void
+		{
+			topallStmt.removeEventListener(SQLEvent.RESULT, selectResultHandler);
+			topallStmt.removeEventListener(SQLErrorEvent.ERROR, selectErrorHandler);
+			var result:SQLResult = topallStmt.getResult();
+			if ( result.data != null ) 
+			{  
+				var numResults:int =result.data.length;//有多少条数据
+				var tempTopYWVec:Vector.<PlayerData>=new Vector.<PlayerData>();
+				for (var i:int = 0; i < numResults; i++)      
+				{          
+					var row:Object = result.data[i];          
+					//					trace("sumYW="+row.sumYW);
+					var currsmp:PlayerData=new PlayerData();
+					currsmp.id=row.nameid;
+					currsmp.nick=row.name;
+					currsmp.totleYW=row.sumYW;
+					currsmp.THMessage=row.leaveWord;	          
+					tempTopYWVec.push(currsmp);     
+				}  
+				
+				infodata.THDatas=tempTopYWVec;
+				
+			 }	
+		}
+		
+		protected function selectErrorHandler(event:SQLErrorEvent):void
+		{
+			topallStmt.removeEventListener(SQLEvent.RESULT, selectResultHandler);
+			topallStmt.removeEventListener(SQLErrorEvent.ERROR, selectErrorHandler);
 		}
 		
 		//---------------------------------------------------------------------------------------

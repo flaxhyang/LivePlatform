@@ -8,6 +8,7 @@ package douyu.view.top
 	import flash.filters.DropShadowFilter;
 	
 	import douyu.data.ImageData;
+	import douyu.data.vo.PlayerData;
 	
 	public class THTop extends Sprite
 	{
@@ -43,23 +44,16 @@ package douyu.view.top
 			bf.angle=20;
 			this.filters=[dsf,bf];
 			//
-			var title:THTiao=new THTiao(-1,18);
+			var title:THTiao=new THTiao(17);
 			this.addChild(title);
 			title.init();
-			title.setText("No","土豪","鱼丸","留言",false);
+			title.setText("No","土豪","鱼丸","留言");
 			title.x=27;
 			//
 			thsp=new Sprite();
 			this.addChild(thsp);
 			
-			for (var i:int = 0; i < 10; i++) 
-			{
-				var currt:THTiao=new THTiao(i);
-				thsp.addChild(currt);
-				currt.init();
-				currt.y=i*24;
-				textArr.push(currt);	
-			}
+			
 			
 			var masksp:Shape=new Shape();
 			masksp.graphics.beginFill(0,0);
@@ -72,6 +66,18 @@ package douyu.view.top
 			thsp.mask=masksp;
 		}
 		
+		
+		public function setData(data:Vector.<PlayerData>):void{
+			for (var i:int = 0; i < data.length; i++) 
+			{
+				var currt:THTiao=new THTiao();
+				currt.init();
+				thsp.addChild(currt);
+				currt.setText(String(i+1),data[i].nick,String(data[i].totleYW),data[i].THMessage);
+				currt.y=i*24;
+				textArr.push(currt);	
+			}
+		}
 		
 		private static var _instant:THTop;
 		

@@ -5,12 +5,12 @@ package douyu.data.vo
 		public function PlayerData()
 		{
 		}
-		private var id:int;
-		private var nick:String;
-		private var totleYW:Number;
-		private var currYW:Number;
-		private var seclectMVid:int;
-		private var THMessage:String;
-		private var notice:String;
+		public var id:int;
+		public var nick:String;//
+		public var totleYW:Number;//鱼丸总数
+		public var currYW:Number;//当前鱼丸数
+		public var seclectMVid:int;//已点mv id
+		public var THMessage:String;//鱼丸榜留言
+		public var notice:String;//点歌 喇叭
 	}
 }

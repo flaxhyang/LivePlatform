@@ -19,40 +19,38 @@ package douyu.view.top
 		private var lyText:TextField;
 		
 		private var th:int;
-		private var thisNo:int;
 		
-		public function THTiao(No:int,height:int=24)
+		public function THTiao(height:int=24)
 		{
 			super();
 			th=height;
-			thisNo=No;
 			this.mouseEnabled=false;
 			this.mouseChildren=false;
 			this.cacheAsBitmap=true;
 		}
 		public function init():void
 		{
-			No1tf=new TextFormat(InfoData.fontNames,12,0x00ff00,true);
+			No1tf=new TextFormat(InfoData.fontNames,13,0x00ff00,true);
 			No1tf.align=TextFormatAlign.CENTER;
 			
-			No2tf=new TextFormat(InfoData.fontNames,12,0xffff00,true);
+			No2tf=new TextFormat(InfoData.fontNames,13,0xffff00,true);
 			No2tf.align=TextFormatAlign.CENTER;
 			
-			No3tf=new TextFormat(InfoData.fontNames,12,0xffff00,true);
+			No3tf=new TextFormat(InfoData.fontNames,13,0xffff00,true);
 			No3tf.align=TextFormatAlign.CENTER;
 			
-			tf2=new TextFormat(InfoData.fontNames,12,0xffffff,true);
+			tf2=new TextFormat(InfoData.fontNames,13,0xffffff,true);
 			tf2.align=TextFormatAlign.CENTER;
 			
 			NumText=new TextField();
-			this.addChild(NumText);
+			
 			NumText.width=20;
 			NumText.height=th;
 			NumText.border=true;
 			NumText.borderColor=0x000000;
 			NumText.background=true;
 			NumText.backgroundColor=0x262b2d;
-			NumText.wordWrap=true;
+
 			
 			nameText=new TextField();
 			this.addChild(nameText);
@@ -90,23 +88,29 @@ package douyu.view.top
 			lyText.defaultTextFormat=tf2;
 			lyText.wordWrap=true;
 			
-			switch(thisNo)
+			
+			
+			this.addChild(NumText);
+		}	
+		
+		private function setFormat(no:int):void{
+			switch(no)
 			{
-				case 0:
+				case 1:
 				{
 					NumText.defaultTextFormat=No1tf;
 					nameText.defaultTextFormat=No1tf;
 					ywText.defaultTextFormat=No1tf;
 					break;
 				}
-				case 1:
+				case 2:
 				{
 					NumText.defaultTextFormat=No2tf;
 					nameText.defaultTextFormat=No2tf;
 					ywText.defaultTextFormat=No2tf;	
 					break;
 				}
-				case 2:
+				case 3:
 				{
 					NumText.defaultTextFormat=No3tf;
 					nameText.defaultTextFormat=No3tf;
@@ -121,9 +125,12 @@ package douyu.view.top
 					break;
 				}
 			}
-		}	
 		
-		public function setText(no:String,names:String,yw:String,ly:String,iswrap:Boolean=true):void{
+		}
+		
+		public function setText(no:String,names:String,yw:String,ly:String):void{
+			
+			setFormat(int(no));
 			
 			NumText.text="";
 			nameText.text="";
@@ -131,11 +138,21 @@ package douyu.view.top
 			lyText.text="";
 			//
 			NumText.text=no;
+			
 			//
 			nameText.text=names;
 		
-			if(iswrap){
-				ywText.text=String(Number(yw)*100);
+			var ywnum:Number=Number(yw);
+			if(ywnum>0){
+				
+				if(ywnum>100){
+					ywnum=ywnum/100;
+					ywText.text=ywnum.toFixed(2)+"w";		
+				}else{
+					ywnum=ywnum*100;
+					ywText.text=int(ywnum)+"";
+				}
+				
 			}else{
 				ywText.text=yw;
 			}
@@ -143,6 +160,8 @@ package douyu.view.top
 			if(ly){
 				lyText.text=ly;
 			}
+			
+			
 		}
 	}
 }

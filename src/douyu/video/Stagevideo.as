@@ -38,7 +38,8 @@ package douyu.video
 		private function onAddedToStage(evt:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			sg=stage;
+			sg=this.stage;
+			trace(sg);
 		}
 		
 		public function initVideo():void{
@@ -46,6 +47,7 @@ package douyu.video
 		}
 		
 		protected function onAvail(event:StageVideoAvailabilityEvent):void{
+//			trace(event.availability)
 			if(event.availability == StageVideoAvailability.AVAILABLE){
 				svEnabled = true;
 			}else{

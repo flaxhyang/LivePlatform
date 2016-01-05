@@ -39,33 +39,9 @@ package
 			//---------------------------------------------------------main ctrl
 			var mainCtrl:MainCtrl=MainCtrl.instant;
 			mainCtrl.LiveInit();
+			
 		}
 		
-//		private function initData():void
-//		{
-//			db=	DataBase.instant;
-//			db.addEventListener(DataBase.LINK_DATABASE_COMPLETE,databaseComplete);
-//			db.openDatabase();
-//		}
-//		protected function databaseComplete(event:Event):void
-//		{
-//			db.removeEventListener(DataBase.LINK_DATABASE_COMPLETE,databaseComplete);
-//			//
-//			var stagaVideo:Stagevideo=Stagevideo.instant;
-//			var ctrlvideo:CtrlVideo=CtrlVideo.instant;
-//			this.addChild(stagaVideo);
-//			//
-//			Starling.handleLostContext = true;
-//			mStarling = new Starling(MainView, stage, null, null, "auto", Context3DProfile.BASELINE);
-//			mStarling.enableErrorChecking = isDebugBuild();
-//			//mStarling.showStats = true;
-//			//mStarling.showStatsAt("right", "top", 1);
-//			mStarling.start();
-//		}
-		
-		public static function isDebugBuild():Boolean
-		{
-			return new Error().getStackTrace().search(/:[0-9]+]$/m) > -1;
-		}
+
 	}
 }
