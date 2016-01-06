@@ -6,18 +6,17 @@ package douyu.ctrl
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
-	import douyu.database.DataBase;
-	import douyu.video.Stagevideo;
 	import douyu.data.InfoData;
+	import douyu.database.DataBase;
 	
 	public class MainCtrl extends EventDispatcher
 	{
 		private var ifdt:InfoData;
 		private var db:DataBase;
-		private var sv:Stagevideo;
 		
 		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
 		private var thtopctrl:THTopCtrl=THTopCtrl.instant;
+		private var mp3ctrl:MP3Ctrl=MP3Ctrl.instant;
 		
 		public function MainCtrl(target:IEventDispatcher=null)
 		{
@@ -31,15 +30,12 @@ package douyu.ctrl
 		public function LiveInit():void{
 			ifdt=InfoData.instant;
 			db=DataBase.instant;
-			sv=Stagevideo.instant;
+			
 		    
 			initDataBase();//连接数据表
 			initStageVideo();//init stagevideo
 			getAutoMvlist();//获取自动播放列表
 		}
-		
-		
-		
 		
 		//数据库连接
 		private function initDataBase():void{
@@ -51,12 +47,7 @@ package douyu.ctrl
 		
 		//stagevideo init
 		private function initStageVideo():void{
-			sv.addEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,function initVideo():void{
-				sv.removeEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,initVideo)
-				initComplete();
-			});
-			sv.initVideo();
-			
+			ctrlvideo.initVideoScreen(initComplete);
 		}
 		
 		//获取自动播放列表
@@ -71,6 +62,11 @@ package douyu.ctrl
 		}
 		
 		
+		//刷新土豪榜
+		private function setTHTop():void{
+			thtopctrl.getTHData();
+		}
+		
 		//-----------------------------------------------------------ctrl		
 		/**
 		 *  启动
@@ -78,8 +74,9 @@ package douyu.ctrl
 		private function initComplete():void{
 			currInitStep++;
 			if(currInitStep===initStep){
-				ctrlvideo.play("/douyu/video/begin.mp4");
-				thtopctrl.getTHData();
+//				ctrlvideo.play("/douyu/video/begin.mp4");
+				mp3ctrl.init();
+				setTHTop();
 			}
 		}
 		

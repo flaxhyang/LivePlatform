@@ -10,6 +10,10 @@ package douyu.ctrl
 	
 	public class THTopCtrl extends EventDispatcher
 	{
+		
+		private const TopNum:uint=10;
+		
+		
 		private var thtop:THTop=THTop.instant;
 		private var db:DataBase=DataBase.instant;
 		private var infodata:InfoData=InfoData.instant;
@@ -17,15 +21,16 @@ package douyu.ctrl
 		public function THTopCtrl(target:IEventDispatcher=null)
 		{
 			super(target);
-			infodata.addEventListener(InfoData.THTOP_DATA_CHANGE,THTopChangeHandle);
 		}
 		
 		public function getTHData():void{
-			db.getTHTopData(10);
+			infodata.addEventListener(InfoData.THTOP_DATA_CHANGE,THTopChangeHandle);
+			db.getTHTopData(TopNum);
 		}
 		
 		private function THTopChangeHandle(event:Event):void
 		{
+			infodata.removeEventListener(InfoData.THTOP_DATA_CHANGE,THTopChangeHandle);
 			thtop.setData(infodata.THDatas);
 		}
 		

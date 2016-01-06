@@ -4,6 +4,7 @@ package douyu.data
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import douyu.data.vo.MusicData;
 	import douyu.data.vo.PlayerData;
 
 	public class InfoData extends EventDispatcher
@@ -44,6 +45,22 @@ package douyu.data
 		
 		
 		//----------------------------------------------------------------------------数据 组
+		private var _playMusicdata:MusicData
+		/**
+		 * 当前播放歌曲data
+		 * @return 
+		 */
+		public function get playMusicdata():MusicData
+		{
+			return _playMusicdata;
+		}
+
+		public function set playMusicdata(value:MusicData):void
+		{
+			_playMusicdata = value;
+		}
+		
+		
 		private var _autoPlayMvNums:Array;
 		/**
 		 * 自动播放歌单列表

@@ -6,7 +6,7 @@ package
 	import flash.events.Event;
 	
 	import douyu.ctrl.MainCtrl;
-	import douyu.video.Stagevideo;
+	import douyu.view.video.Stagevideo;
 	import douyu.view.MainView;
 	import douyu.data.InfoData;
 	
@@ -30,9 +30,6 @@ package
 			//
 			infodata.sgWidth=this.stage.stageWidth;
 			infodata.sgHeight=this.stage.stageHeight;
-			//---------------------------------------------------------video
-			var stagevideo:Stagevideo=Stagevideo.instant;
-			this.addChild(stagevideo);
 			//----------------------------------------------------------main view
 			var mainview:MainView=MainView.instant;
 			this.addChild(mainview);

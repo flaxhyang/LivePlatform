@@ -1,5 +1,8 @@
 package douyu.view.top
 {
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Linear;
+	
 	import flash.display.Bitmap;
 	import flash.display.Graphics;
 	import flash.display.Shape;
@@ -44,16 +47,15 @@ package douyu.view.top
 			bf.angle=20;
 			this.filters=[dsf,bf];
 			//
-			var title:THTiao=new THTiao(17);
+			var title:THTiao=new THTiao();
 			this.addChild(title);
 			title.init();
 			title.setText("No","土豪","鱼丸","留言");
 			title.x=27;
+			
 			//
 			thsp=new Sprite();
 			this.addChild(thsp);
-			
-			
 			
 			var masksp:Shape=new Shape();
 			masksp.graphics.beginFill(0,0);
@@ -62,8 +64,9 @@ package douyu.view.top
 			this.addChild(masksp);
 			masksp.y=thsp.y=19;
 			masksp.x=thsp.x=title.x;
-			
 			thsp.mask=masksp;
+			
+			TweenMax.to(thsp,10,{y:-105,yoyo:true,repeat:-1,repeatDelay:3,ease:Linear.easeNone});
 		}
 		
 		

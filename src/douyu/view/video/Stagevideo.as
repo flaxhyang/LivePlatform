@@ -1,4 +1,4 @@
-package douyu.video
+package douyu.view.video
 {
 	import flash.display.Sprite;
 	import flash.display.Stage;
