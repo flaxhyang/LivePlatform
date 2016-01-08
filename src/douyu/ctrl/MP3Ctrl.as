@@ -15,9 +15,29 @@ package douyu.ctrl
 		}
 		
 		public function init():void{
-			mp3play.getMp3("","");
+			
+		}
+		
+		/**
+		 * 搜歌
+		 * @param name
+		 * @param artist
+		 */		
+		public function getMp3(name:String, artist:String):void{
+			mp3play.getMp3("一次就好","沈腾");
+		}
+		
+		/**
+		 * 播放mp3
+		 * @param mp3url
+		 */		
+		public function playMp3(mp3url:String):void{
+			
 		}
 			
+		public function stopMp3():void{
+			
+		}
 		
 		private static var _instant:MP3Ctrl;
 		

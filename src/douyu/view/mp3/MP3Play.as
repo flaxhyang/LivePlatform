@@ -9,6 +9,9 @@ package douyu.view.mp3
 		private var baidump3:GetBaiduMP3=GetBaiduMP3.instant;
 		private var xiamimp3:GetXiaMiMP3=GetXiaMiMP3.instant;
 		
+		private var playerName:String;
+		private var artist:String;
+		
 		public function MP3Play()
 		{
 			super();
@@ -18,20 +21,28 @@ package douyu.view.mp3
 		}
 		
 		public function getMp3(name:String,artist:String):void{
-//			baidump3.addEventListener(GetBaiduMP3.FINd_OK,mp3CompleteHanlde);
-//			baidump3.addEventListener(GetBaiduMP3.NotFind_MP3,baiduMp3Error);
-//			baidump3.getMp3(name,artist);
-			xiamimp3.getMp3(name,artist);
+			this.playerName=name;
+			this.artist=artist;
+			baidump3.addEventListener(GetBaiduMP3.FINd_OK,mp3CompleteHanlde);
+			baidump3.addEventListener(GetBaiduMP3.NotFind_MP3,baiduMp3Error);
+			baidump3.getMp3(this.playerName,this.artist);
 		}
 		
 		protected function baiduMp3Error(event:Event):void
 		{
-						
+			xiamimp3.addEventListener(GetXiaMiMP3.FINd_OK,mp3CompleteHanlde);
+			xiamimp3.addEventListener(GetXiaMiMP3.NotFind_MP3,notFindMpsHandle);
+			xiamimp3.getMp3(this.playerName,this.artist);
+		}
+		
+		protected function notFindMpsHandle(event:Event):void
+		{
+			
 		}
 		
 		protected function mp3CompleteHanlde(event:Event):void
 		{
-			
+			(event.target).selestMusic
 		}		
 		
 		
