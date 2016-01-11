@@ -3,6 +3,8 @@ package douyu.view.mp3
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	import douyu.command.nextMusic.selectMusicCommand;
+	
 	
 	public class MP3Play extends Sprite
 	{
@@ -11,6 +13,8 @@ package douyu.view.mp3
 		
 		private var playerName:String;
 		private var artist:String;
+		
+		private var smc:selectMusicCommand=selectMusicCommand.instant;
 		
 		public function MP3Play()
 		{

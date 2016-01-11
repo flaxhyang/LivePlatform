@@ -3,11 +3,15 @@ package douyu.ctrl
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import douyu.command.nextMusic.selectMusicCommand;
+	import douyu.data.vo.MusicData;
+	import douyu.data.vo.PlayerData;
 	import douyu.view.mp3.MP3Play;
 	
 	public class MP3Ctrl extends EventDispatcher
 	{
 		private var mp3play:MP3Play=MP3Play.instant;
+		private var smc:selectMusicCommand=selectMusicCommand.instant;
 		
 		public function MP3Ctrl(target:IEventDispatcher=null)
 		{
@@ -23,8 +27,8 @@ package douyu.ctrl
 		 * @param name
 		 * @param artist
 		 */		
-		public function getMp3(name:String, artist:String):void{
-			mp3play.getMp3("一次就好","沈腾");
+		public function getMp3(md:MusicData):void{
+			smc.selectMp3(md);
 		}
 		
 		/**
