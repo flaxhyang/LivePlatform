@@ -1,25 +1,29 @@
 package douyu.ctrl
 {
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import douyu.command.nextMusic.selectMusicCommand;
+	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
-	import douyu.data.vo.PlayerData;
-	import douyu.view.mp3.MP3Play;
+	import douyu.view.mp3.searchmp3.SearchMP3;
 	
 	public class MP3Ctrl extends EventDispatcher
 	{
-		private var mp3play:MP3Play=MP3Play.instant;
-		private var smc:selectMusicCommand=selectMusicCommand.instant;
+		public static const SEARCHMP3_PROCESS_COMPLETE:String="searchMP3_process_complete";
+		
+		private var searchmp3:SearchMP3=SearchMP3.instant;
+		private var infodata:InfoData=InfoData.instant;
 		
 		public function MP3Ctrl(target:IEventDispatcher=null)
 		{
 			super(target);
+			init();
 		}
 		
 		public function init():void{
-			
+			this.addEventListener(SearchMP3.SEARCH_MP3_COMPLETE,seatchMp3Complete);
+			this.addEventListener(SearchMP3.SEARCH_MP3_FAILED,seatchMp3Failed);
 		}
 		
 		/**
@@ -27,10 +31,18 @@ package douyu.ctrl
 		 * @param name
 		 * @param artist
 		 */		
-		public function getMp3(md:MusicData):void{
-			smc.selectMp3(md);
+		public function SearchMp3(md:MusicData):void{
+			searchmp3.SearchMp3(md);
+		}
+		protected function seatchMp3Complete(event:Event):void
+		{
+			infodata.setRowMusicData(searchmp3.currSearchMp3);
 		}
 		
+		protected function seatchMp3Failed(event:Event):void
+		{
+			//发消息
+		}
 		/**
 		 * 播放mp3
 		 * @param mp3url

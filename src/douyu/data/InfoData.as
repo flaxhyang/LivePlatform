@@ -1,5 +1,7 @@
 package douyu.data
 {
+	import com.greensock.data.VarsCore;
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -40,11 +42,30 @@ package douyu.data
 		
 		//-----------------------------------------------------------------------------data change event
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
+		public static const ROW_MUSIC_CHANGE:String="row_music_change";
 		
 		
 		
 		
 		//----------------------------------------------------------------------------数据 组
+		private var _rowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
+		/**
+		 * 排队播放列表
+		 * @return 
+		 */         
+		public function get rowMusicData():Vector.<MusicData>
+		{
+			return _rowMusicData;
+		}
+
+		public function setRowMusicData(md:MusicData):void
+		{
+			_rowMusicData.push(md);
+			this.dispatchEvent(new Event(ROW_MUSIC_CHANGE)); 
+		}
+		
+		
+		
 		private var _playMusicdata:MusicData
 		/**
 		 * 当前播放歌曲data

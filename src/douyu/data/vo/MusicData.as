@@ -6,6 +6,8 @@ package douyu.data.vo
 		{
 		}
 		
+		public var ismv:Boolean=false;
+		
 		public var mvid:int;
 		public var mName:String;
 		public var playerName:String;

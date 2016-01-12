@@ -1,4 +1,4 @@
-package douyu.view.mp3
+package douyu.view.mp3.searchmp3
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
