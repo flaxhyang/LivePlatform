@@ -9,7 +9,9 @@ package douyu.data.vo
 		public var ismv:Boolean=false;
 		
 		public var mvid:int;
+		
 		public var mName:String;
+		//music 演唱者
 		public var playerName:String;
 		
 		public var mp3Url:String;
@@ -17,8 +19,11 @@ package douyu.data.vo
 		public var lrclink:String;
 		
 		
-		public var musicTime:int;
+		public var musicTime:int=0;
 		
-		public var selectPlayer:PlayerData;
+		public var selectPlayer:PlayerData=null;
+		
+		//是否为 自动歌单播放
+		public var listSelectPlayer:Boolean=false;
 	}
 }

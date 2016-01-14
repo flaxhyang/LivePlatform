@@ -4,7 +4,7 @@ package douyu.view
 	import flash.events.Event;
 	
 	import douyu.data.InfoData;
-	import douyu.view.mp3.searchmp3.SearchMP3;
+	import douyu.view.mp3.MP3Play;
 	import douyu.view.top.THTop;
 	import douyu.view.video.Stagevideo;
 	
@@ -13,7 +13,7 @@ package douyu.view
 		private var infodata:InfoData=InfoData.instant;
 		private var stagevideo:Stagevideo=Stagevideo.instant;
 		private var thtop:THTop=THTop.instant;
-		private var mp3:SearchMP3=SearchMP3.instant;
+		private var mp3:MP3Play=MP3Play.instant;
 		
 		public function MainView()
 		{

@@ -6,6 +6,7 @@ package douyu.ctrl
 	
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
+	import douyu.view.mp3.MP3Play;
 	import douyu.view.mp3.searchmp3.SearchMP3;
 	
 	public class MP3Ctrl extends EventDispatcher
@@ -14,6 +15,7 @@ package douyu.ctrl
 		
 		private var searchmp3:SearchMP3=SearchMP3.instant;
 		private var infodata:InfoData=InfoData.instant;
+		private var mp3play:MP3Play=MP3Play.instant;
 		
 		public function MP3Ctrl(target:IEventDispatcher=null)
 		{
@@ -22,8 +24,8 @@ package douyu.ctrl
 		}
 		
 		public function init():void{
-			this.addEventListener(SearchMP3.SEARCH_MP3_COMPLETE,seatchMp3Complete);
-			this.addEventListener(SearchMP3.SEARCH_MP3_FAILED,seatchMp3Failed);
+			searchmp3.addEventListener(SearchMP3.SEARCH_MP3_COMPLETE,seatchMp3Complete);
+			searchmp3.addEventListener(SearchMP3.SEARCH_MP3_FAILED,seatchMp3Failed);
 		}
 		
 		/**
@@ -47,12 +49,13 @@ package douyu.ctrl
 		 * 播放mp3
 		 * @param mp3url
 		 */		
-		public function playMp3(mp3url:String):void{
-			
+		public function playMp3(md:MusicData):void{
+			mp3play.PlaySound(md);
 		}
 			
 		public function stopMp3():void{
-			
+			mp3play.StopSound();
+			infodata.music_stop();
 		}
 		
 		private static var _instant:MP3Ctrl;

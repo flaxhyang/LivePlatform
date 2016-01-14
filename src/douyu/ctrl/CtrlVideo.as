@@ -4,11 +4,13 @@ package douyu.ctrl
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import douyu.data.InfoData;
 	import douyu.view.video.Stagevideo;
 	
 	public class CtrlVideo extends EventDispatcher
 	{
 		private var stageVideo:Stagevideo=Stagevideo.instant;
+		private var infodata:InfoData=InfoData.instant;
 		
 		
 		public function CtrlVideo(target:IEventDispatcher=null)
@@ -18,7 +20,7 @@ package douyu.ctrl
 		
 		public function initVideoScreen(completeFun:Function):void{
 			stageVideo.addEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,function initVideo():void{
-				stageVideo.addEventListener(Stagevideo.STOP_VIDEO_EVENT,nextVideo);
+				stageVideo.addEventListener(Stagevideo.STOP_VIDEO_EVENT,stopVideoHandle);
 				completeFun();
 				stageVideo.removeEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,initVideo)
 			});
@@ -34,9 +36,9 @@ package douyu.ctrl
 			stageVideo.stopMTV();
 		}
 		
-		private function nextVideo(event:Event):void{
+		private function stopVideoHandle(event:Event):void{
 			//temp
-			play("/douyu/video/begin.mp4");
+			infodata.music_stop();
 		}
 		
 		private static var _instant:CtrlVideo;

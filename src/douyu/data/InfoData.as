@@ -43,9 +43,14 @@ package douyu.data
 		//-----------------------------------------------------------------------------data change event
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
 		public static const ROW_MUSIC_CHANGE:String="row_music_change";
+		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";
 		
 		
 		
+		//---------------------------------------------------------------------------event 
+		public function music_stop():void{
+			this.dispatchEvent(new Event(MUSIC_PLAY_COMPLETE));
+		}
 		
 		//----------------------------------------------------------------------------数据 组
 		private var _rowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
