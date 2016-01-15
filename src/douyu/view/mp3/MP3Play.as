@@ -38,7 +38,14 @@ package douyu.view.mp3
 			req.url=md.mp3Url;
 			sound.addEventListener(Event.COMPLETE,onloadComplete);
 			sound.load(req);
+			
 			soundCh = sound.play();
+			soundCh.addEventListener(Event.SOUND_COMPLETE,soundPlayComplete);
+		}
+		
+		protected function soundPlayComplete(event:Event):void
+		{
+			infodata.music_stop();	
 		}
 		
 		protected function onloadComplete(event:Event):void

@@ -88,12 +88,32 @@ package douyu.view.mp3.searchmp3
 				{
 					case 1:
 					{
-						if(jsonObject.pages.rn_num>0){
-							musicId=jsonObject.song_list[0].song_id;
-							tempArtist=jsonObject.song_list[0].author;
-							param2["songid"]=musicId;
-							loadStep=2;
-							urlloader.load(req2);
+						var rnnum:int=jsonObject.pages.rn_num;
+						var searchName:String=tempArtist;
+						if(rnnum>0){
+							var issearch:Boolean=false;
+							for (var i:int = 0; i < jsonObject.song_list.length; i++) 
+							{
+								var tempStr:String=jsonObject.song_list[i].author;
+								tempStr= tempStr.replace(/<[^>]+>/g,"");//去掉所有的html标记
+								var temptitle:String=jsonObject.song_list[i].title;
+								temptitle= temptitle.replace(/<[^>]+>/g,"");
+								
+								if(tempStr==searchName && temptitle==tempMusicName){
+									musicId=jsonObject.song_list[i].song_id;
+									tempArtist=jsonObject.song_list[i].author;
+									param2["songid"]=musicId;
+									loadStep=2;
+									urlloader.load(req2);
+									issearch=true;
+									break;
+								}
+							}
+							
+							if(!issearch){
+								not_find();	
+							}
+							
 						}else{
 							not_find();
 						}

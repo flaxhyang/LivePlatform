@@ -53,6 +53,7 @@ package douyu.view.mp3.searchmp3
 			try{
 				var jsonObject:Object = JSON.parse(urlloader.data);
 				if(jsonObject!=null){
+					selestMusic=new MusicData();
 					selestMusic.mp3Url=jsonObject[0].src;
 					selestMusic.playerName=jsonObject[0].author;
 					selestMusic.mName=jsonObject[0].title;
