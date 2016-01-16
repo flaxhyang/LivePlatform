@@ -6,6 +6,7 @@ package douyu.ctrl
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
+	import douyu.command.nextMusic.selectMusicCommand;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
 	import douyu.database.DataBase;
@@ -18,6 +19,8 @@ package douyu.ctrl
 		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
 		private var thtopctrl:THTopCtrl=THTopCtrl.instant;
 		private var mp3ctrl:MP3Ctrl=MP3Ctrl.instant;
+		
+		private var smc:selectMusicCommand=selectMusicCommand.instant;
 		
 		
 		
@@ -85,56 +88,20 @@ package douyu.ctrl
 				ctrlvideo.play("/douyu/video/begin.mp4");
 				mp3ctrl.init();
 				setTHTop();
-				//
-				ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
-				ifdt.addEventListener(InfoData.ROW_MUSIC_CHANGE,NewMusicSelectHandle);
-				
 				//temp
-				var md:MusicData=new MusicData();
-				md.ismv=false;
-				md.mName="一次就好";
-				md.playerName="杨宗纬";
-				mp3ctrl.SearchMp3(md);
+				selectMusic();
 			}
 		}
 		
-		protected function musicPlayComplete(event:Event):void
-		{
-			PlayMusic();
-		}
-		
-		protected function NewMusicSelectHandle(event:Event):void
-		{
-			var isStop:Boolean=false;
-			if(ifdt.playMusicdata.selectPlayer==null){
-				isStop=true;
-			}				
-			
-			if(ifdt.playMusicdata.selectPlayer!=null && ifdt.playMusicdata.listSelectPlayer==true){
-				isStop=true;
-			}
-			
-			if(isStop){
-				if(ifdt.playMusicdata.ismv){
-					ctrlvideo.stop();					
-				}else{
-					mp3ctrl.stopMp3();
-				}
-			}
-		}		
-		
-		//------------------------------------play  music
-		private function PlayMusic():void{
-			if(ifdt.rowMusicData.length>0){
-				var md:MusicData=ifdt.rowMusicData.shift();
-					if(md.ismv){
-						ctrlvideo.play("/douyu/video/begin.mp4");
-					}else{
-						mp3ctrl.playMp3(md);
-					}
-			}else{
-				ctrlvideo.play("/douyu/video/begin.mp4");
-			}
+		//搜歌 
+		public function selectMusic():void{
+			//temp
+			var md:MusicData=new MusicData();
+			md.ismv=false;
+			md.mName="一次就好";
+			md.playerName="杨宗纬";
+			//				mp3ctrl.SearchMp3(md);
+			smc.selectMusic(md);
 		}
 		
 		//----------------------------------------------------------time

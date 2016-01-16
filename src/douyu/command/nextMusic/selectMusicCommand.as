@@ -4,7 +4,9 @@ package douyu.command.nextMusic
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import douyu.ctrl.CtrlVideo;
 	import douyu.ctrl.MP3Ctrl;
+	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
 	
 	
@@ -16,6 +18,9 @@ package douyu.command.nextMusic
 		private var TempSelectPlayerRow:Vector.<MusicData>=new Vector.<MusicData>();
 		
 		private var mp3ctrl:MP3Ctrl=MP3Ctrl.instant;
+		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
+		
+		private var ifdt:InfoData=InfoData.instant;
 		
 		public function selectMusicCommand(target:IEventDispatcher=null)
 		{
@@ -25,13 +30,53 @@ package douyu.command.nextMusic
 		
 		private function init():void{
 			mp3ctrl.addEventListener(MP3Ctrl.SEARCHMP3_PROCESS_COMPLETE,seatchMp3Complete);
+			//
+			ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
+			ifdt.addEventListener(InfoData.ROW_MUSIC_CHANGE,NewMusicSelectHandle);
 		}
 		
 		protected function seatchMp3Complete(event:Event):void
 		{
 			isSelecting=false;
 			if(TempSelectPlayerRow.length){
-				nextMusic();
+				selectNextMusic();
+			}
+		}
+		
+		protected function musicPlayComplete(event:Event):void
+		{
+			PlayMusic();
+		}
+		
+		protected function NewMusicSelectHandle(event:Event):void
+		{
+			var isStop:Boolean=false;
+			//当前播放歌曲 不是点播歌曲
+			if(ifdt.playMusicdata.selectPlayer==null){
+				isStop=true;
+			}				
+			
+			//当前播放歌曲 不是点播歌曲，是土豪联播歌曲，也可以切换
+			if(ifdt.playMusicdata.selectPlayer!=null && ifdt.playMusicdata.listSelectPlayer==true){
+				isStop=true;
+			}
+			
+			if(isStop){
+				
+			}
+		}		
+		
+		//------------------------------------play  music
+		private function PlayMusic():void{
+			if(ifdt.rowMusicData.length>0){
+				var md:MusicData=ifdt.rowMusicData.shift();
+				if(md.ismv){
+					ctrlvideo.play("/douyu/video/begin.mp4");
+				}else{
+					mp3ctrl.playMp3(md);
+				}
+			}else{
+				ctrlvideo.play("/douyu/video/begin.mp4");
 			}
 		}
 		
@@ -40,11 +85,11 @@ package douyu.command.nextMusic
 		public function selectMusic(md:MusicData):void{
 			TempSelectPlayerRow.push(md);
 			if(!isSelecting){
-				nextMusic();
+				selectNextMusic();
 			}
 		}
 		
-		private function nextMusic():void{
+		private function selectNextMusic():void{
 			var tmd:MusicData=TempSelectPlayerRow.shift();
 			if(tmd.ismv){
 			
@@ -54,7 +99,13 @@ package douyu.command.nextMusic
 		}
 		
 		
-		
+		private function  stopMusic():void{
+			if(ifdt.playMusicdata.ismv){
+				ctrlvideo.stop();					
+			}else{
+				mp3ctrl.stopMp3();
+			}
+		}
 		
 		
 		

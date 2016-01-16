@@ -37,7 +37,6 @@ package douyu.ctrl
 		}
 		
 		private function stopVideoHandle(event:Event):void{
-			//temp
 			infodata.music_stop();
 		}
 		
