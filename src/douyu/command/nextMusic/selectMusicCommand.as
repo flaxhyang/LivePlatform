@@ -71,12 +71,12 @@ package douyu.command.nextMusic
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.rowMusicData.shift();
 				if(md.ismv){
-					ctrlvideo.play("/douyu/video/begin.mp4");
+					ctrlvideo.play("/douyu/view/video/begin.mp4");
 				}else{
 					mp3ctrl.playMp3(md);
 				}
 			}else{
-				ctrlvideo.play("/douyu/video/begin.mp4");
+				ctrlvideo.play("/douyu/view/video/begin.mp4");
 			}
 		}
 		

@@ -85,13 +85,15 @@ package douyu.ctrl
 		private function initComplete():void{
 			currInitStep++;
 			if(currInitStep===initStep){
-				ctrlvideo.play("/douyu/video/begin.mp4");
+				ctrlvideo.play("/douyu/view/video/begin.mp4");
 				mp3ctrl.init();
 				setTHTop();
 				//temp
-				selectMusic();
+//				selectMusic();
 			}
 		}
+		
+		
 		
 		//搜歌 
 		public function selectMusic():void{
