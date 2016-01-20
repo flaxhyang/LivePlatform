@@ -16,7 +16,6 @@ package douyu.view.mp3
 		private var sound:Sound;
 		private var soundCh:SoundChannel;
 		private var req:URLRequest;
-		private var backGround:MP3background;
 		
 		public function MP3Play()
 		{
@@ -31,9 +30,6 @@ package douyu.view.mp3
 			var rhArray:Array = new Array();
 			rhArray.push(new URLRequestHeader("Referer",'http://www.baidu.com'));
 			req.requestHeaders=rhArray;
-			//
-			backGround=MP3background.instant;
-			this.addChild(backGround);
 		}
 		
 		public  function PlaySound(md:MusicData):void
