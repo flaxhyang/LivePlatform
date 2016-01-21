@@ -11,18 +11,19 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="";
-//		public static const MTVImage:String="";
-		
-		//home
-		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
 		public static const MTVURL:String="";
 		public static const MTVImage:String="";
+		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		
+		//home
+//		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+//		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
+//		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+//		public static const MTVURL:String="";
+//		public static const MTVImage:String="";
 
 		//发布
 //		public static const DataBaseURL:String="C:/YZYDOUYUData.db";
@@ -118,7 +119,21 @@ package douyu.data
 		}
 		
 		
-		
+		private var _mp3backimageArray:Array=new Array()
+		/**
+         * mp3 背景 图片集 数据 
+		 * @return 
+		 */		
+		public function get mp3backimageArray():Array
+		{
+			return _mp3backimageArray;
+		}
+
+		public function set mp3backimageArray(value:Array):void
+		{
+			_mp3backimageArray = value;
+		}
+
 		
 		public function InfoData(target:IEventDispatcher=null)
 		{

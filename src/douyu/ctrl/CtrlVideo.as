@@ -29,10 +29,12 @@ package douyu.ctrl
 		}
 		
 		public function play(mvurl:String):void{
+			stageVideo.visible=true;
 			stageVideo.PlayMTV(mvurl);
 		}
 		
 		public function stop():void{
+			stageVideo.visible=false;
 			stageVideo.stopMTV();
 		}
 		

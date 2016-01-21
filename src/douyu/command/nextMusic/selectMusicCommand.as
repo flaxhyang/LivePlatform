@@ -48,8 +48,13 @@ package douyu.command.nextMusic
 			PlayMusic();
 		}
 		
+		/**
+		 * 
+		 * @param event
+		 */		
 		protected function NewMusicSelectHandle(event:Event):void
 		{
+			trace("new music!")
 			var isStop:Boolean=false;
 			//当前播放歌曲 不是点播歌曲
 			if(ifdt.playMusicdata.selectPlayer==null){
@@ -62,7 +67,7 @@ package douyu.command.nextMusic
 			}
 			
 			if(isStop){
-				
+				stopMusic();
 			}
 		}		
 		
@@ -71,12 +76,13 @@ package douyu.command.nextMusic
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.rowMusicData.shift();
 				if(md.ismv){
-					ctrlvideo.play("/douyu/video/begin.mp4");
+					ctrlvideo.play("/douyu/view/video/begin.mp4");
 				}else{
+					trace("play mp3")
 					mp3ctrl.playMp3(md);
 				}
 			}else{
-				ctrlvideo.play("/douyu/video/begin.mp4");
+				ctrlvideo.play("/douyu/view/video/begin.mp4");
 			}
 		}
 		
