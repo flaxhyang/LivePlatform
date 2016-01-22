@@ -39,6 +39,7 @@ package douyu.view.mp3
 		
 		public function playBackground():void{
 			changeTime.start();
+			loaderImage();
 		}
 		
 		public function stopBackground():void{
@@ -77,9 +78,7 @@ package douyu.view.mp3
 		
 		protected function changeTimer(event:TimerEvent):void
 		{
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeHandler);
-			var url:String=info.mp3backimageArray[Tools.getRandom(0,info.mp3backimageArray.length-1)].url;
-			loader.load(new URLRequest(url));		
+			loaderImage();
 		}
 		
 		protected function completeHandler(e:Event):void
@@ -101,7 +100,11 @@ package douyu.view.mp3
 		}
 		
 		
-		
+		private function loaderImage():void{
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, completeHandler);
+			var url:String=info.mp3backimageArray[Tools.getRandom(0,info.mp3backimageArray.length-1)].url;
+			loader.load(new URLRequest(url));		
+		}
 		
 		
 		private function changeImage(imagedata:BitmapData,imagerect:Rectangle):void{
