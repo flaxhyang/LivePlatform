@@ -54,6 +54,11 @@ package douyu.command.nextMusic
 		 */		
 		protected function NewMusicSelectHandle(event:Event):void
 		{
+			
+			//排序
+			
+			
+			
 			trace("new music!")
 			var isStop:Boolean=false;
 			//当前播放歌曲 不是点播歌曲
@@ -75,8 +80,11 @@ package douyu.command.nextMusic
 		private function PlayMusic():void{
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.rowMusicData.shift();
+				
+				ifdt.playMusicdata=md;
+				
 				if(md.ismv){
-					ctrlvideo.play("/douyu/view/video/begin.mp4");
+					ctrlvideo.play(md.musicUrl);
 				}else{
 					trace("play mp3")
 					mp3ctrl.playMp3(md);
@@ -98,7 +106,7 @@ package douyu.command.nextMusic
 		private function selectNextMusic():void{
 			var tmd:MusicData=TempSelectPlayerRow.shift();
 			if(tmd.ismv){
-			
+				ctrlvideo.selectVideo(tmd);
 			}else{
 				mp3ctrl.SearchMp3(tmd);
 			}

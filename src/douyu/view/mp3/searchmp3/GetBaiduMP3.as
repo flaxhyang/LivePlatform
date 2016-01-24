@@ -123,7 +123,7 @@ package douyu.view.mp3.searchmp3
 					case 2:
 					{
 						selestMusic=new MusicData();
-						selestMusic.mp3Url=jsonObject.bitrate[0].file_link;
+						selestMusic.musicUrl=jsonObject.bitrate[0].file_link;
 						selestMusic.lrclink=jsonObject.songinfo.lrclink;
 						selestMusic.mName=jsonObject.songinfo.title;
 						selestMusic.playerName=jsonObject.songinfo.author;

@@ -5,25 +5,26 @@ package douyu.data.vo
 		public function MusicData()
 		{
 		}
-		
+		//是否是 mv
 		public var ismv:Boolean=false;
 		
+		//是否为 自动歌单播放
+		public var listSelectPlayer:Boolean=false;
+		
+		
+		//mv
 		public var mvid:int;
 		
-		public var mName:String;
-		//music 演唱者
-		public var playerName:String;
-		
-		public var mp3Url:String;
+		//mp3
 		public var mp3img:String;
 		public var lrclink:String;
 		
 		
-		public var musicTime:int=0;
-		
+		public var musicUrl:String;// music  url
+		public var musicTime:int=0;//歌曲 时常
+		public var mName:String;//歌名
+		public var playerName:String;//演唱者
 		public var selectPlayer:PlayerData=null;
 		
-		//是否为 自动歌单播放
-		public var listSelectPlayer:Boolean=false;
 	}
 }

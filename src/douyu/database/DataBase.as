@@ -11,16 +11,24 @@ package douyu.database
 	import flash.filesystem.File;
 	
 	import douyu.data.InfoData;
+	import douyu.data.vo.MusicData;
 	import douyu.data.vo.PlayerData;
+	
+
 	
 	
 	public class DataBase extends EventDispatcher
 	{
 		public static const LINK_DATABASE_COMPLETE:String="link_database_complete";
+		
+		
+		private var currMd:MusicData;
+		
 		private var infodata:InfoData;
 		private var con:SQLConnection;
-		private var topallStmt:SQLStatement;//获取鱼丸榜前10名
 		
+		private var topallStmt:SQLStatement;//获取鱼丸榜前10名
+		private var MVStmt:SQLStatement;//mv 查询
 		
 
 		public function DataBase(target:IEventDispatcher=null)
@@ -44,6 +52,9 @@ package douyu.database
 			trace("连接数据库成功");
 			topallStmt=new SQLStatement();
 			topallStmt.sqlConnection = con;
+			//
+			MVStmt=new SQLStatement();
+			MVStmt.sqlConnection=con;
 		}
 		
 		private function errorHandler(evt:SQLErrorEvent):void
@@ -92,6 +103,43 @@ package douyu.database
 		{
 			topallStmt.removeEventListener(SQLEvent.RESULT, selectResultHandler);
 			topallStmt.removeEventListener(SQLErrorEvent.ERROR, selectErrorHandler);
+		}
+		
+		
+		/**
+		 * 获取当前mv的信息
+		 * @param mvid
+		 */	
+		public function getMVInfo(md:MusicData):void{
+			currMd=md;
+			var sql:String = "select * from mtv where No ="+currMd.mvid;
+			MVStmt.text = sql;//准备待执行的sql语句
+			MVStmt.addEventListener(SQLEvent.RESULT, getMVResult);
+			MVStmt.addEventListener(SQLErrorEvent.ERROR, getMVError);  
+			MVStmt.execute();//执行sql语句
+		}
+		protected function getMVResult(event:SQLEvent):void{
+			MVStmt.removeEventListener(SQLEvent.RESULT, getMVResult);
+			MVStmt.removeEventListener(SQLErrorEvent.ERROR, getMVError); 
+			var result:SQLResult = MVStmt.getResult();
+			if ( result.data != null ) 
+			{  
+				var row:Object = result.data[0]; 
+				//         
+				currMd.ismv=true;
+				currMd.mvid=row.No;
+				currMd.mName=row.name;
+				currMd.playerName=row.singer;
+				
+				infodata.setRowMusicData(currMd);
+				
+			}
+		}
+		protected function getMVError(event:SQLErrorEvent):void
+		{
+			trace("提取mv失败！");
+			MVStmt.removeEventListener(SQLEvent.RESULT, getMVResult);
+			MVStmt.removeEventListener(SQLErrorEvent.ERROR, getMVError);
 		}
 		
 		//---------------------------------------------------------------------------------------

@@ -9,6 +9,7 @@ package douyu.ctrl
 	import douyu.command.nextMusic.selectMusicCommand;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
+	import douyu.data.vo.PlayerData;
 	import douyu.database.DataBase;
 	
 	public class MainCtrl extends EventDispatcher
@@ -99,12 +100,21 @@ package douyu.ctrl
 		public function selectMusic():void{
 			//temp
 			var md:MusicData=new MusicData();
-			md.ismv=false;
-			md.mName="一次就好";
-			md.playerName="杨宗纬";
-			//				mp3ctrl.SearchMp3(md);
+//			md.ismv=false;
+//			md.mName="一次就好";
+//			md.playerName="杨宗纬";
+			
+			md.ismv=true;
+			md.mvid=301;
+			
+			var sp:PlayerData=new PlayerData();
+			md.selectPlayer=sp;
+			
 			smc.selectMusic(md);
 		}
+		
+		
+		
 		
 		//----------------------------------------------------------time
 		

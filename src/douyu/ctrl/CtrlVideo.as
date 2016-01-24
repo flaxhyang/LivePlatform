@@ -5,12 +5,17 @@ package douyu.ctrl
 	import flash.events.IEventDispatcher;
 	
 	import douyu.data.InfoData;
+	import douyu.data.vo.MusicData;
+	import douyu.database.DataBase;
 	import douyu.view.video.Stagevideo;
 	
 	public class CtrlVideo extends EventDispatcher
 	{
+		public static const SELECT_MV_COMPLETE:String="selectMv_complete";
+		
 		private var stageVideo:Stagevideo=Stagevideo.instant;
 		private var infodata:InfoData=InfoData.instant;
+		private var db:DataBase=DataBase.instant;
 		
 		
 		public function CtrlVideo(target:IEventDispatcher=null)
@@ -28,11 +33,26 @@ package douyu.ctrl
 			
 		}
 		
+		/**
+		 * 查找mv  
+		 * @param No
+		 */		
+		public function selectVideo(md:MusicData):void{
+			db.getMVInfo(md);
+		}
+		
+		/**
+		 * 播放mv
+		 * @param mvurl
+		 */		
 		public function play(mvurl:String):void{
 			stageVideo.visible=true;
 			stageVideo.PlayMTV(mvurl);
 		}
 		
+		/**
+		 * 停止mv
+		 */		
 		public function stop():void{
 			stageVideo.visible=false;
 			stageVideo.stopMTV();

@@ -39,7 +39,7 @@ package douyu.view.video
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			sg=this.stage;
-			trace(sg);
+//			trace(sg);
 		}
 		
 		public function initVideo():void{
