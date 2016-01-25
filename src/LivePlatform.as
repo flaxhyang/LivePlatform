@@ -11,9 +11,9 @@ package
 	import douyu.data.InfoData;
 	
 //	[SWF(width="1920", height="1080",backgroundColor="0x000000")]
-	[SWF(width="1280", height="720",backgroundColor="0x000000")]
+//	[SWF(width="1280", height="720",backgroundColor="0x000000")]
 //	[SWF(width="1470", height="827",backgroundColor="0x000000")]
-//	[SWF(width="470", height="427",backgroundColor="0x000000")]
+	[SWF(width="470", height="427",backgroundColor="0x000000")]
 	public class LivePlatform extends Sprite
 	{
 		private var infodata:InfoData=InfoData.instant;

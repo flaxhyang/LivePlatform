@@ -29,13 +29,27 @@ package douyu.command.nextMusic
 		}
 		
 		private function init():void{
-			mp3ctrl.addEventListener(MP3Ctrl.SEARCHMP3_PROCESS_COMPLETE,seatchMp3Complete);
 			//
 			ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
 			ifdt.addEventListener(InfoData.ROW_MUSIC_CHANGE,NewMusicSelectHandle);
+			ifdt.addEventListener(InfoData.MUSIC_NOT_FIND,musicSearchError);
+			ifdt.addEventListener(InfoData.NEW_MUSIC_DATA,newMusicHandle);
 		}
 		
-		protected function seatchMp3Complete(event:Event):void
+		/**
+		 * 歌曲搜索完毕，搜寻点播者信息
+		 * @param event
+		 */		
+		protected function newMusicHandle(event:Event):void
+		{
+			
+		}
+		
+		/**
+		 * 没有找到music，搜寻下首排队歌曲
+		 * @param event
+		 */		
+		protected function musicSearchError(event:Event):void
 		{
 			isSelecting=false;
 			if(TempSelectPlayerRow.length){

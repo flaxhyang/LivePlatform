@@ -11,20 +11,20 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="";
-//		public static const MTVImage:String="";
-//		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
-		
-		//home
-		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
 		public static const MTVURL:String="";
 		public static const MTVImage:String="";
-		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
+		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		
+		//home
+//		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+//		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
+//		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+//		public static const MTVURL:String="";
+//		public static const MTVImage:String="";
+//		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
 
 		//发布
 //		public static const DataBaseURL:String="C:/YZYDOUYUData.db";
@@ -44,17 +44,30 @@ package douyu.data
 		//-----------------------------------------------------------------------------data change event
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
 		public static const ROW_MUSIC_CHANGE:String="row_music_change";
-		public static const MUSIC_SELECT_COMPLETE:String="music_select_complete";
+		public static const MUSIC_NOT_FIND:String="music_not_find";
+		public static const NEW_MUSIC_DATA:String="new_music_data";
 		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";
 		
 		
 		
 		//---------------------------------------------------------------------------event 
+		/**
+		 *  music 播放完成 
+		 */
 		public function music_stop():void{
 			this.dispatchEvent(new Event(MUSIC_PLAY_COMPLETE));
 		}
 		
+		/**
+		 *music 搜寻错误（没有找到此歌曲）  
+		 */		
+        public function musicNotFind():void{
+			this.dispatchEvent(new Event(MUSIC_NOT_FIND));
+		} 		
+		
 		//----------------------------------------------------------------------------数据 组
+		private var newMusicData:MusicData;
+		
 		private var _rowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
 		/**
 		 * 排队播放列表
@@ -67,7 +80,12 @@ package douyu.data
 
 		public function setRowMusicData(md:MusicData):void
 		{
-			_rowMusicData.push(md);
+			newMusicData=md;
+			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
+		}
+		
+		public function addNewMusicData():void{
+			_rowMusicData.push(newMusicData);
 			this.dispatchEvent(new Event(ROW_MUSIC_CHANGE)); 
 		}
 		

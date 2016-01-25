@@ -11,7 +11,6 @@ package douyu.ctrl
 	
 	public class MP3Ctrl extends EventDispatcher
 	{
-		public static const SEARCHMP3_PROCESS_COMPLETE:String="searchMP3_process_complete";
 		
 		private var searchmp3:SearchMP3=SearchMP3.instant;
 		private var infodata:InfoData=InfoData.instant;
@@ -43,7 +42,7 @@ package douyu.ctrl
 		
 		protected function seatchMp3Failed(event:Event):void
 		{
-			//发消息
+			infodata.musicNotFind();
 		}
 		/**
 		 * 播放mp3

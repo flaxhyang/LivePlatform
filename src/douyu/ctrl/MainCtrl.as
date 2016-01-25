@@ -108,6 +108,7 @@ package douyu.ctrl
 			md.mvid=301;
 			
 			var sp:PlayerData=new PlayerData();
+			sp.id=212467;
 			md.selectPlayer=sp;
 			
 			smc.selectMusic(md);

@@ -31,7 +31,7 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="src/libs"/>
-      <libraryPathEntry kind="3" linkType="1" path="${DOCUMENTS}/DYLink9.25/bin/DYLink9.25.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="${DOCUMENTS}/DYLink/bin/DYLink9.25.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

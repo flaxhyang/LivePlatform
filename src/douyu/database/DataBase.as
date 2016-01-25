@@ -133,6 +133,8 @@ package douyu.database
 				
 				infodata.setRowMusicData(currMd);
 				
+			}else{
+				infodata.musicNotFind();
 			}
 		}
 		protected function getMVError(event:SQLErrorEvent):void
@@ -140,6 +142,7 @@ package douyu.database
 			trace("提取mv失败！");
 			MVStmt.removeEventListener(SQLEvent.RESULT, getMVResult);
 			MVStmt.removeEventListener(SQLErrorEvent.ERROR, getMVError);
+			infodata.musicNotFind();
 		}
 		
 		//---------------------------------------------------------------------------------------
