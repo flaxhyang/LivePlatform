@@ -29,6 +29,7 @@ package douyu.database
 		
 		private var topallStmt:SQLStatement;//获取鱼丸榜前10名
 		private var MVStmt:SQLStatement;//mv 查询
+		private var SelectStmt:SQLStatement; //点播人查询
 		
 
 		public function DataBase(target:IEventDispatcher=null)
@@ -52,9 +53,14 @@ package douyu.database
 			trace("连接数据库成功");
 			topallStmt=new SQLStatement();
 			topallStmt.sqlConnection = con;
-			//
+			
+			//查歌
 			MVStmt=new SQLStatement();
 			MVStmt.sqlConnection=con;
+			
+			//搜人
+			SelectStmt=new SQLStatement();
+			SelectStmt.sqlConnection = con;
 		}
 		
 		private function errorHandler(evt:SQLErrorEvent):void
@@ -144,6 +150,48 @@ package douyu.database
 			MVStmt.removeEventListener(SQLErrorEvent.ERROR, getMVError);
 			infodata.musicNotFind();
 		}
+		
+		
+		//
+		/**
+		 * 搜索鱼丸榜 是否有此人（点歌的人） 
+		 * @param nameid
+		 */		
+		public function selectYWId(nameid:int):void{
+			var sql:String = "select * from people where nameid ="+nameid+";";
+			SelectStmt.text = sql;//准备待执行的sql语句
+			SelectStmt.addEventListener(SQLEvent.RESULT, selectMTVResult);
+			SelectStmt.addEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);  
+			SelectStmt.execute();//执行sql语句
+		} 
+		protected function selectMTVResult(event:SQLEvent):void
+		{
+			
+			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
+			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
+			var result:SQLResult = SelectStmt.getResult();
+			if ( result.data != null ) 
+			{  
+				var row:Object = result.data[0]; 
+				
+				infodata.newMusicData.selectPlayer.currYW=row.currYW;
+				infodata.newMusicData.selectPlayer.nick=row.name;
+				infodata.newMusicData.selectPlayer.notice=row.messages;
+				infodata.newMusicData.selectPlayer.THMessage=row.leaveWord;
+			 }	
+			//
+			infodata.addNewMusicData();
+			
+		}
+		
+		protected function selectMTVErrorHandle(event:SQLErrorEvent):void
+		{
+			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
+			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
+			//
+			infodata.addNewMusicData();
+		}
+		
 		
 		//---------------------------------------------------------------------------------------
 		private static var _instant:DataBase;

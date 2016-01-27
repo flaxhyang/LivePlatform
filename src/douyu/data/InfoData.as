@@ -66,7 +66,7 @@ package douyu.data
 		} 		
 		
 		//----------------------------------------------------------------------------数据 组
-		private var newMusicData:MusicData;
+		public var newMusicData:MusicData;
 		
 		private var _rowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
 		/**

@@ -33,7 +33,6 @@ package douyu.view
 		}	
 		//添加 mv 面板
 		private function addMv():void{
-			
 			this.addChild(stagevideo);
 		}
 		

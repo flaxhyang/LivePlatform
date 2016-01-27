@@ -8,6 +8,7 @@ package douyu.command.nextMusic
 	import douyu.ctrl.MP3Ctrl;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
+	import douyu.database.DataBase;
 	
 	
 	public class selectMusicCommand extends EventDispatcher
@@ -21,6 +22,7 @@ package douyu.command.nextMusic
 		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
 		
 		private var ifdt:InfoData=InfoData.instant;
+		private var db:DataBase=DataBase.instant;
 		
 		public function selectMusicCommand(target:IEventDispatcher=null)
 		{
@@ -32,8 +34,11 @@ package douyu.command.nextMusic
 			//
 			ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
 			ifdt.addEventListener(InfoData.ROW_MUSIC_CHANGE,NewMusicSelectHandle);
-			ifdt.addEventListener(InfoData.MUSIC_NOT_FIND,musicSearchError);
+			ifdt.addEventListener(InfoData.MUSIC_NOT_FIND,musicSearchOver);
 			ifdt.addEventListener(InfoData.NEW_MUSIC_DATA,newMusicHandle);
+			
+			//
+			
 		}
 		
 		/**
@@ -42,14 +47,14 @@ package douyu.command.nextMusic
 		 */		
 		protected function newMusicHandle(event:Event):void
 		{
-			
+			db.selectYWId(ifdt.newMusicData.selectPlayer.id);
 		}
 		
 		/**
 		 * 没有找到music，搜寻下首排队歌曲
 		 * @param event
 		 */		
-		protected function musicSearchError(event:Event):void
+		protected function musicSearchOver(event:Event=null):void
 		{
 			isSelecting=false;
 			if(TempSelectPlayerRow.length){
@@ -68,11 +73,13 @@ package douyu.command.nextMusic
 		 */		
 		protected function NewMusicSelectHandle(event:Event):void
 		{
+			//搜寻 下一首
+			musicSearchOver();
 			
 			//排序
 			
 			
-			
+			//是否切断歌曲
 			trace("new music!")
 			var isStop:Boolean=false;
 			//当前播放歌曲 不是点播歌曲
