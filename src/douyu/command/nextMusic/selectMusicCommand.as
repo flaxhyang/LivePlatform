@@ -75,7 +75,6 @@ package douyu.command.nextMusic
 		{
 			//搜寻 下一首
 			musicSearchOver();
-			
 			//排序
 			
 			
