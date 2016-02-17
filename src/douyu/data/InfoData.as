@@ -37,6 +37,7 @@ package douyu.data
 		
 		
 		public static const fontNames:String = "Microsoft YaHei,微软雅黑,MSYaHei,SimHei,Roboto,Arial,_sans";
+		public static const selectMusicTopMax:uint=10;
 		//
 		public var sgWidth:int;
 		public var sgHeight:int;

@@ -2,11 +2,11 @@ package douyu.view.showlayer
 {
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Back;
-	import com.greensock.easing.Elastic;
 	
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.geom.Rectangle;
 	
 	import douyu.data.ImageData;
@@ -31,7 +31,8 @@ package douyu.view.showlayer
 		private var showTop:Vector.<int>=new Vector.<int>();
 		private var tiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
 		
-		private var currTiao:Tiao;
+		
+		private var tiaoCurrNo:int;//要移动的条的数组位置
 		
 		public function SelectMusicTop()
 		{
@@ -55,26 +56,35 @@ package douyu.view.showlayer
 		public function showTiao(playerId:int,movestep:int):void{
 			var currStep:int=showTop.indexOf(playerId);
 			if(currStep==-1){
-				if(movestep>tiaoArr.length){
-					downTiao(movestep);					
-				}
-				showNewTiao(movestep);
+				showTop.push(playerId);
+				createTiao(movestep);
+				downTiao(movestep);					
 			}else{
-				moveTiao(currStep,movestep);
-			}			
+				for (var i:int = 0; i < tiaoArr.length; i++) 
+				{
+					if(playerId==tiaoArr[i].solayerId){
+						tiaoCurrNo=i;
+						break;
+					}
+				}
+				
+				moveTiao(tiaoCurrNo,movestep);
+			}	
+			
+			
 		}
 		
 		public function deletTiao(No:int=0):void{
-			showTop.splice(No,1);
-			if(showTop.length>0){
+			var deletTiao:Tiao=tiaoArr[No];
+			showTop.splice(showTop.indexOf(deletTiao.solayerId),1);
+			this.removeChild(deletTiao);
+			tiaoArr.splice(No,1);
+			if(tiaoArr.length>0){
 				downTiao(No);
 			}
 		}
 		
-		private function showNewTiao(No:int):void{
-			createTiao(No);
-			TweenLite.to(currTiao,800,{x:0,ease:Back.easeInOut});
-		}
+		
 		
 		private function moveTiao(fromNo:int,toNo:int):void{
 			var movetiao:Tiao=tiaoArr.splice(fromNo,1)[0];
@@ -84,24 +94,28 @@ package douyu.view.showlayer
 		}
 		
 		private function downTiao(No:int):void{
-			
-			for (var i:int = No; i < tiaoArr.length; i++) 
+			for (var i:int = No; i < tiaoArr.length-1; i++) 
 			{
-				TweenLite.to(tiaoArr[i],800,{y:i*Yspase});	
+				TweenLite.to(tiaoArr[i],800,{y:i*Yspase,x:0});	
 			}
+			
+			TweenLite.to(tiaoArr[tiaoArr.length-1],800,{y:i*Yspase,x:0,ease:Back.easeInOut,onComplete:moveComplete});
 		}
-		
 		
 		private function createTiao(No:int):void{
 			var tiao:Tiao=new Tiao(backbitmapdata);
 			var mu:MusicData=infodata.rowMusicData[No];
-			tiao.setWord(No,mu.selectPlayer.nick,mu.mName,mu.selectPlayer.currYW);
+			tiao.setWord(mu.selectPlayer.id,No,mu.selectPlayer.nick,mu.mName,mu.selectPlayer.currYW);
 			tiaoArr.push(tiao);
-			currTiao=tiao;
-			currTiao.y=No*Yspase;
-			currTiao.x=sceenRect.width;
-			this.addChild(currTiao);
+			tiao.y=No*Yspase;
+			tiao.x=sceenRect.width;
+			this.addChild(tiao);
 			
+		}
+		
+		
+		private function moveComplete():void{
+			this.dispatchEvent(new Event(MOVE_COMPLETE));
 		}
 		
 		private static var _instant:SelectMusicTop;
@@ -130,6 +144,8 @@ class Tiao extends Sprite{
 	private var musicName:TextField;
 	private var yw:TextField;
 	
+	public var solayerId:int;
+	
 	
 	public function Tiao(bitmap:BitmapData){
 		this.graphics.beginBitmapFill(bitmap,null,false,true);
@@ -137,7 +153,9 @@ class Tiao extends Sprite{
 		this.graphics.endFill();
 	}
 	
-	public function setWord(no:int,splayer:String,mname:String,yuwan:int):void{
+	public function setWord(spid:int,no:int,splayer:String,mname:String,yuwan:int):void{
+		solayerId=spid;
+		
 		No=new TextField();
 		selectPlayer=new TextField();
 		musicName=new TextField();
