@@ -5,6 +5,8 @@ package douyu.ctrl
 	import flash.events.IEventDispatcher;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.utils.setInterval;
+	import flash.utils.setTimeout;
 	
 	import douyu.command.nextMusic.selectMusicCommand;
 	import douyu.data.InfoData;
@@ -100,18 +102,54 @@ package douyu.ctrl
 		public function selectMusic():void{
 			//temp
 			var md:MusicData=new MusicData();
-//			md.ismv=false;
-//			md.mName="一次就好";
-//			md.playerName="杨宗纬";
+			md.ismv=false;
+			md.mName="一次就好";
+			md.playerName="杨宗纬";
 			
-			md.ismv=true;
-			md.mvid=301;
+//			md.ismv=true;
+//			md.mvid=301;
 			
 			var sp:PlayerData=new PlayerData();
 			sp.id=212467;
 			md.selectPlayer=sp;
 			
 			smc.selectMusic(md);
+			
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				md.mName="一次就好";
+				md.playerName="杨宗纬";
+				
+				//			md.ismv=true;
+				//			md.mvid=301;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=212467;
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},10000)
+			
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				md.mName="空白格";
+				md.playerName="杨宗纬";
+				
+				//			md.ismv=true;
+				//			md.mvid=301;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=9557731;
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+			},11000);
+			
 		}
 		
 		

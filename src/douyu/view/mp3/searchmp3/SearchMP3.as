@@ -50,7 +50,10 @@ package douyu.view.mp3.searchmp3
 		
 		protected function mp3CompleteHanlde(event:Event):void
 		{
-			currSearchMp3=(event.target).selestMusic;
+			var newMusic:MusicData=(event.target).selestMusic;
+			currSearchMp3.mName=newMusic.mName;
+			currSearchMp3.musicUrl=newMusic.musicUrl;
+			currSearchMp3.playerName=newMusic.playerName;
 			this.dispatchEvent(new Event(SEARCH_MP3_COMPLETE));
 		}		
 		

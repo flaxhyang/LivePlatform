@@ -3,6 +3,7 @@ package douyu.view.showlayer
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Back;
 	
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -22,7 +23,7 @@ package douyu.view.showlayer
 		
 		private var infodata:InfoData=InfoData.instant;
 		
-		private const sceenRect:Rectangle=new Rectangle(0,0,500,400);
+		private const sceenRect:Rectangle=new Rectangle(0,0,468,400);
 		private var showSpMask:Shape;
 		private var showSp:Sprite;
 		
@@ -41,7 +42,7 @@ package douyu.view.showlayer
 		}
 		
 		private function init():void{
-			backbitmapdata=new ImageData.dgbackClass().bitmapdata;
+			backbitmapdata=new ImageData.dgbackClass().bitmapData;
 			showSp=new Sprite();
 			this.addChild(showSp);
 			showSpMask=new Shape();
@@ -94,12 +95,21 @@ package douyu.view.showlayer
 		}
 		
 		private function downTiao(No:int):void{
+			var xmove:int=0;
 			for (var i:int = No; i < tiaoArr.length-1; i++) 
 			{
-				TweenLite.to(tiaoArr[i],800,{y:i*Yspase,x:0});	
+				xmove=0;
+				if(tiaoArr[i].ywNum<=0){
+					xmove=120;
+				}
+				TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove});	
 			}
+			var m:Tiao=tiaoArr[tiaoArr.length-1];
+			if(m.ywNum<=0){
+				xmove=120;
+			}
+			TweenLite.to(m,0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut,onComplete:moveComplete});
 			
-			TweenLite.to(tiaoArr[tiaoArr.length-1],800,{y:i*Yspase,x:0,ease:Back.easeInOut,onComplete:moveComplete});
 		}
 		
 		private function createTiao(No:int):void{
@@ -135,38 +145,62 @@ package douyu.view.showlayer
 
 import flash.display.BitmapData;
 import flash.display.Sprite;
+import flash.geom.Matrix;
 import flash.text.TextField;
+import flash.text.TextFormat;
+
+import douyu.data.InfoData;
 
 class Tiao extends Sprite{
 	
+	private var TF:TextFormat=new TextFormat(InfoData.fontNames,14,0xffffff);
 	private var No:TextField;
 	private var selectPlayer:TextField;
 	private var musicName:TextField;
 	private var yw:TextField;
 	
 	public var solayerId:int;
+	public var ywNum:int;
 	
 	
 	public function Tiao(bitmap:BitmapData){
+		var matrix:Matrix=new Matrix();
 		this.graphics.beginBitmapFill(bitmap,null,false,true);
 		this.graphics.drawRect(0,0,bitmap.width,bitmap.height);
 		this.graphics.endFill();
 	}
 	
-	public function setWord(spid:int,no:int,splayer:String,mname:String,yuwan:int):void{
+	public function setWord(spid:int,no:int,splayer:String,mname:String,yuwan:int=0):void{
 		solayerId=spid;
+		ywNum=yuwan;
 		
 		No=new TextField();
+		No.width=50;
+		
 		selectPlayer=new TextField();
 		musicName=new TextField();
 		yw=new TextField();
 		
 		this.addChild(No);
-		this.addChild(selectPlayer);
-		this.addChild(musicName);
-		this.addChild(yw);
+		No.defaultTextFormat=TF;
+		No.x=25;
 		
-		No.text=no+"";
+		this.addChild(selectPlayer);
+		selectPlayer.defaultTextFormat=TF;
+		selectPlayer.x=80;
+		
+		this.addChild(musicName);
+		musicName.defaultTextFormat=TF;
+		musicName.x=210;
+		
+		this.addChild(yw);
+		yw.defaultTextFormat=TF;
+		yw.x=350;
+		
+		No.y=selectPlayer.y=musicName.y=yw.y=5;
+		No.height=selectPlayer.height=musicName.height=yw.height=25;
+		
+		No.text="No. "+(no+1);
 		selectPlayer.text="点播："+splayer;
 		musicName.text="歌名："+mname;
 		yw.text="本次鱼丸"+yuwan;

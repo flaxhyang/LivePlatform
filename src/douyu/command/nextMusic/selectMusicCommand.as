@@ -6,6 +6,7 @@ package douyu.command.nextMusic
 	
 	import douyu.ctrl.CtrlVideo;
 	import douyu.ctrl.MP3Ctrl;
+	import douyu.ctrl.SelectMusicTopCtrl;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
 	import douyu.database.DataBase;
@@ -20,6 +21,7 @@ package douyu.command.nextMusic
 		
 		private var mp3ctrl:MP3Ctrl=MP3Ctrl.instant;
 		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
+		private var smtc:SelectMusicTopCtrl=SelectMusicTopCtrl.instant;
 		
 		private var ifdt:InfoData=InfoData.instant;
 		private var db:DataBase=DataBase.instant;
@@ -76,7 +78,7 @@ package douyu.command.nextMusic
 			//搜寻 下一首
 			musicSearchOver();
 			//排序
-			
+			smtc.Sort();
 			
 			//是否切断歌曲
 			trace("new music!")
@@ -100,6 +102,7 @@ package douyu.command.nextMusic
 		private function PlayMusic():void{
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.rowMusicData.shift();
+				smtc.delectMusic();
 				
 				ifdt.playMusicdata=md;
 				
