@@ -131,7 +131,7 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},10000)
+			},6000)
 			
 			
 			setTimeout(function():void{
@@ -148,7 +148,7 @@ package douyu.ctrl
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
-			},11000);
+			},7000);
 			
 		}
 		

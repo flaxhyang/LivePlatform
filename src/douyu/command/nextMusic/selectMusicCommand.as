@@ -44,7 +44,8 @@ package douyu.command.nextMusic
 		}
 		
 		/**
-		 * 歌曲搜索完毕，搜寻点播者信息
+		 * 歌曲搜索完毕，搜寻点播者信息:完成后，调用infodata的addNewMusicData
+		 * 发送ROW_MUSIC_CHANGE 事件。
 		 * @param event
 		 */		
 		protected function newMusicHandle(event:Event):void

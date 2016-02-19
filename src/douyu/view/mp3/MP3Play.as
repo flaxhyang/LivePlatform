@@ -25,7 +25,7 @@ package douyu.view.mp3
 		}
 		
 		private function init():void{
-			sound = new Sound();
+			
 			//
 			req = new URLRequest();
 			var rhArray:Array = new Array();
@@ -40,6 +40,8 @@ package douyu.view.mp3
 		{   
 			infodata.playMusicdata=md;
 			req.url=md.musicUrl;
+			
+			sound = new Sound();
 			sound.addEventListener(Event.COMPLETE,onloadComplete);
 			sound.load(req);
 			
@@ -51,6 +53,7 @@ package douyu.view.mp3
 		
 		protected function soundPlayComplete(event:Event):void
 		{
+			sound.removeEventListener(Event.COMPLETE,onloadComplete);
 			infodata.music_stop();
 			backGround.stopBackground();
 		}

@@ -19,7 +19,7 @@ package douyu.view.showlayer
 	{
 		public static const MOVE_COMPLETE:String="move_complete";
 		
-		private const Yspase:int=80;
+		private const Yspase:int=38;
 		
 		private var infodata:InfoData=InfoData.instant;
 		
@@ -59,7 +59,7 @@ package douyu.view.showlayer
 			if(currStep==-1){
 				showTop.push(playerId);
 				createTiao(movestep);
-				downTiao(movestep);					
+				moveTiao(movestep,movestep);
 			}else{
 				for (var i:int = 0; i < tiaoArr.length; i++) 
 				{
@@ -90,43 +90,49 @@ package douyu.view.showlayer
 		private function moveTiao(fromNo:int,toNo:int):void{
 			var movetiao:Tiao=tiaoArr.splice(fromNo,1)[0];
 			tiaoArr.splice(toNo,0,movetiao);
-			var beginNo:int=fromNo>toNo?toNo:fromNo
+			var beginNo:int=fromNo>toNo?toNo:fromNo;
 			downTiao(beginNo);
 		}
 		
 		private function downTiao(No:int):void{
 			var xmove:int=0;
-			for (var i:int = No; i < tiaoArr.length-1; i++) 
+			for (var i:int = No; i < tiaoArr.length; i++) 
 			{
 				xmove=0;
 				if(tiaoArr[i].ywNum<=0){
 					xmove=120;
 				}
-				TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove});	
+				if(i==tiaoArr.length-1){
+					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut,onComplete:moveComplete});
+				}else{
+					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove});
+				}
 			}
-			var m:Tiao=tiaoArr[tiaoArr.length-1];
-			if(m.ywNum<=0){
-				xmove=120;
-			}
-			TweenLite.to(m,0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut,onComplete:moveComplete});
-			
 		}
 		
 		private function createTiao(No:int):void{
 			var tiao:Tiao=new Tiao(backbitmapdata);
 			var mu:MusicData=infodata.rowMusicData[No];
-			tiao.setWord(mu.selectPlayer.id,No,mu.selectPlayer.nick,mu.mName,mu.selectPlayer.currYW);
-			tiaoArr.push(tiao);
+			tiao.setWord(mu.selectPlayer.id,mu.selectPlayer.nick,mu.mName,mu.selectPlayer.currYW);
+			tiaoArr.splice(No,0,tiao);
 			tiao.y=No*Yspase;
 			tiao.x=sceenRect.width;
 			this.addChild(tiao);
-			
 		}
 		
 		
 		private function moveComplete():void{
+			agaSort();
 			this.dispatchEvent(new Event(MOVE_COMPLETE));
 		}
+		
+		private function agaSort():void{
+			for (var i:int = 0; i < tiaoArr.length; i++) 
+			{
+				tiaoArr[i].setNo(i);
+			}	
+		}
+		
 		
 		private static var _instant:SelectMusicTop;
 		
@@ -170,7 +176,7 @@ class Tiao extends Sprite{
 		this.graphics.endFill();
 	}
 	
-	public function setWord(spid:int,no:int,splayer:String,mname:String,yuwan:int=0):void{
+	public function setWord(spid:int,splayer:String,mname:String,yuwan:int=0):void{
 		solayerId=spid;
 		ywNum=yuwan;
 		
@@ -200,11 +206,13 @@ class Tiao extends Sprite{
 		No.y=selectPlayer.y=musicName.y=yw.y=5;
 		No.height=selectPlayer.height=musicName.height=yw.height=25;
 		
-		No.text="No. "+(no+1);
 		selectPlayer.text="点播："+splayer;
 		musicName.text="歌名："+mname;
-		yw.text="本次鱼丸"+yuwan;
-		
+		yw.text="本次鱼丸："+(yuwan*100);
+	}
+	
+	public function setNo(num:int):void{
+		No.text="No. "+(num+1);
 	}
 	
 }
