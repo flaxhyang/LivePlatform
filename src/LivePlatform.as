@@ -6,9 +6,9 @@ package
 	import flash.events.Event;
 	
 	import douyu.ctrl.MainCtrl;
-	import douyu.view.video.Stagevideo;
-	import douyu.view.MainView;
 	import douyu.data.InfoData;
+	import douyu.view.MainView;
+	import douyu.view.video.Stagevideo;
 	
 //	[SWF(width="1920", height="1080",backgroundColor="0x000000")]
 //	[SWF(width="1280", height="720",backgroundColor="0x000000")]

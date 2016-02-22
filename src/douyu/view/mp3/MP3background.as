@@ -38,11 +38,13 @@ package douyu.view.mp3
 		
 		
 		public function playBackground():void{
+			this.visible=true;
 			changeTime.start();
 			loaderImage();
 		}
 		
 		public function stopBackground():void{
+			this.visible=false;
 			changeTime.stop();
 		}
 		
@@ -58,7 +60,6 @@ package douyu.view.mp3
 			var directory:File = new File();
 			var urlStr:String = "file:///"+InfoData.MP3BackGroundImage;
 			directory.url = urlStr;
-//			directory.getDirectoryListing();
 			info.mp3backimageArray=directory.getDirectoryListing();
 //			
 			for (var i:uint = 0; i < info.mp3backimageArray.length; i++)
@@ -69,7 +70,6 @@ package douyu.view.mp3
 				}
 			}
 			
-//			info.mp3backimageArray=Tools.getRandomArr(info.mp3backimageArray);
 			//
 			changeTime=new Timer(10000);
 			changeTime.addEventListener(TimerEvent.TIMER,changeTimer);

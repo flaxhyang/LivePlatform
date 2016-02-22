@@ -8,6 +8,7 @@ package douyu.ctrl
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	
+	import douyu.command.nextMusic.GiftCommand;
 	import douyu.command.nextMusic.selectMusicCommand;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
@@ -24,6 +25,7 @@ package douyu.ctrl
 		private var mp3ctrl:MP3Ctrl=MP3Ctrl.instant;
 		
 		private var smc:selectMusicCommand=selectMusicCommand.instant;
+		private var gc:GiftCommand=GiftCommand.instant;
 		
 		
 		
@@ -116,6 +118,10 @@ package douyu.ctrl
 			smc.selectMusic(md);
 			
 			
+			
+			
+//			return;
+			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;
@@ -149,6 +155,11 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 			},7000);
+			
+			
+			setTimeout(function():void{
+				gc.gift_fish("212467","flaxhyang",999)
+			},7500);
 			
 		}
 		

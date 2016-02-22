@@ -20,6 +20,9 @@ package douyu.database
 	public class DataBase extends EventDispatcher
 	{
 		public static const LINK_DATABASE_COMPLETE:String="link_database_complete";
+		//
+		public static const ADD_YW_COMPLETE:String="add_yw_complete";//操作player data数据完成 
+		
 		
 		
 		private var currMd:MusicData;
@@ -30,6 +33,9 @@ package douyu.database
 		private var topallStmt:SQLStatement;//获取鱼丸榜前10名
 		private var MVStmt:SQLStatement;//mv 查询
 		private var SelectStmt:SQLStatement; //点播人查询
+		private var SelectYW:SQLStatement;//送鱼丸人查询
+		private var changePlayerStmt:SQLStatement;//修改player data
+		private var insertPlayerStmt:SQLStatement;//新加player data
 		
 
 		public function DataBase(target:IEventDispatcher=null)
@@ -58,9 +64,22 @@ package douyu.database
 			MVStmt=new SQLStatement();
 			MVStmt.sqlConnection=con;
 			
-			//搜人
+			//搜人(点歌人信息)
 			SelectStmt=new SQLStatement();
 			SelectStmt.sqlConnection = con;
+			
+			//搜人（送鱼丸人信息）
+			SelectYW=new SQLStatement();
+			SelectYW.sqlConnection = con;
+			
+			//修改player data
+			changePlayerStmt=new SQLStatement();
+			changePlayerStmt.sqlConnection = con;
+			
+			//新加player 
+			insertPlayerStmt=new SQLStatement();
+			insertPlayerStmt.sqlConnection = con;
+			
 		}
 		
 		private function errorHandler(evt:SQLErrorEvent):void
@@ -192,6 +211,94 @@ package douyu.database
 			infodata.addNewMusicData();
 		}
 		
+		
+		
+		/**
+		 * 收到鱼丸 添加
+		 * @param p
+		 */
+		private var changeYW:PlayerData;
+		public function addYW(p:PlayerData):void{
+			changeYW=p;
+			var sql:String = "select * from people where nameid ="+changeYW.id+";";
+			SelectYW.text = sql;//准备待执行的sql语句
+			SelectYW.addEventListener(SQLEvent.RESULT, selectYWResult);
+			SelectYW.addEventListener(SQLErrorEvent.ERROR, selectYWErrorHandle);  
+			SelectYW.execute();//执行sql语句
+		}
+		
+		protected function selectYWResult(event:SQLEvent):void
+		{
+			SelectYW.removeEventListener(SQLEvent.RESULT, selectYWResult);
+			SelectYW.removeEventListener(SQLErrorEvent.ERROR, selectYWErrorHandle); 
+			var result:SQLResult = SelectYW.getResult();
+			if ( result.data != null ) 
+			{  
+				var row:Object = result.data[0]; 
+				changeYW.notice=row.notice;
+				changeYW.totleYW=row.sumYW+changeYW.currYW;
+				changeYW.currYW=row.currYW+changeYW.currYW;
+				changePlayerData(changeYW);
+			}	 			
+		}
+		
+		protected function selectYWErrorHandle(event:SQLErrorEvent):void
+		{
+			SelectYW.removeEventListener(SQLEvent.RESULT, selectYWResult);
+			SelectYW.removeEventListener(SQLErrorEvent.ERROR, selectYWErrorHandle);
+			insertPlayer(changeYW); 			
+		}		
+		
+		
+		//新加入 player
+		private function insertPlayer(people:PlayerData):void{
+			var sql:String = "INSERT INTO people (nameid,name,messages,sumYW,currYW) VALUES ('"+people.id+"', '"+people.nick+"', '"+people.notice+"', '"+people.totleYW+"', '"+people.currYW+"')";
+			insertPlayerStmt.text = sql;
+			insertPlayerStmt.addEventListener(SQLEvent.RESULT, InsertSpResult);
+			insertPlayerStmt.addEventListener(SQLErrorEvent.ERROR, InserSpError);  
+			insertPlayerStmt.execute();//执行sql语句
+		}
+		
+		protected function InsertSpResult(event:SQLEvent):void
+		{
+			insertPlayerStmt.removeEventListener(SQLEvent.RESULT, InsertSpResult);
+			insertPlayerStmt.removeEventListener(SQLErrorEvent.ERROR, InserSpError);
+			this.dispatchEvent(new Event(ADD_YW_COMPLETE)); 		
+		}
+		
+		protected function InserSpError(event:SQLErrorEvent):void
+		{
+			insertPlayerStmt.removeEventListener(SQLEvent.RESULT, InsertSpResult);
+			insertPlayerStmt.removeEventListener(SQLErrorEvent.ERROR, InserSpError);
+			this.dispatchEvent(new Event(ADD_YW_COMPLETE)); 
+		}
+		
+		
+		/**
+ 		 * 修改数据库 player data: 1:鱼丸（总鱼丸，当前鱼丸） 2：土豪榜留言
+		 * @param p:playerdata
+		 */		
+		public function changePlayerData(people:PlayerData):void{
+			var sql:String="UPDATE people SET messages= "+people.notice+",sumYW= "+people.totleYW+",currYW="+people.currYW+" WHERE nameid = "+people.id+";"; 
+			changePlayerStmt.text=sql;
+			changePlayerStmt.addEventListener(SQLEvent.RESULT,changePlayerdataComplete);
+			changePlayerStmt.addEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
+			changePlayerStmt.execute();
+		}
+		
+		protected function changePlayerdataComplete(event:SQLEvent):void
+		{
+			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
+			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
+			this.dispatchEvent(new Event(ADD_YW_COMPLETE));
+		}
+		
+		protected function changePlayerdataError(event:SQLErrorEvent):void
+		{
+			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
+			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
+			this.dispatchEvent(new Event(ADD_YW_COMPLETE));
+		}		
 		
 		//---------------------------------------------------------------------------------------
 		private static var _instant:DataBase;
