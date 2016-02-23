@@ -16,7 +16,7 @@ package douyu.ctrl
 		
 		public function linkInit():void{
 			socket.addEventListener(Link.LINK_OK,isLinkHandle);
-			socket.initService(193466);
+//			socket.initService(193466);
 		}
 		
 		public function sendMsg(msg:String):void{
@@ -26,9 +26,9 @@ package douyu.ctrl
 		private function isLinkHandle(event:Event):void
 		{
 			socket.removeEventListener(Link.LINK_OK,isLinkHandle);
-			socket.setTHwelcome(welcomefun);
-			socket.setGetMsg(msg_decode);
-			socket.setGift(gift_fish);
+//			socket.setTHwelcome(welcomefun);
+//			socket.setGetMsg(msg_decode);
+//			socket.setGift(gift_fish);
 		}
 		
 		

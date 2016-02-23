@@ -238,6 +238,7 @@ package douyu.database
 				changeYW.notice=row.notice;
 				changeYW.totleYW=row.sumYW+changeYW.currYW;
 				changeYW.currYW=row.currYW+changeYW.currYW;
+				addYWchangeMvTop();
 				changePlayerData(changeYW);
 			}	 			
 		}
@@ -246,9 +247,21 @@ package douyu.database
 		{
 			SelectYW.removeEventListener(SQLEvent.RESULT, selectYWResult);
 			SelectYW.removeEventListener(SQLErrorEvent.ERROR, selectYWErrorHandle);
+			addYWchangeMvTop();
 			insertPlayer(changeYW); 			
 		}		
 		
+		
+		//修改 点歌榜单里的 鱼丸数
+		private function addYWchangeMvTop():void{
+			for (var i:int = 0; i < infodata.rowMusicData.length ; i++) 
+			{
+				if(changeYW.id==infodata.rowMusicData[i].selectPlayer.id){
+					infodata.rowMusicData[i].selectPlayer.currYW=changeYW.currYW
+					break;	
+				}				
+			}
+		}
 		
 		//新加入 player
 		private function insertPlayer(people:PlayerData):void{
