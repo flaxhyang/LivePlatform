@@ -37,21 +37,15 @@ package douyu.command.nextMusic
 			ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
 			ifdt.addEventListener(InfoData.ROW_MUSIC_CHANGE,NewMusicSelectHandle);
 			ifdt.addEventListener(InfoData.MUSIC_NOT_FIND,musicSearchOver);
+<<<<<<< HEAD
+=======
 			ifdt.addEventListener(InfoData.NEW_MUSIC_DATA,newMusicHandle);
 			
+>>>>>>> parent of 6a042b3... 20160222
 			//
 			
 		}
 		
-		/**
-		 * 歌曲搜索完毕，搜寻点播者信息:完成后，调用infodata的addNewMusicData
-		 * 发送ROW_MUSIC_CHANGE 事件。
-		 * @param event
-		 */		
-		protected function newMusicHandle(event:Event):void
-		{
-			db.selectYWId(ifdt.newMusicData.selectPlayer.id);
-		}
 		
 		/**
 		 * 没有找到music，搜寻下首排队歌曲

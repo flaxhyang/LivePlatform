@@ -37,7 +37,7 @@ package douyu.ctrl
 		}
 		protected function seatchMp3Complete(event:Event):void
 		{
-			infodata.setRowMusicData(searchmp3.currSearchMp3);
+			infodata.addNewMusicData(searchmp3.currSearchMp3);
 		}
 		
 		protected function seatchMp3Failed(event:Event):void

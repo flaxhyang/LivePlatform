@@ -4,11 +4,14 @@ package douyu.ctrl
 	
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
+	import douyu.database.DataBase;
 	import douyu.view.showlayer.SelectMusicTop;
 
 	public class SelectMusicTopCtrl
 	{
 		private var infodata:InfoData=InfoData.instant;
+		private var db:DataBase=DataBase.instant;
+		
 		private var smt:SelectMusicTop=SelectMusicTop.instant;
 		
 		private var CurrNo:uint;
@@ -50,14 +53,6 @@ package douyu.ctrl
 			
 			var pid:int=sortPlayerId.shift();
 			
-			//第一个点歌的
-			if(infodata.rowMusicData.length==1){
-				trace("1")
-				showTop(pid,0);
-				return;
-			}
-			
-			
 			for (var j:int = 0; j < infodata.rowMusicData.length; j++) 
 			{
 				if(pid==infodata.rowMusicData[j].selectPlayer.id){
@@ -67,23 +62,38 @@ package douyu.ctrl
 				}
 			}
 			
-			if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
+			db.addEventListener(DataBase.SEARCH_PLAYER_OK,searchComplete);
+			db.SearchPlayer(currSortMd.selectPlayer);
+			
+			
+			//第一个点歌的
+			if(infodata.rowMusicData.length==1){
+				trace("1")
 				infodata.rowMusicData.push(currSortMd);
+				showTop(pid,0);
+				
+			}else if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
 				trace("2")
-				showTop(currSortMd.selectPlayer.id,infodata.rowMusicData.length-1);
+				infodata.rowMusicData.push(currSortMd);
+				showTop(pid,infodata.rowMusicData.length);
 			}else{
 				for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
 				{
 					if(currSortMd.selectPlayer.currYW>infodata.rowMusicData[i].selectPlayer.currYW){
 						infodata.rowMusicData.splice(i,0,currSortMd);
 						trace("3")
-						showTop(currSortMd.selectPlayer.id,i);
+						showTop(pid,i);
 						break;
 					}
 				}	
 			}
 		}
 		
+		protected function searchComplete(event:Event):void
+		{
+			// TODO Auto-generated method stub
+			
+		}		
 		
 		private function showTop(playerId:int,No:uint):void{
 //			trace(playerId,No);

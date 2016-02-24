@@ -46,7 +46,7 @@ package douyu.data
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
 		public static const ROW_MUSIC_CHANGE:String="row_music_change";
 		public static const MUSIC_NOT_FIND:String="music_not_find";
-		public static const NEW_MUSIC_DATA:String="new_music_data";
+//		public static const NEW_MUSIC_DATA:String="new_music_data";
 		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";
 		
 		
@@ -67,8 +67,6 @@ package douyu.data
 		} 		
 		
 		//----------------------------------------------------------------------------数据 组
-		public var newMusicData:MusicData;
-		
 		private var _rowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
 		/**
 		 * 排队播放列表
@@ -78,15 +76,9 @@ package douyu.data
 		{
 			return _rowMusicData;
 		}
-
-		public function setRowMusicData(md:MusicData):void
-		{
-			newMusicData=md;
-			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
-		}
 		
-		public function addNewMusicData():void{
-			_rowMusicData.push(newMusicData);
+		public function addNewMusicData(md:MusicData):void{
+			_rowMusicData.push(md);
 			this.dispatchEvent(new Event(ROW_MUSIC_CHANGE)); 
 		}
 		
