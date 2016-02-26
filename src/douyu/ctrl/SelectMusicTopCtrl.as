@@ -4,26 +4,25 @@ package douyu.ctrl
 	
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
-	import douyu.database.DataBase;
+	import douyu.data.vo.PlayerData;
 	import douyu.view.showlayer.SelectMusicTop;
 
 	public class SelectMusicTopCtrl
 	{
-		private var infodata:InfoData=InfoData.instant;
-		private var db:DataBase=DataBase.instant;
 		
+		private var infodata:InfoData=InfoData.instant;
 		private var smt:SelectMusicTop=SelectMusicTop.instant;
 		
 		private var CurrNo:uint;
 		private var sortPlayerId:Vector.<int>=new Vector.<int>();
+		private var currSortMd:MusicData;
 		private var isSorting:Boolean=false;
 		
-		private var currSortMd:MusicData;
+		public function SelectMusicTopCtrl(){}
 		
-		public function SelectMusicTopCtrl()
-		{
-		}
-		
+		/**
+		 * 删除点播条 
+		 */		
 		public function delectMusic():void{
 			smt.deletTiao();
 			if(infodata.rowMusicData.length>=InfoData.selectMusicTopMax){
@@ -44,6 +43,9 @@ package douyu.ctrl
 			sorting();
 		}
 		
+		
+	
+		
 		private function sorting():void{
 			if(isSorting || sortPlayerId.length==0){
 				return;
@@ -52,6 +54,14 @@ package douyu.ctrl
 			isSorting=true;
 			
 			var pid:int=sortPlayerId.shift();
+			
+			//第一个点歌的
+			if(infodata.rowMusicData.length==1){
+				trace("1")
+				showTop(pid,0);
+				return;
+			}
+			
 			
 			for (var j:int = 0; j < infodata.rowMusicData.length; j++) 
 			{
@@ -62,38 +72,23 @@ package douyu.ctrl
 				}
 			}
 			
-			db.addEventListener(DataBase.SEARCH_PLAYER_OK,searchComplete);
-			db.SearchPlayer(currSortMd.selectPlayer);
-			
-			
-			//第一个点歌的
-			if(infodata.rowMusicData.length==1){
-				trace("1")
+			if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
 				infodata.rowMusicData.push(currSortMd);
-				showTop(pid,0);
-				
-			}else if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
 				trace("2")
-				infodata.rowMusicData.push(currSortMd);
-				showTop(pid,infodata.rowMusicData.length);
+				showTop(currSortMd.selectPlayer.id,infodata.rowMusicData.length-1);
 			}else{
 				for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
 				{
 					if(currSortMd.selectPlayer.currYW>infodata.rowMusicData[i].selectPlayer.currYW){
 						infodata.rowMusicData.splice(i,0,currSortMd);
 						trace("3")
-						showTop(pid,i);
+						showTop(currSortMd.selectPlayer.id,i);
 						break;
 					}
 				}	
 			}
 		}
 		
-		protected function searchComplete(event:Event):void
-		{
-			// TODO Auto-generated method stub
-			
-		}		
 		
 		private function showTop(playerId:int,No:uint):void{
 //			trace(playerId,No);

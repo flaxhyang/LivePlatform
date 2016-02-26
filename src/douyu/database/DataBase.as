@@ -20,17 +20,19 @@ package douyu.database
 	public class DataBase extends EventDispatcher
 	{
 		public static const LINK_DATABASE_COMPLETE:String="link_database_complete";
-
 		//
-		public static const SEARCH_PLAYER_OK:String="search_player_ok";
-		public static const SEARCH_PLAYER_NULL:String="search_player_null";
-		//
-		public static const ADD_YW_COMPLETE:String="add_yw_complete";//操作player data数据完成 
 		
-
+		
+		public static const SEARCH_YWTOP_COMPLETE:String="search_ywtop_complete";
+		public static const SEARCH_YWTOP_FAIL:String="search_ywtop_fail";
+		
+		public static const CHANGE_YWTOP_COMPLETE:String="change_ywtop_complete";//操作player data数据完成 
+		
 		
 		
 		private var currMd:MusicData;
+		public var currPd:PlayerData;
+		
 		
 		private var infodata:InfoData;
 		private var con:SQLConnection;
@@ -38,6 +40,9 @@ package douyu.database
 		private var topallStmt:SQLStatement;//获取鱼丸榜前10名
 		private var MVStmt:SQLStatement;//mv 查询
 		private var SelectStmt:SQLStatement; //点播人查询
+		private var SelectYW:SQLStatement;//送鱼丸人查询
+		private var changePlayerStmt:SQLStatement;//修改player data
+		private var insertPlayerStmt:SQLStatement;//新加player data
 		
 
 		public function DataBase(target:IEventDispatcher=null)
@@ -66,9 +71,22 @@ package douyu.database
 			MVStmt=new SQLStatement();
 			MVStmt.sqlConnection=con;
 			
-			//搜人
+			//搜人(点歌人信息)
 			SelectStmt=new SQLStatement();
 			SelectStmt.sqlConnection = con;
+			
+			//搜人（送鱼丸人信息）
+			SelectYW=new SQLStatement();
+			SelectYW.sqlConnection = con;
+			
+			//修改player data
+			changePlayerStmt=new SQLStatement();
+			changePlayerStmt.sqlConnection = con;
+			
+			//新加player 
+			insertPlayerStmt=new SQLStatement();
+			insertPlayerStmt.sqlConnection = con;
+			
 		}
 		
 		private function errorHandler(evt:SQLErrorEvent):void
@@ -145,7 +163,7 @@ package douyu.database
 				currMd.mName=row.name;
 				currMd.playerName=row.singer;
 				
-				infodata.addNewMusicData(currMd);
+				infodata.setRowMusicData(currMd);
 				
 			}else{
 				infodata.musicNotFind();
@@ -160,88 +178,55 @@ package douyu.database
 		}
 		
 		
-
-//		//
-//		/**
-//		 * 搜索鱼丸榜 是否有此人（点歌的人） 
-//		 * @param nameid
-//		 */		
-//		public function selectYWId(nameid:int):void{
-//			var sql:String = "select * from people where nameid ="+nameid+";";
-//			SelectStmt.text = sql;//准备待执行的sql语句
-//			SelectStmt.addEventListener(SQLEvent.RESULT, selectMTVResult);
-//			SelectStmt.addEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);  
-//			SelectStmt.execute();//执行sql语句
-//		} 
-//		protected function selectMTVResult(event:SQLEvent):void
-//		{
-//			
-//			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
-//			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
-//			var result:SQLResult = SelectStmt.getResult();
-//			if ( result.data != null ) 
-//			{  
-//				var row:Object = result.data[0]; 
-//				
-//				infodata.newMusicData.selectPlayer.currYW=row.currYW;
-//				infodata.newMusicData.selectPlayer.nick=row.name;
-//				infodata.newMusicData.selectPlayer.notice=row.messages;
-//				infodata.newMusicData.selectPlayer.THMessage=row.leaveWord;
-//			 }	
-//			//
-//			infodata.addNewMusicData();
-//			
-//		}
-//		
-//		protected function selectMTVErrorHandle(event:SQLErrorEvent):void
-//		{
-//			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
-//			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
-//			//
-//			infodata.addNewMusicData();
-//		}
-//		
-//		
 		
 		/**
-		 * 搜索鱼丸榜 是否有此人
-		 * @param p
-		 */
-		public var changeYW:PlayerData;
-		public function SearchPlayer(p:PlayerData):void{
-			changeYW=p;
-			var sql:String = "select * from people where nameid ="+changeYW.id+";";
-			SelectYW.text = sql;//准备待执行的sql语句
-			SelectYW.addEventListener(SQLEvent.RESULT, selectYWResult);
-			SelectYW.addEventListener(SQLErrorEvent.ERROR, selectYWErrorHandle);  
-			SelectYW.execute();//执行sql语句
-		}
+		 * 搜索鱼丸榜 
+		 * @param people
+		 */		
+		public function SearchPlayer(people:PlayerData):void{
+			currPd=people;
+			var sql:String = "select * from people where nameid ="+people.id+";";
+			SelectStmt.text = sql;//准备待执行的sql语句
+			SelectStmt.addEventListener(SQLEvent.RESULT, selectMTVResult);
+			SelectStmt.addEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);  
+			SelectStmt.execute();//执行sql语句
 		
-		protected function selectYWResult(event:SQLEvent):void
+		}
+		protected function selectMTVResult(event:SQLEvent):void
 		{
-			SelectYW.removeEventListener(SQLEvent.RESULT, selectYWResult);
-			SelectYW.removeEventListener(SQLErrorEvent.ERROR, selectYWErrorHandle); 
-			var result:SQLResult = SelectYW.getResult();
+			
+			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
+			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
+			var result:SQLResult = SelectStmt.getResult();
 			if ( result.data != null ) 
 			{  
 				var row:Object = result.data[0]; 
-				changeYW.notice=row.notice;
-				changeYW.totleYW=row.sumYW+changeYW.currYW;
-				changeYW.currYW=row.currYW+changeYW.currYW;
-			}
-			this.dispatchEvent(new Event(SEARCH_PLAYER_OK));
-			 			
+				var num:int=infodata.getPlayerNum(row.nameid);
+				if(num<0){
+					this.dispatchEvent(new Event(SEARCH_YWTOP_FAIL));
+					return;
+				}
+				
+				currPd.totleYW=row.totleYW+currPd.currYW;
+				currPd.currYW=row.currYW+currPd.currYW;
+				this.dispatchEvent(new Event(SEARCH_YWTOP_COMPLETE));
+			}	
 		}
 		
-		protected function selectYWErrorHandle(event:SQLErrorEvent):void
+		protected function selectMTVErrorHandle(event:SQLErrorEvent):void
 		{
-			SelectYW.removeEventListener(SQLEvent.RESULT, selectYWResult);
-			SelectYW.removeEventListener(SQLErrorEvent.ERROR, selectYWErrorHandle);
-			this.dispatchEvent(new Event(SEARCH_PLAYER_NULL));
-		}		
+			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
+			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
+			//
+			this.dispatchEvent(new Event(SEARCH_YWTOP_COMPLETE));
+		}
 		
 		
-		//新加入 player
+		
+		/**
+		 * 鱼丸榜 ：加入新人
+		 * @param people
+		 */		
 		public function insertPlayer(people:PlayerData):void{
 			var sql:String = "INSERT INTO people (nameid,name,messages,sumYW,currYW) VALUES ('"+people.id+"', '"+people.nick+"', '"+people.notice+"', '"+people.totleYW+"', '"+people.currYW+"')";
 			insertPlayerStmt.text = sql;
@@ -254,19 +239,19 @@ package douyu.database
 		{
 			insertPlayerStmt.removeEventListener(SQLEvent.RESULT, InsertSpResult);
 			insertPlayerStmt.removeEventListener(SQLErrorEvent.ERROR, InserSpError);
-			this.dispatchEvent(new Event(ADD_YW_COMPLETE)); 		
+			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE)); 		
 		}
 		
 		protected function InserSpError(event:SQLErrorEvent):void
 		{
 			insertPlayerStmt.removeEventListener(SQLEvent.RESULT, InsertSpResult);
 			insertPlayerStmt.removeEventListener(SQLErrorEvent.ERROR, InserSpError);
-			this.dispatchEvent(new Event(ADD_YW_COMPLETE)); 
+			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE)); 
 		}
 		
 		
-		/**
- 		 * 修改数据库 player data: 1:鱼丸（总鱼丸，当前鱼丸） 2：土豪榜留言
+		/** 
+ 		 * 修改鱼丸榜数据: 1:鱼丸（总鱼丸，当前鱼丸） 2：土豪榜留言
 		 * @param p:playerdata
 		 */		
 		public function changePlayerData(people:PlayerData):void{
@@ -281,57 +266,15 @@ package douyu.database
 		{
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
-			this.dispatchEvent(new Event(ADD_YW_COMPLETE));
+			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));
 		}
 		
 		protected function changePlayerdataError(event:SQLErrorEvent):void
 		{
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
-			this.dispatchEvent(new Event(ADD_YW_COMPLETE));
+			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));
 		}		
-=======
-		//
-		/**
-		 * 搜索鱼丸榜 是否有此人（点歌的人） 
-		 * @param nameid
-		 */		
-		public function selectYWId(nameid:int):void{
-			var sql:String = "select * from people where nameid ="+nameid+";";
-			SelectStmt.text = sql;//准备待执行的sql语句
-			SelectStmt.addEventListener(SQLEvent.RESULT, selectMTVResult);
-			SelectStmt.addEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);  
-			SelectStmt.execute();//执行sql语句
-		} 
-		protected function selectMTVResult(event:SQLEvent):void
-		{
-			
-			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
-			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
-			var result:SQLResult = SelectStmt.getResult();
-			if ( result.data != null ) 
-			{  
-				var row:Object = result.data[0]; 
-				
-				infodata.newMusicData.selectPlayer.currYW=row.currYW;
-				infodata.newMusicData.selectPlayer.nick=row.name;
-				infodata.newMusicData.selectPlayer.notice=row.messages;
-				infodata.newMusicData.selectPlayer.THMessage=row.leaveWord;
-			 }	
-			//
-			infodata.addNewMusicData();
-			
-		}
-		
-		protected function selectMTVErrorHandle(event:SQLErrorEvent):void
-		{
-			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
-			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
-			//
-			infodata.addNewMusicData();
-		}
-		
->>>>>>> parent of 6a042b3... 20160222
 		
 		//---------------------------------------------------------------------------------------
 		private static var _instant:DataBase;

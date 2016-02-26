@@ -67,6 +67,7 @@ package douyu.view.mp3
 		
 		public function StopSound():void{
 			soundCh.stop();
+			backGround.stopBackground();
 		}
 		
 		

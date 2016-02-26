@@ -1,3 +1,6 @@
+/**
+ *  点歌 逻辑
+ */
 package douyu.command.nextMusic
 {
 	import flash.events.Event;
@@ -21,7 +24,8 @@ package douyu.command.nextMusic
 		
 		private var mp3ctrl:MP3Ctrl=MP3Ctrl.instant;
 		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
-		private var smtc:SelectMusicTopCtrl=SelectMusicTopCtrl.instant;
+		private var smc:SelectMusicTopCtrl=SelectMusicTopCtrl.instant;
+		private var smtc:SelectMuTopCommand=SelectMuTopCommand.instant;
 		
 		private var ifdt:InfoData=InfoData.instant;
 		private var db:DataBase=DataBase.instant;
@@ -31,21 +35,23 @@ package douyu.command.nextMusic
 			super(target);
 			init();
 		}
+
 		
+		public function selectMusic(md:MusicData):void{
+			TempSelectPlayerRow.push(md);
+			if(!isSelecting){
+				selectNextMusic();
+			}
+		}
+		
+		//---------------------------------------------------------------------------
 		private function init():void{
 			//
 			ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
-			ifdt.addEventListener(InfoData.ROW_MUSIC_CHANGE,NewMusicSelectHandle);
 			ifdt.addEventListener(InfoData.MUSIC_NOT_FIND,musicSearchOver);
-<<<<<<< HEAD
-=======
 			ifdt.addEventListener(InfoData.NEW_MUSIC_DATA,newMusicHandle);
-			
->>>>>>> parent of 6a042b3... 20160222
 			//
-			
 		}
-		
 		
 		/**
 		 * 没有找到music，搜寻下首排队歌曲
@@ -68,15 +74,13 @@ package douyu.command.nextMusic
 		 * 
 		 * @param event
 		 */		
-		protected function NewMusicSelectHandle(event:Event):void
+		protected function newMusicHandle(event:Event):void
 		{
+			smtc.addNewOP(ifdt.getMusicData(ifdt.rowMusicData.length-1).selectPlayer,1);
 			//搜寻 下一首
 			musicSearchOver();
-			//排序
-			smtc.Sort();
-			
 			//是否切断歌曲
-			trace("new music!")
+//			trace("new music!")
 			var isStop:Boolean=false;
 			//当前播放歌曲 不是点播歌曲
 			if(ifdt.playMusicdata.selectPlayer==null){
@@ -97,7 +101,7 @@ package douyu.command.nextMusic
 		private function PlayMusic():void{
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.rowMusicData.shift();
-				smtc.delectMusic();
+				smc.delectMusic();
 				
 				ifdt.playMusicdata=md;
 				
@@ -114,12 +118,7 @@ package douyu.command.nextMusic
 		
 		
 		
-		public function selectMusic(md:MusicData):void{
-			TempSelectPlayerRow.push(md);
-			if(!isSelecting){
-				selectNextMusic();
-			}
-		}
+		
 		
 		private function selectNextMusic():void{
 			var tmd:MusicData=TempSelectPlayerRow.shift();

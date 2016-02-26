@@ -44,14 +44,19 @@ package douyu.data
 		
 		//-----------------------------------------------------------------------------data change event
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
-		public static const ROW_MUSIC_CHANGE:String="row_music_change";
+		public static const MUSIC_DATA_CHANGE:String="music_data_change";
 		public static const MUSIC_NOT_FIND:String="music_not_find";
-//		public static const NEW_MUSIC_DATA:String="new_music_data";
+		public static const NEW_MUSIC_DATA:String="new_music_data";
 		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";
 		
 		
 		
 		//---------------------------------------------------------------------------event 
+		
+//		
+		
+		
+		
 		/**
 		 *  music 播放完成 
 		 */
@@ -67,20 +72,54 @@ package douyu.data
 		} 		
 		
 		//----------------------------------------------------------------------------数据 组
+//		public var newMusicData:MusicData;
+		
 		private var _rowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
 		/**
 		 * 排队播放列表
 		 * @return 
-		 */         
+		 */
+		//获取列表
 		public function get rowMusicData():Vector.<MusicData>
 		{
 			return _rowMusicData;
 		}
-		
-		public function addNewMusicData(md:MusicData):void{
+		//添加新值（点歌表）
+		public function setRowMusicData(md:MusicData):void
+		{
 			_rowMusicData.push(md);
-			this.dispatchEvent(new Event(ROW_MUSIC_CHANGE)); 
+			//
+			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
 		}
+		
+		//获取player 位置
+		public function getPlayerNum(id:int):int{
+			for (var i:int = 0; i < _rowMusicData.length; i++) 
+			{
+				if(_rowMusicData[i].selectPlayer.id==id){
+					return i;
+				}
+			}
+			
+			return -1;	
+		}
+		
+		//获取 单值（MusicData）		
+		public function getMusicData(num:int):MusicData{
+			var md:MusicData=_rowMusicData[num];
+			if(md){
+				return md;
+			}else{
+				return null;
+			}
+		}
+		//修改值
+		public function changeMusicData(md:MusicData,num:int):void{
+			_rowMusicData[num]=md;
+			this.dispatchEvent(new Event(MUSIC_DATA_CHANGE));
+		}
+		
+		
 		
 		
 		

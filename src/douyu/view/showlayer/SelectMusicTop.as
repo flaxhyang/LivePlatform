@@ -64,6 +64,7 @@ package douyu.view.showlayer
 				for (var i:int = 0; i < tiaoArr.length; i++) 
 				{
 					if(playerId==tiaoArr[i].solayerId){
+						tiaoArr[i].setYW(infodata.rowMusicData[movestep].selectPlayer.currYW);
 						tiaoCurrNo=i;
 						break;
 					}
@@ -98,14 +99,16 @@ package douyu.view.showlayer
 			var xmove:int=0;
 			for (var i:int = No; i < tiaoArr.length; i++) 
 			{
+				trace("ywnum="+tiaoArr[i].ywNum);
 				xmove=0;
 				if(tiaoArr[i].ywNum<=0){
 					xmove=120;
 				}
+				trace("xmove="+xmove);
 				if(i==tiaoArr.length-1){
 					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut,onComplete:moveComplete});
 				}else{
-					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove});
+					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut});
 				}
 			}
 		}
@@ -130,6 +133,7 @@ package douyu.view.showlayer
 			for (var i:int = 0; i < tiaoArr.length; i++) 
 			{
 				tiaoArr[i].setNo(i);
+				
 			}	
 		}
 		
@@ -213,6 +217,11 @@ class Tiao extends Sprite{
 	
 	public function setNo(num:int):void{
 		No.text="No. "+(num+1);
+	}
+	
+	public function setYW(ywnum:int):void{
+		ywNum=ywnum;
+		yw.text="本次鱼丸："+(ywnum*100);
 	}
 	
 }
