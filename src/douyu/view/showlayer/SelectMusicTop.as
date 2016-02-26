@@ -77,6 +77,7 @@ package douyu.view.showlayer
 		}
 		
 		public function deletTiao(No:int=0):void{
+			if(tiaoArr.length==0)return;
 			var deletTiao:Tiao=tiaoArr[No];
 			showTop.splice(showTop.indexOf(deletTiao.solayerId),1);
 			this.removeChild(deletTiao);
