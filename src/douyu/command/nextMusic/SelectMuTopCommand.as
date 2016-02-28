@@ -35,6 +35,7 @@ package douyu.command.nextMusic
 			var opPlaer:PlayerData=new PlayerData();
 			opPlaer.id=player.id;
 			opPlaer.currYW=player.currYW;
+			opPlaer.totleYW=player.currYW;
 			opPlaer.nick=player.nick;
 			opPlaer.notice=player.notice;
 			opPlaer.THMessage=player.THMessage;

@@ -113,6 +113,7 @@ package douyu.ctrl
 			
 			var sp:PlayerData=new PlayerData();
 			sp.id=212467;
+			sp.nick="flaxhyang";
 			md.selectPlayer=sp;
 			
 			smc.selectMusic(md);
@@ -133,11 +134,12 @@ package douyu.ctrl
 				
 				var sp:PlayerData=new PlayerData();
 				sp.id=212467;
+				sp.nick="flaxhyang";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
 				
-			},6000)
+			},3000)
 			
 			
 			setTimeout(function():void{
@@ -151,15 +153,17 @@ package douyu.ctrl
 				
 				var sp:PlayerData=new PlayerData();
 				sp.id=9557731;
+				sp.nick="不变的调调";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
-			},7000);
+			},6000);
 			
 			
 			setTimeout(function():void{
+//				gc.gift_fish("212467","flaxhyang",999)
 				gc.gift_fish("212467","flaxhyang",999)
-			},7500);
+			},9000);
 			
 		}
 		

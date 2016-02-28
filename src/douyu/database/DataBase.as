@@ -194,22 +194,17 @@ package douyu.database
 		}
 		protected function selectMTVResult(event:SQLEvent):void
 		{
-			
 			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
 			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
 			var result:SQLResult = SelectStmt.getResult();
 			if ( result.data != null ) 
 			{  
 				var row:Object = result.data[0]; 
-				var num:int=infodata.getPlayerNum(row.nameid);
-				if(num<0){
-					this.dispatchEvent(new Event(SEARCH_YWTOP_FAIL));
-					return;
-				}
-				
-				currPd.totleYW=row.totleYW+currPd.currYW;
+				currPd.totleYW=row.sumYW+currPd.currYW;
 				currPd.currYW=row.currYW+currPd.currYW;
 				this.dispatchEvent(new Event(SEARCH_YWTOP_COMPLETE));
+			}else{
+				this.dispatchEvent(new Event(SEARCH_YWTOP_FAIL));
 			}	
 		}
 		
@@ -218,7 +213,7 @@ package douyu.database
 			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
 			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
 			//
-			this.dispatchEvent(new Event(SEARCH_YWTOP_COMPLETE));
+			this.dispatchEvent(new Event(SEARCH_YWTOP_FAIL));
 		}
 		
 		
@@ -255,7 +250,7 @@ package douyu.database
 		 * @param p:playerdata
 		 */		
 		public function changePlayerData(people:PlayerData):void{
-			var sql:String="UPDATE people SET messages= "+people.notice+",sumYW= "+people.totleYW+",currYW="+people.currYW+" WHERE nameid = "+people.id+";"; 
+			var sql:String="UPDATE people SET leaveWord= '"+people.THMessage+"',sumYW= "+people.totleYW+",currYW="+people.currYW+" WHERE nameid = "+people.id; 
 			changePlayerStmt.text=sql;
 			changePlayerStmt.addEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.addEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
@@ -264,6 +259,7 @@ package douyu.database
 		
 		protected function changePlayerdataComplete(event:SQLEvent):void
 		{
+			trace( "updata  ok ");
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
 			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));
@@ -271,6 +267,7 @@ package douyu.database
 		
 		protected function changePlayerdataError(event:SQLErrorEvent):void
 		{
+			trace( "updata  error ");
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
 			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));
