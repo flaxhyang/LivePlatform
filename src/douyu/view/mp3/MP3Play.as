@@ -54,8 +54,8 @@ package douyu.view.mp3
 		protected function soundPlayComplete(event:Event):void
 		{
 			sound.removeEventListener(Event.COMPLETE,onloadComplete);
-			infodata.music_stop();
 			backGround.stopBackground();
+			infodata.music_stop();
 		}
 		
 		protected function onloadComplete(event:Event):void
@@ -68,6 +68,7 @@ package douyu.view.mp3
 		public function StopSound():void{
 			soundCh.stop();
 			backGround.stopBackground();
+			infodata.music_stop();
 		}
 		
 		

@@ -12,5 +12,8 @@ package douyu.data
 		[Embed(source="/images/diangeback.png")]
 		public static const dgbackClass:Class;
 		
+		[Embed(source="/images/infoback2.png")]
+		public static const mvInfobackClass:Class;
+		
 	}
 }

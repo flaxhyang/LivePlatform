@@ -8,8 +8,8 @@ package douyu.ctrl
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	
-	import douyu.command.nextMusic.GiftCommand;
-	import douyu.command.nextMusic.selectMusicCommand;
+	import douyu.command.GiftCommand;
+	import douyu.command.selectMusicCommand;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
 	import douyu.data.vo.PlayerData;
@@ -26,6 +26,7 @@ package douyu.ctrl
 		
 		private var smc:selectMusicCommand=selectMusicCommand.instant;
 		private var gc:GiftCommand=GiftCommand.instant;
+		private var cpmc:CurrPlayerMusicCtrl=CurrPlayerMusicCtrl.instant;
 		
 		
 		
@@ -93,6 +94,7 @@ package douyu.ctrl
 				ctrlvideo.play("/douyu/view/video/begin.mp4");
 				mp3ctrl.init();
 				setTHTop();
+				cpmc.init();
 				//temp
 				selectMusic();
 			}
@@ -105,8 +107,8 @@ package douyu.ctrl
 			//temp
 			var md:MusicData=new MusicData();
 			md.ismv=false;
-			md.mName="一次就好";
-			md.playerName="杨宗纬";
+			md.mName="屌丝之歌";
+			md.playerName="花粥";
 			
 //			md.ismv=true;
 //			md.mvid=301;
@@ -145,8 +147,8 @@ package douyu.ctrl
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;
-				md.mName="空白格";
-				md.playerName="杨宗纬";
+				md.mName="屌丝之歌";
+				md.playerName="花粥";
 				
 				//			md.ismv=true;
 				//			md.mvid=301;
@@ -160,10 +162,9 @@ package douyu.ctrl
 			},6000);
 			
 			
-			setTimeout(function():void{
+//			setTimeout(function():void{
 //				gc.gift_fish("212467","flaxhyang",999)
-				gc.gift_fish("212467","flaxhyang",999)
-			},9000);
+//			},9000);
 			
 		}
 		

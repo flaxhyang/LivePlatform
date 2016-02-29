@@ -1,4 +1,4 @@
-package douyu.command.nextMusic
+package douyu.command
 {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;

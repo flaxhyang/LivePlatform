@@ -1,7 +1,7 @@
 /**
  *  点歌 逻辑
  */
-package douyu.command.nextMusic
+package douyu.command
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;

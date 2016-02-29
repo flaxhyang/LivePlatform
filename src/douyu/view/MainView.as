@@ -5,6 +5,7 @@ package douyu.view
 	
 	import douyu.data.InfoData;
 	import douyu.view.mp3.MP3Play;
+	import douyu.view.showlayer.MusicInfo;
 	import douyu.view.showlayer.SelectMusicTop;
 	import douyu.view.top.THTop;
 	import douyu.view.video.Stagevideo;
@@ -16,6 +17,7 @@ package douyu.view
 		private var thtop:THTop=THTop.instant;
 		private var mp3:MP3Play=MP3Play.instant;
 		private var smt:SelectMusicTop=SelectMusicTop.instant;
+		private var mi:MusicInfo=MusicInfo.instant;
 		
 		public function MainView()
 		{
@@ -34,6 +36,8 @@ package douyu.view
 			addTHTop();
 			//
 			addSelectTop();
+			//
+			addMusicInfo();
 		}	
 		
 		//添加 mv 面板
@@ -58,6 +62,12 @@ package douyu.view
 			this.addChild(smt);
 			smt.x=infodata.sgWidth-smt.width;
 			smt.y=thtop.height+10;
+		}
+		
+		//当前播放的歌曲info
+		private function addMusicInfo():void{
+			this.addChild(mi);
+			mi.y=5;
 		}
 		
 		private static var _instant:MainView;

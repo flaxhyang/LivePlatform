@@ -3,7 +3,7 @@ package douyu.ctrl
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import douyu.command.nextMusic.GiftCommand;
+	import douyu.command.GiftCommand;
 	
 	public class YWCtrl extends EventDispatcher
 	{
