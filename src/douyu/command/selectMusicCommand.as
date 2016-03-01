@@ -36,7 +36,10 @@ package douyu.command
 			init();
 		}
 
-		
+		/**
+		 * 点歌
+		 * @param md
+		 */		
 		public function selectMusic(md:MusicData):void{
 			TempSelectPlayerRow.push(md);
 			if(!isSelecting){
@@ -82,6 +85,13 @@ package douyu.command
 			//是否切断歌曲
 //			trace("new music!")
 			var isStop:Boolean=false;
+			
+			//启动 mv
+			if(ifdt.playMusicdata==null){
+				ctrlvideo.stop();	
+				return;
+			}
+			
 			//当前播放歌曲 不是点播歌曲
 			if(ifdt.playMusicdata.selectPlayer==null){
 				isStop=true;

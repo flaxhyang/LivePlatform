@@ -38,7 +38,7 @@ package douyu.view.mp3
 		
 		public  function PlaySound(md:MusicData):void
 		{   
-			infodata.playMusicdata=md;
+//			infodata.playMusicdata=md;
 			req.url=md.musicUrl;
 			
 			sound = new Sound();

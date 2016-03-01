@@ -201,7 +201,8 @@ package douyu.database
 			{  
 				var row:Object = result.data[0]; 
 				currPd.totleYW=row.sumYW+currPd.currYW;
-				currPd.currYW=row.currYW+currPd.currYW;
+				currPd.currYW=row.currYW+currPd.currYW-currPd.OperationYW;
+				
 				this.dispatchEvent(new Event(SEARCH_YWTOP_COMPLETE));
 			}else{
 				this.dispatchEvent(new Event(SEARCH_YWTOP_FAIL));

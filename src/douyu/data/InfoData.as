@@ -14,7 +14,7 @@ package douyu.data
 		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
 		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
 		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-		public static const MTVURL:String="";
+		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/";
 		public static const MTVImage:String="";
 		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
@@ -37,18 +37,25 @@ package douyu.data
 		
 		
 		public static const fontNames:String = "Microsoft YaHei,微软雅黑,MSYaHei,SimHei,Roboto,Arial,_sans";
+		
+		//点歌榜显示的条数
 		public static const selectMusicTopMax:uint=10;
+		
+		//点歌扣得鱼丸数
+		public static const cutYWforSelect:uint=2;
+		//其他操作扣得鱼丸数
+		public static const cutYWforOther:uint=1;
 		//
 		public var sgWidth:int;
 		public var sgHeight:int;
 		
 		//-----------------------------------------------------------------------------data change event
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
-		public static const MUSIC_DATA_CHANGE:String="music_data_change";
 		public static const MUSIC_NOT_FIND:String="music_not_find";
 		public static const NEW_MUSIC_DATA:String="new_music_data";
 		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";
 		public static const MUSIC_PLAYING_EVENT:String="music_playing_event";
+		public static const PLAY_MUSIC_DATACHANGE:String="play_music_datachange";
 		
 		
 		
@@ -117,7 +124,6 @@ package douyu.data
 		//修改值
 		public function changeMusicData(md:MusicData,num:int):void{
 			_rowMusicData[num]=md;
-			this.dispatchEvent(new Event(MUSIC_DATA_CHANGE));
 		}
 		
 		
@@ -136,10 +142,14 @@ package douyu.data
 
 		public function set playMusicdata(value:MusicData):void
 		{
+			trace("aaaaa")
 			_playMusicdata = value;
 			this.dispatchEvent(new Event(MUSIC_PLAYING_EVENT));
 		}
-		
+		public function changeMusicdata(value:MusicData):void{
+			_playMusicdata = value;
+			this.dispatchEvent(new Event(PLAY_MUSIC_DATACHANGE));
+		}
 		
 		private var _autoPlayMvNums:Array;
 		/**

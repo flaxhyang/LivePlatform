@@ -20,7 +20,13 @@ package douyu.command
 			super(target);
 		}
 		
-		
+		/**
+		 * 加鱼丸 
+		 * @param id
+		 * @param nick
+		 * @param num
+		 * 
+		 */		
 		public function gift_fish(id:String,nick:String,num:int):void{
 			var ywNum:Number=num/100;
 			var player:PlayerData=new PlayerData();
@@ -32,9 +38,26 @@ package douyu.command
 		}
 		
 		
+		/**
+		 *点歌 扣鱼丸  
+		 */		
+		public function cutYWForSelect(pd:PlayerData,ywnum:uint):void{
+			var playerdata:PlayerData=pd;
+			playerdata.OperationYW=ywnum;
+			smtc.addNewOP(playerdata,4);
+		}
 		
 		
-		
+		/**
+		 * 减鱼丸 
+		 * @param pd
+		 * @ywnum
+		 */		
+		public function cutYW(pd:PlayerData,ywnum:uint):void{
+			var playerdata:PlayerData=pd;
+			playerdata.OperationYW=ywnum;
+			smtc.addNewOP(playerdata,3);
+		}
 		
 		private static var _instant:GiftCommand;
 		

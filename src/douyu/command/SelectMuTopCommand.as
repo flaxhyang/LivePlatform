@@ -14,6 +14,11 @@ package douyu.command
 	
 	public class SelectMuTopCommand extends EventDispatcher
 	{
+		//扣鱼丸时候 没有足够的鱼丸
+		public static const CURRYW_WITHOUT:String="currYw_without";
+		//扣鱼丸 成功
+		public static const CURRYW_COMPLETE:String="currYw_complete";
+		
 		
 		private var db:DataBase=DataBase.instant;
 		private var infodata:InfoData=InfoData.instant;
@@ -76,10 +81,16 @@ package douyu.command
 				}
 				case 3://扣礼物的人
 				{
-					
+					this.dispatchEvent(new Event(CURRYW_WITHOUT));
+					isOperaing=false;
+					operation();
 					break;
 				}
-					
+				case 4:{
+					isOperaing=false;
+					operation();
+					break;
+				}	
 				default:
 				{
 					break;
@@ -105,12 +116,23 @@ package douyu.command
 					changeYWTop();
 					break;
 				}
-				case 3://扣礼物的人
+				case 3://扣鱼丸的人	
 				{
-					
+					if(db.currPd.currYW<0){
+						this.dispatchEvent(new Event(CURRYW_WITHOUT));
+						isOperaing=false;
+						operation();
+					}else{
+						changeSelectTop();
+						changeYWTop();
+						this.dispatchEvent(new Event(CURRYW_COMPLETE));
+					}
 					break;
 				}
-					
+				case 4:{
+					changeYWTop();
+					break;
+				}	
 				default:
 				{
 					break;
@@ -118,19 +140,24 @@ package douyu.command
 			}			
 		}		
 		
-		
+		//点歌列表数据修改
 		private function changeSelectTop():void{
 			currOPTopNum=infodata.getPlayerNum(_currOP.id);
 			if(currOPTopNum<0){
 				//操作 正在播放的
+				if(infodata.playMusicdata.selectPlayer.id==_currOP.id){
+					infodata.playMusicdata.selectPlayer.currYW=_currOP.currYW;
+					infodata.changeMusicdata(infodata.playMusicdata);
+				}
 			}else{
 				infodata.rowMusicData[currOPTopNum].selectPlayer.currYW=db.currPd.currYW;
-				infodata.rowMusicData[currOPTopNum].selectPlayer.totleYW=db.currPd.totleYW;
+//				infodata.rowMusicData[currOPTopNum].selectPlayer.totleYW=db.currPd.totleYW;
 				smtc.Sort(currOPTopNum);
 			}
+		
 		}
 		
-		
+		//送鱼丸的人，加鱼丸的操作
 		private function changeYWTop():void{
 			db.addEventListener(DataBase.CHANGE_YWTOP_COMPLETE,dataBaseChangeComplete);
 			db.changePlayerData(db.currPd);

@@ -19,5 +19,6 @@ package douyu.data.vo
 		 * 3：扣鱼丸的人
 		 */	
 		public var OperationType:int=0;//操作逻辑
+		public var OperationYW:int=0;//操作中的鱼丸数
 	}
 }

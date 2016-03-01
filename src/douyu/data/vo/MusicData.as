@@ -6,7 +6,7 @@ package douyu.data.vo
 		{
 		}
 		//是否是 mv
-		public var ismv:Boolean=false;
+		public var ismv:Boolean=true;
 		
 		//是否为 自动歌单播放
 		public var listSelectPlayer:Boolean=false;

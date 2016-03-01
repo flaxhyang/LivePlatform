@@ -50,8 +50,7 @@ package douyu.ctrl
 			
 			
 			//
-			ifdt.playMusicdata=new MusicData();
-			ifdt.playMusicdata.ismv=true;
+//			ifdt.playMusicdata=new MusicData();
 		}
 		
 		//数据库连接
@@ -104,6 +103,8 @@ package douyu.ctrl
 		
 		//搜歌 
 		public function selectMusic():void{
+			
+//			return;
 			//temp
 			var md:MusicData=new MusicData();
 			md.ismv=false;
@@ -123,7 +124,7 @@ package douyu.ctrl
 			
 			
 			
-//			return;
+			return;
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
