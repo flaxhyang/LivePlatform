@@ -24,7 +24,7 @@ package douyu.command
 		
 		private var mp3ctrl:MP3Ctrl=MP3Ctrl.instant;
 		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
-//		private var smc:SelectMusicTopCtrl=SelectMusicTopCtrl.instant;
+		private var smc:SelectMusicTopCtrl=SelectMusicTopCtrl.instant;
 		private var smtc:SelectMuTopCommand=SelectMuTopCommand.instant;
 		
 		private var ifdt:InfoData=InfoData.instant;
@@ -60,7 +60,7 @@ package douyu.command
 		
 		protected function deletMusicdataHnadle(event:Event):void
 		{
-			
+			smc.delectMusic(ifdt.deletSeleteMusicPid);
 		}
 		
 //		/**

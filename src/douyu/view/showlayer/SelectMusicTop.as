@@ -77,14 +77,28 @@ package douyu.view.showlayer
 			
 		}
 		
-		public function deletTiao(No:int=0):void{
-			if(tiaoArr.length==0)return;
-			var deletTiao:Tiao=tiaoArr[No];
-			showTop.splice(showTop.indexOf(deletTiao.solayerId),1);
-			this.removeChild(deletTiao);
-			tiaoArr.splice(No,1);
-			if(tiaoArr.length>0){
-				downTiao(No);
+		public function deletTiao(id:int=0):void{
+			if(tiaoArr.length==0){
+				this.dispatchEvent(new Event(MOVE_COMPLETE));
+				return;
+			}
+			var ifshow:Boolean=false;
+			for (var i:int = 0; i < tiaoArr.length; i++) 
+			{
+				if(tiaoArr[i].solayerId==id){
+					var deletTiao:Tiao=tiaoArr[i];
+					showTop.splice(showTop.indexOf(deletTiao.solayerId),1);
+					this.removeChild(deletTiao);
+					tiaoArr.splice(i,1);
+					if(tiaoArr.length>0){
+						downTiao(i);
+					}
+					ifshow=true;
+				}
+			}
+			
+			if(!ifshow){
+				this.dispatchEvent(new Event(MOVE_COMPLETE));
 			}
 		}
 		
