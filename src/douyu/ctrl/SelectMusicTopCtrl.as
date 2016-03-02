@@ -4,7 +4,6 @@ package douyu.ctrl
 	
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
-	import douyu.data.vo.PlayerData;
 	import douyu.view.showlayer.SelectMusicTop;
 
 	public class SelectMusicTopCtrl
@@ -18,12 +17,13 @@ package douyu.ctrl
 		private var currSortMd:MusicData;
 		private var isSorting:Boolean=false;
 		
-		public function SelectMusicTopCtrl(){}
+		public function SelectMusicTopCtrl(){
+		}
 		
 		/**
 		 * 删除点播条 
 		 */		
-		public function delectMusic():void{
+		public function delectMusic(num:int):void{
 			smt.deletTiao();
 			if(infodata.rowMusicData.length>=InfoData.selectMusicTopMax){
 				showTop(infodata.rowMusicData[InfoData.selectMusicTopMax].selectPlayer.id,InfoData.selectMusicTopMax);
@@ -57,7 +57,7 @@ package douyu.ctrl
 			
 			//第一个点歌的
 			if(infodata.rowMusicData.length==1){
-				trace("1")
+//				trace("1")
 				showTop(pid,0);
 				return;
 			}
@@ -74,14 +74,14 @@ package douyu.ctrl
 			
 			if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
 				infodata.rowMusicData.push(currSortMd);
-				trace("2")
+//				trace("2")
 				showTop(currSortMd.selectPlayer.id,infodata.rowMusicData.length-1);
 			}else{
 				for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
 				{
 					if(currSortMd.selectPlayer.currYW>infodata.rowMusicData[i].selectPlayer.currYW){
 						infodata.rowMusicData.splice(i,0,currSortMd);
-						trace("3")
+//						trace("3")
 						showTop(currSortMd.selectPlayer.id,i);
 						break;
 					}

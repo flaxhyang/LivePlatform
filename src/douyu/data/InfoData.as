@@ -51,11 +51,12 @@ package douyu.data
 		
 		//-----------------------------------------------------------------------------data change event
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
-		public static const MUSIC_NOT_FIND:String="music_not_find";
-		public static const NEW_MUSIC_DATA:String="new_music_data";
-		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";
-		public static const MUSIC_PLAYING_EVENT:String="music_playing_event";
-		public static const PLAY_MUSIC_DATACHANGE:String="play_music_datachange";
+		public static const MUSIC_NOT_FIND:String="music_not_find";//没有找到歌曲
+		public static const NEW_MUSIC_DATA:String="new_music_data";//点新歌
+	    public static const DELET_MUSIC_DATA:String="delet_music_data";//删除点歌帮信息
+		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";//歌曲播放完成
+		public static const MUSIC_PLAYING_EVENT:String="music_playing_event";//歌曲开始播放
+		public static const PLAY_MUSIC_DATACHANGE:String="play_music_datachange";//修改当前播放的歌的信息
 		
 		
 		
@@ -95,8 +96,16 @@ package douyu.data
 		//添加新值（点歌表）
 		public function setRowMusicData(md:MusicData):void
 		{
-			_rowMusicData.push(md);
-			//
+			var newMusicNum:int=getPlayerNum(md.selectPlayer.id);
+			if(newMusicNum>=0){
+//			   trace(md.mName,md.selectPlayer.nick);
+				deleteSTMusicData(newMusicNum);
+			}
+				_rowMusicData.push(md);
+//			else{
+//				changeMusicData(md,newMusicNum);
+//				this.dispatchEvent(new Event(CHANGE_MUSIC_DATA));
+//			}
 			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
 		}
 		
@@ -126,7 +135,15 @@ package douyu.data
 			_rowMusicData[num]=md;
 		}
 		
+		//删除点歌榜的值
+		public function deleteSTMusicData(num:int):MusicData{
+			deletSeleteMusicNum=num;
+			var tmd:MusicData=_rowMusicData.splice(num,1)[0];
+			this.dispatchEvent(new Event(DELET_MUSIC_DATA));
+			return tmd;
+		}
 		
+		public var deletSeleteMusicNum:int;
 		
 		
 		
@@ -142,7 +159,6 @@ package douyu.data
 
 		public function set playMusicdata(value:MusicData):void
 		{
-			trace("aaaaa")
 			_playMusicdata = value;
 			this.dispatchEvent(new Event(MUSIC_PLAYING_EVENT));
 		}

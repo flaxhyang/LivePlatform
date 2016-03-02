@@ -32,7 +32,7 @@ package douyu.command
 			var player:PlayerData=new PlayerData();
 			player.id=int(id);
 			player.nick=nick;
-			player.currYW=num;
+			player.OPerationAddYW=num;
 			
 			smtc.addNewOP(player,2);
 		}
@@ -43,7 +43,7 @@ package douyu.command
 		 */		
 		public function cutYWForSelect(pd:PlayerData,ywnum:uint):void{
 			var playerdata:PlayerData=pd;
-			playerdata.OperationYW=ywnum;
+			playerdata.OperationCutYW=ywnum;
 			smtc.addNewOP(playerdata,4);
 		}
 		
@@ -55,7 +55,7 @@ package douyu.command
 		 */		
 		public function cutYW(pd:PlayerData,ywnum:uint):void{
 			var playerdata:PlayerData=pd;
-			playerdata.OperationYW=ywnum;
+			playerdata.OperationCutYW=ywnum;
 			smtc.addNewOP(playerdata,3);
 		}
 		

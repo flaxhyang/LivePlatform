@@ -45,6 +45,8 @@ package douyu.command
 			opPlaer.notice=player.notice;
 			opPlaer.THMessage=player.THMessage;
 			opPlaer.OperationType=type;
+			opPlaer.OperationCutYW=player.OperationCutYW;
+			opPlaer.OPerationAddYW=player.OPerationAddYW;
 			operateArr.push(opPlaer);
 			operation();
 		}
@@ -146,7 +148,7 @@ package douyu.command
 			if(currOPTopNum<0){
 				//操作 正在播放的
 				if(infodata.playMusicdata.selectPlayer.id==_currOP.id){
-					infodata.playMusicdata.selectPlayer.currYW=_currOP.currYW;
+					infodata.playMusicdata.selectPlayer.currYW=db.currPd.currYW;
 					infodata.changeMusicdata(infodata.playMusicdata);
 				}
 			}else{
