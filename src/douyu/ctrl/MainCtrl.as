@@ -106,20 +106,19 @@ package douyu.ctrl
 			
 //			return;
 			//temp
-			var md:MusicData=new MusicData();
-			md.ismv=false;
-			md.mName="屌丝之歌";
-			md.playerName="花粥";
-			
+//			var md:MusicData=new MusicData();
 //			md.ismv=true;
+////			md.mName="屌丝之歌";
+////			md.playerName="花粥";
+////			md.ismv=true;
 //			md.mvid=301;
-			
-			var sp:PlayerData=new PlayerData();
-			sp.id=212467;
-			sp.nick="flaxhyang";
-			md.selectPlayer=sp;
-			
-			smc.selectMusic(md);
+//			
+//			var sp:PlayerData=new PlayerData();
+//			sp.id=212467;
+//			sp.nick="flaxhyang";
+//			md.selectPlayer=sp;
+//			
+//			smc.selectMusic(md);
 			
 			
 //			
@@ -142,7 +141,7 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},3000)
+			},10000)
 			
 			
 			setTimeout(function():void{
@@ -160,7 +159,7 @@ package douyu.ctrl
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
-			},3500);
+			},11000);
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -178,7 +177,7 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},4000)
+			},14000)
 			
 //			return;
 			

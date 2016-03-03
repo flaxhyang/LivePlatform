@@ -162,6 +162,7 @@ package douyu.database
 				currMd.mvid=row.No;
 				currMd.mName=row.name;
 				currMd.playerName=row.singer;
+				currMd.musicUrl=row.url;
 				
 				infodata.setRowMusicData(currMd);
 				

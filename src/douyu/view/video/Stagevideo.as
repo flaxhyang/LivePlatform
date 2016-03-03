@@ -69,6 +69,7 @@ package douyu.view.video
 		protected function _failHandler(event:Event):void
 		{
 			trace("error")
+			this.dispatchEvent(new Event(STOP_VIDEO_EVENT));
 		}
 		
 	

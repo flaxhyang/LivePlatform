@@ -57,7 +57,7 @@ package douyu.view.showlayer
 				setYWTiao(md.selectPlayer.currYW);	
 			}else{
 				selectPlayerTiao.hide();
-				setYWTiao.hide();
+				ywInfoTiao.hide();
 			}
 		}
 		

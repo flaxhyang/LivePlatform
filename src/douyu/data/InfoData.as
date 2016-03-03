@@ -11,20 +11,20 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/";
-//		public static const MTVImage:String="";
-//		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
+		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
+		public static const MTVImage:String="";
+		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
-		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
-		public static const MTVURL:String="";
-		public static const MTVImage:String="";
-		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
+//		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+//		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
+//		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+//		public static const MTVURL:String="";
+//		public static const MTVImage:String="";
+//		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
 
 		//发布
 //		public static const DataBaseURL:String="C:/YZYDOUYUData.db";
@@ -96,16 +96,15 @@ package douyu.data
 		//添加新值（点歌表）
 		public function setRowMusicData(md:MusicData):void
 		{
-			var newMusicNum:int=getPlayerNum(md.selectPlayer.id);
-			if(newMusicNum>=0){
-//			   trace(md.mName,md.selectPlayer.nick);
-				deleteSTMusicData(newMusicNum);
+			//
+			if(md.selectPlayer!=null){
+				//如果是已经点歌的人，要先删除 以前点过的歌tiao
+				var newMusicNum:int=getPlayerNum(md.selectPlayer.id);
+				if(newMusicNum>=0){
+					deleteSTMusicData(newMusicNum);
+				}
 			}
-				_rowMusicData.push(md);
-//			else{
-//				changeMusicData(md,newMusicNum);
-//				this.dispatchEvent(new Event(CHANGE_MUSIC_DATA));
-//			}
+			_rowMusicData.push(md);
 			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
 		}
 		
@@ -139,6 +138,7 @@ package douyu.data
 		public var deletSeleteMusicPid:int;
 		public function deleteSTMusicData(num:int):MusicData{
 			var tmd:MusicData=_rowMusicData.splice(num,1)[0];
+			if(tmd.selectPlayer==null)return tmd;
 			deletSeleteMusicPid=tmd.selectPlayer.id;
 			this.dispatchEvent(new Event(DELET_MUSIC_DATA));
 			return tmd;

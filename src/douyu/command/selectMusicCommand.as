@@ -12,6 +12,7 @@ package douyu.command
 	import douyu.ctrl.SelectMusicTopCtrl;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
+	import douyu.data.vo.PlayerData;
 	import douyu.database.DataBase;
 	
 	
@@ -26,9 +27,11 @@ package douyu.command
 		private var ctrlvideo:CtrlVideo=CtrlVideo.instant;
 		private var smc:SelectMusicTopCtrl=SelectMusicTopCtrl.instant;
 		private var smtc:SelectMuTopCommand=SelectMuTopCommand.instant;
+		private var plc:PlayAutoListCommand=PlayAutoListCommand.instant;
 		
 		private var ifdt:InfoData=InfoData.instant;
 		private var db:DataBase=DataBase.instant;
+	
 		
 		public function selectMusicCommand(target:IEventDispatcher=null)
 		{
@@ -53,7 +56,6 @@ package douyu.command
 			ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
 			ifdt.addEventListener(InfoData.MUSIC_NOT_FIND,musicSearchOver);
 			ifdt.addEventListener(InfoData.NEW_MUSIC_DATA,newMusicHandle);
-//			ifdt.addEventListener(InfoData.CHANGE_MUSIC_DATA,changeMusicHandle);
 			ifdt.addEventListener(InfoData.DELET_MUSIC_DATA,deletMusicdataHnadle);
 			//
 		}
@@ -63,14 +65,6 @@ package douyu.command
 			smc.delectMusic(ifdt.deletSeleteMusicPid);
 		}
 		
-//		/**
-//		 * 搜寻的歌曲
-//		 * @param event
-//		 */		
-//		protected function changeMusicHandle(event:Event):void
-//		{
-//						
-//		}
 		
 		/**
 		 * 没有找到music，搜寻下首排队歌曲
@@ -100,9 +94,12 @@ package douyu.command
 		protected function newMusicHandle(event:Event):void
 		{
 			//
-			//搜寻 重复 的点歌人 如果有 删除 以前的
 			//
-			smtc.addNewOP(ifdt.getMusicData(ifdt.rowMusicData.length-1).selectPlayer,1);
+			//点歌榜逻辑
+			var newMD:MusicData=ifdt.getMusicData(ifdt.rowMusicData.length-1);
+			if(newMD.selectPlayer!=null){
+				smtc.addNewOP(newMD.selectPlayer,1);
+			}
 			//搜寻 下一首
 			musicSearchOver();
 			//是否切断歌曲
@@ -139,13 +136,17 @@ package douyu.command
 				ifdt.playMusicdata=md;
 				
 				if(md.ismv){
-					ctrlvideo.play(md.musicUrl);
+					ctrlvideo.play(InfoData.MTVURL+md.musicUrl);
 				}else{
 					trace("play mp3")
 					mp3ctrl.playMp3(md);
 				}
 			}else{
-				ctrlvideo.play("/douyu/view/video/begin.mp4");
+				//ctrlvideo.play("/douyu/view/video/begin.mp4");
+				//判断 土豪 播放列表
+				
+				//判断自动播放列表
+				selectMusic(plc.playAutoList());
 			}
 		}
 		

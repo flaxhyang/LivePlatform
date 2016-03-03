@@ -33,7 +33,9 @@ package douyu.ctrl
 		protected function playingMusicHnadle(event:Event):void
 		{
 			//开始播放点播歌曲时 修改点播人鱼丸
-			gc.cutYWForSelect(infodata.playMusicdata.selectPlayer,InfoData.cutYWforSelect);
+			if(infodata.playMusicdata.selectPlayer!=null){
+				gc.cutYWForSelect(infodata.playMusicdata.selectPlayer,InfoData.cutYWforSelect);
+			}
 			//
 			mi.showInfo(infodata.playMusicdata);
 		}		
