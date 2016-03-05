@@ -47,8 +47,6 @@ package douyu.ctrl
 		
 		private function sorting():void{
 			
-			trace(isSorting,sortPlayerId.length)
-			
 			if(isSorting || sortPlayerId.length==0){
 				return;
 			}
@@ -73,7 +71,7 @@ package douyu.ctrl
 			
 				//第一个点歌的
 				if(infodata.rowMusicData.length==1){
-					trace("1")
+//					trace("1")
 					showTop(pid.otId,0);
 					return;
 				}

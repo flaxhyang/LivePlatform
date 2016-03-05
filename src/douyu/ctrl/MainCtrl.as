@@ -127,12 +127,12 @@ package douyu.ctrl
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
-				md.ismv=false;
-				md.mName="一次就好";
-				md.playerName="杨宗纬";
+//				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
 				
-				//			md.ismv=true;
-				//			md.mvid=301;
+							md.ismv=true;
+							md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
 				sp.id=212467;
@@ -141,8 +141,9 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},10000)
+			},30000)
 			
+		
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -159,8 +160,8 @@ package douyu.ctrl
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
-			},11000);
-			
+			},31000);
+			return;
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;

@@ -108,7 +108,7 @@ package douyu.command
 			
 			//启动 mv
 			if(ifdt.playMusicdata==null){
-				ctrlvideo.stop();	
+				stopMusic();	
 				return;
 			}
 			
@@ -142,6 +142,7 @@ package douyu.command
 					mp3ctrl.playMp3(md);
 				}
 			}else{
+				ifdt.playMusicdata=null;
 				//ctrlvideo.play("/douyu/view/video/begin.mp4");
 				//判断 土豪 播放列表
 				
@@ -165,6 +166,10 @@ package douyu.command
 		
 		
 		private function  stopMusic():void{
+			if(ifdt.playMusicdata==null){
+				ctrlvideo.stop();
+				return;
+			}
 			if(ifdt.playMusicdata.ismv){
 				ctrlvideo.stop();					
 			}else{
