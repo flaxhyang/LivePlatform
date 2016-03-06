@@ -24,7 +24,7 @@ package douyu.ctrl
 		 * 删除点播条 
 		 */		
 		public function delectMusic(id:int):void{
-			trace("delectMusic")
+//			trace("delectMusic")
 			sortPlayerId.push(new OPerationTiao(id,2));
 			sorting();
 		}
@@ -34,11 +34,9 @@ package douyu.ctrl
 		 * @param SortNo：1：新加点播歌曲 ； 
 		 *                2：送鱼丸的人，在点歌排行里；
 		 */		
-		public function Sort(SortNo:int=-1,type:int=1):void{
-			trace("SortNo")
-			CurrNo=SortNo<0?infodata.rowMusicData.length-1:SortNo;
-			sortPlayerId.push(new OPerationTiao(infodata.rowMusicData[CurrNo].selectPlayer.id,type));
-			
+		public function Sort(SortId:int=-1,type:int=1):void{
+//			trace(infodata.rowMusicData.length)
+			sortPlayerId.push(new OPerationTiao(SortId,type));
 			sorting();
 		}
 		
@@ -58,15 +56,6 @@ package douyu.ctrl
 			if(pid.otType==2){
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.deletTiao(pid.otId);
-				
-//				if(infodata.rowMusicData.length>=InfoData.selectMusicTopMax){
-//					showTop(infodata.rowMusicData[InfoData.selectMusicTopMax].selectPlayer.id,InfoData.selectMusicTopMax);
-//				}else{
-//					isSorting=false;
-//					sorting();
-//				}
-				
-				
 			}else if(pid.otType==1){
 			
 				//第一个点歌的
@@ -106,7 +95,6 @@ package douyu.ctrl
 		
 		
 		private function showTop(playerId:int,No:uint):void{
-//			trace(playerId,No);
 			if(No>InfoData.selectMusicTopMax){
 				isSorting=false;
 				sorting();
@@ -114,7 +102,13 @@ package douyu.ctrl
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.showTiao(playerId,No);
 			}
-			
+//			trace("playerid="+playerId,"No="+No)
+//			for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
+//			{
+//				trace(infodata.rowMusicData[i].selectPlayer.id);
+//			}
+//			trace("---------------------------------------------")
+		
 		}
 		
 		protected function moveCompleteHandle(event:Event):void

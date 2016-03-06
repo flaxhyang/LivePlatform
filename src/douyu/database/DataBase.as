@@ -205,7 +205,7 @@ package douyu.database
 //				currPd.totleYW=row.sumYW+currPd.currYW;
 //				currPd.currYW=row.currYW+currPd.currYW-currPd.OperationYW;
 				
-				currPd.totleYW=row.sumYW;
+				currPd.totleYW=row.sumYW+currPd.OPerationAddYW;
 				currPd.currYW=row.currYW-currPd.OperationCutYW+currPd.OPerationAddYW;
 				
 				this.dispatchEvent(new Event(SEARCH_YWTOP_COMPLETE));
@@ -229,7 +229,7 @@ package douyu.database
 		 * @param people
 		 */		
 		public function insertPlayer(people:PlayerData):void{
-			var sql:String = "INSERT INTO people (nameid,name,messages,sumYW,currYW) VALUES ('"+people.id+"', '"+people.nick+"', '"+people.notice+"', '"+people.totleYW+"', '"+people.currYW+"')";
+			var sql:String = "INSERT INTO people (nameid,name,messages,sumYW,currYW) VALUES ('"+people.id+"', '"+people.nick+"', '"+people.notice+"', '"+people.totleYW+"', '"+people.OPerationAddYW+"')";
 			insertPlayerStmt.text = sql;
 			insertPlayerStmt.addEventListener(SQLEvent.RESULT, InsertSpResult);
 			insertPlayerStmt.addEventListener(SQLErrorEvent.ERROR, InserSpError);  
@@ -265,7 +265,7 @@ package douyu.database
 		
 		protected function changePlayerdataComplete(event:SQLEvent):void
 		{
-			trace( "updata  ok ");
+//			trace( "updata  ok ");
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
 			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));
@@ -273,7 +273,7 @@ package douyu.database
 		
 		protected function changePlayerdataError(event:SQLErrorEvent):void
 		{
-			trace( "updata  error ");
+//			trace( "updata  error ");
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
 			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));

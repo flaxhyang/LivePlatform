@@ -12,7 +12,6 @@ package douyu.command
 	import douyu.ctrl.SelectMusicTopCtrl;
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
-	import douyu.data.vo.PlayerData;
 	import douyu.database.DataBase;
 	
 	
@@ -45,9 +44,9 @@ package douyu.command
 		 */		
 		public function selectMusic(md:MusicData):void{
 			TempSelectPlayerRow.push(md);
-			if(!isSelecting){
-				selectNextMusic();
-			}
+			
+			selectNextMusic();
+			
 		}
 		
 		//---------------------------------------------------------------------------
@@ -73,7 +72,7 @@ package douyu.command
 		protected function musicSearchOver(event:Event=null):void
 		{
 			isSelecting=false;
-			if(TempSelectPlayerRow.length){
+			if(TempSelectPlayerRow.length>0){
 				selectNextMusic();
 			}
 		}
@@ -93,35 +92,38 @@ package douyu.command
 		 */		
 		protected function newMusicHandle(event:Event):void
 		{
+			
+			//搜寻 下一首
+			musicSearchOver();
+			
 			//
+//			trace("搜寻成功")
 			//
 			//点歌榜逻辑
 			var newMD:MusicData=ifdt.getMusicData(ifdt.rowMusicData.length-1);
+			
 			if(newMD.selectPlayer!=null){
 				smtc.addNewOP(newMD.selectPlayer,1);
 			}
-			//搜寻 下一首
-			musicSearchOver();
 			//是否切断歌曲
 //			trace("new music!")
 			var isStop:Boolean=false;
 			
-			//启动 mv
+
+			
 			if(ifdt.playMusicdata==null){
-				stopMusic();	
-				return;
-			}
-			
-			//当前播放歌曲 不是点播歌曲
-			if(ifdt.playMusicdata.selectPlayer==null){
 				isStop=true;
-			}				
-			
-			//当前播放歌曲 不是点播歌曲，是土豪联播歌曲，也可以切换
-			if(ifdt.playMusicdata.selectPlayer!=null && ifdt.playMusicdata.listSelectPlayer==true){
-				isStop=true;
+			}else{
+				//当前播放歌曲 不是点播歌曲
+				if(ifdt.playMusicdata.selectPlayer==null){
+					isStop=true;
+				}				
+				
+				//当前播放歌曲 不是点播歌曲，是土豪联播歌曲，也可以切换
+//				if(ifdt.playMusicdata.selectPlayer!=null && ifdt.playMusicdata.listSelectPlayer==true){
+//					isStop=true;
+//				}
 			}
-			
 			if(isStop){
 				stopMusic();
 			}
@@ -131,18 +133,15 @@ package douyu.command
 		private function PlayMusic():void{
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.deleteSTMusicData(0);
-//				smc.delectMusic(0);
 				
 				ifdt.playMusicdata=md;
 				
 				if(md.ismv){
 					ctrlvideo.play(InfoData.MTVURL+md.musicUrl);
 				}else{
-					trace("play mp3")
 					mp3ctrl.playMp3(md);
 				}
 			}else{
-				ifdt.playMusicdata=null;
 				//ctrlvideo.play("/douyu/view/video/begin.mp4");
 				//判断 土豪 播放列表
 				
@@ -152,10 +151,9 @@ package douyu.command
 		}
 		
 		
-		
-		
-		
 		private function selectNextMusic():void{
+			if(isSelecting){return}
+			isSelecting=true;
 			var tmd:MusicData=TempSelectPlayerRow.shift();
 			if(tmd.ismv){
 				ctrlvideo.selectVideo(tmd);

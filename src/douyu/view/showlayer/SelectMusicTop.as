@@ -33,7 +33,7 @@ package douyu.view.showlayer
 		private var tiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
 		
 		
-		private var tiaoCurrNo:int;//要移动的条的数组位置
+//		private var tiaoCurrNo:int;//要移动的条的数组位置
 		
 		public function SelectMusicTop()
 		{
@@ -59,22 +59,8 @@ package douyu.view.showlayer
 			if(currStep==-1){
 				showTop.push(playerId);
 				createTiao(movestep);
-				moveTiao(movestep,movestep);
-			}else{
-				for (var i:int = 0; i < tiaoArr.length; i++) 
-				{
-					if(playerId==tiaoArr[i].solayerId){
-						tiaoArr[i].setYW(infodata.rowMusicData[movestep].selectPlayer.currYW);
-						tiaoArr[i].setMusicName(infodata.rowMusicData[movestep].mName);
-						tiaoCurrNo=i;
-						break;
-					}
-				}
-				
-				moveTiao(tiaoCurrNo,movestep);
-			}	
-			
-			
+			}
+			moveTiao(playerId,movestep);
 		}
 		
 		public function deletTiao(id:int=0):void{
@@ -102,12 +88,24 @@ package douyu.view.showlayer
 			}
 		}
 		
+		private function newTiao(no:int):void{
+			
+		}
 		
-		
-		private function moveTiao(fromNo:int,toNo:int):void{
-			var movetiao:Tiao=tiaoArr.splice(fromNo,1)[0];
+		private function moveTiao(playerId:int,toNo:int):void{
+			var tiaoCurrNo:int=tiaoArr.length-1;
+			for (var i:int = 0; i < tiaoArr.length; i++) 
+			{
+				if(playerId==tiaoArr[i].solayerId){
+					tiaoArr[i].setYW(infodata.rowMusicData[toNo].selectPlayer.currYW);
+					tiaoArr[i].setMusicName(infodata.rowMusicData[toNo].mName);
+					tiaoCurrNo=i;
+					break;
+				}
+			}
+			var movetiao:Tiao=tiaoArr.splice(tiaoCurrNo,1)[0];
 			tiaoArr.splice(toNo,0,movetiao);
-			var beginNo:int=fromNo>toNo?toNo:fromNo;
+			var beginNo:int=tiaoCurrNo>toNo?toNo:tiaoCurrNo;
 			downTiao(beginNo);
 		}
 		

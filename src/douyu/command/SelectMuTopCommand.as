@@ -8,6 +8,7 @@ package douyu.command
 	import flash.events.IEventDispatcher;
 	
 	import douyu.ctrl.SelectMusicTopCtrl;
+	import douyu.ctrl.THTopCtrl;
 	import douyu.data.InfoData;
 	import douyu.data.vo.PlayerData;
 	import douyu.database.DataBase;
@@ -23,6 +24,7 @@ package douyu.command
 		private var db:DataBase=DataBase.instant;
 		private var infodata:InfoData=InfoData.instant;
 		private var smtc:SelectMusicTopCtrl=SelectMusicTopCtrl.instant;
+		private var thtc:THTopCtrl=THTopCtrl.instant;
 		
 		private var isOperaing:Boolean=false;
 		private var operateArr:Vector.<PlayerData>=new Vector.<PlayerData>();
@@ -40,7 +42,7 @@ package douyu.command
 			var opPlaer:PlayerData=new PlayerData();
 			opPlaer.id=player.id;
 			opPlaer.currYW=player.currYW;
-			opPlaer.totleYW=player.currYW;
+//			opPlaer.totleYW=player.currYW;
 			opPlaer.nick=player.nick;
 			opPlaer.notice=player.notice;
 			opPlaer.THMessage=player.THMessage;
@@ -72,6 +74,7 @@ package douyu.command
 			{
 				case 1://点歌的人
 				{
+					changeSelectTop();
 					isOperaing=false;
 					operation();
 					break;
@@ -131,7 +134,8 @@ package douyu.command
 					}
 					break;
 				}
-				case 4:{
+				case 4://修改数据
+				{
 					changeYWTop();
 					break;
 				}	
@@ -154,7 +158,9 @@ package douyu.command
 			}else{
 				infodata.rowMusicData[currOPTopNum].selectPlayer.currYW=db.currPd.currYW;
 //				infodata.rowMusicData[currOPTopNum].selectPlayer.totleYW=db.currPd.totleYW;
-				smtc.Sort(currOPTopNum);
+//				trace(infodata.rowMusicData.length);
+				
+				smtc.Sort(infodata.rowMusicData[currOPTopNum].selectPlayer.id);
 			}
 		
 		}
@@ -172,6 +178,9 @@ package douyu.command
 		
 		protected function dataBaseChangeComplete(event:Event):void
 		{
+			//刷新 鱼丸总榜
+			thtc.getTHData();
+			//
 			isOperaing=false;
 			operation();	
 		}

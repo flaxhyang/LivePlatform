@@ -125,14 +125,284 @@ package douyu.ctrl
 			
 //			return;
 			
+			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
-//				md.ismv=false;
+				md.ismv=false;
+				md.mName="屌丝之歌";
+				md.playerName="花粥";
+				
+//							md.ismv=true;
+//							md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=9557731;
+				sp.nick="不变的调调";
+//				sp.id=1;
+//				sp.nick="调调";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+			},3100);
+			
+//			return;
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=1;
+				sp.nick="1";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3200)
+			
+//			return;
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
 //				md.mName="一次就好";
 //				md.playerName="杨宗纬";
 				
 							md.ismv=true;
 							md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=2;
+				sp.nick="2";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3300)
+			
+//			return
+		
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=3;
+				sp.nick="3";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3400)
+			
+			
+//			return
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=4;
+				sp.nick="4";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3500)
+			
+//			return;
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=5;
+				sp.nick="5";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3600)
+			
+			
+//			setTimeout(function():void{
+//				gc.gift_fish("5","5",9)
+//			},3200);
+			
+//			return;
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=6;
+				sp.nick="6";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3200)
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=7;
+				sp.nick="7";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3200)
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=8;
+				sp.nick="8";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3200)
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=9;
+				sp.nick="9";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3200)
+			
+//			setTimeout(function():void{
+//				gc.gift_fish("9","9",9)
+//			},3200);
+			
+//			return;
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+//				md.mName="一次就好";
+//				md.playerName="杨宗纬";
+				
+											md.ismv=true;
+											md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=10;
+				sp.nick="10";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3200)
+			
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				//				md.mName="一次就好";
+				//				md.playerName="杨宗纬";
+				
+				md.ismv=true;
+				md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=11;
+				sp.nick="11";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},3200)
+			
+//			return
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				md.mName="一次就好";
+				md.playerName="杨宗纬";
+				
+				//							md.ismv=true;
+				//							md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=1;
+				sp.nick="1";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},6200)
+			
+			
+//			setTimeout(function():void{
+//				gc.gift_fish("5","5",9)
+//			},7000);
+			
+			return;
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				md.mName="一次就好";
+				md.playerName="杨宗纬";
+				
+				//							md.ismv=true;
+				//							md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
 				sp.id=212467;
@@ -141,27 +411,11 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},30000)
-			
+			},3200)
+
+		
 		
 			
-			setTimeout(function():void{
-				var md:MusicData=new MusicData();
-				md.ismv=false;
-				md.mName="屌丝之歌";
-				md.playerName="花粥";
-				
-				//			md.ismv=true;
-				//			md.mvid=301;
-				
-				var sp:PlayerData=new PlayerData();
-				sp.id=9557731;
-				sp.nick="不变的调调";
-				md.selectPlayer=sp;
-				
-				smc.selectMusic(md);
-			},31000);
-			return;
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;
@@ -182,12 +436,12 @@ package douyu.ctrl
 			
 //			return;
 			
+			setTimeout(function():void{
+				gc.gift_fish("212467","flaxhyang",9)
+			},15000);
 			
 			
-			
-//			setTimeout(function():void{
-//				gc.gift_fish("212467","flaxhyang",9)
-//			},9000);
+
 			
 		}
 		

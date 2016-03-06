@@ -70,6 +70,7 @@ package douyu.data
 		 *  music 播放完成 
 		 */
 		public function music_stop():void{
+			_playMusicdata=null;
 			this.dispatchEvent(new Event(MUSIC_PLAY_COMPLETE));
 		}
 		
@@ -160,9 +161,7 @@ package douyu.data
 		public function set playMusicdata(value:MusicData):void
 		{
 			_playMusicdata = value;
-			if(_playMusicdata!=null){
-				this.dispatchEvent(new Event(MUSIC_PLAYING_EVENT));
-			}
+			this.dispatchEvent(new Event(MUSIC_PLAYING_EVENT));
 		}
 		public function changeMusicdata(value:MusicData):void{
 			_playMusicdata = value;
