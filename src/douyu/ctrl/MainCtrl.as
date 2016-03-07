@@ -368,6 +368,7 @@ package douyu.ctrl
 				
 			},3200)
 			
+<<<<<<< HEAD
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -387,6 +388,8 @@ package douyu.ctrl
 				
 			},3200)
 			
+=======
+>>>>>>> origin/master
 //			return
 			
 			setTimeout(function():void{
