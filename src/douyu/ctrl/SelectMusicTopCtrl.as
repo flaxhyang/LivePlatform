@@ -60,7 +60,7 @@ package douyu.ctrl
 			
 				//第一个点歌的
 				if(infodata.rowMusicData.length==1){
-//					trace("1")
+					trace("1")
 					showTop(pid.otId,0);
 					return;
 				}
@@ -77,14 +77,14 @@ package douyu.ctrl
 				if(currSortMd==null)return;
 				if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
 					infodata.rowMusicData.push(currSortMd);
-	//				trace("2")
-					showTop(currSortMd.selectPlayer.id,infodata.rowMusicData.length-1);
+					trace("2")
+					showTop(currSortMd.selectPlayer.id);
 				}else{
 					for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
 					{
 						if(currSortMd.selectPlayer.currYW>infodata.rowMusicData[i].selectPlayer.currYW){
 							infodata.rowMusicData.splice(i,0,currSortMd);
-	//						trace("3")
+							trace("3")
 							showTop(currSortMd.selectPlayer.id,i);
 							break;
 						}
@@ -95,6 +95,7 @@ package douyu.ctrl
 		
 		
 		private function showTop(playerId:int,No:uint):void{
+			trace(No)
 			if(No>InfoData.selectMusicTopMax){
 				isSorting=false;
 				sorting();

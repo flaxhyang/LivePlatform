@@ -368,8 +368,6 @@ package douyu.ctrl
 				
 			},3200)
 			
-<<<<<<< HEAD
-			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;
@@ -387,9 +385,7 @@ package douyu.ctrl
 				smc.selectMusic(md);
 				
 			},3200)
-			
-=======
->>>>>>> origin/master
+
 //			return
 			
 			setTimeout(function():void{

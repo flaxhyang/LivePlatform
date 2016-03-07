@@ -11,29 +11,22 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
-//		public static const MTVImage:String="";
-//		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
+		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
+		public static const MTVImage:String="";
+		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
-<<<<<<< HEAD
+
 //		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
 //		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
 //		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
 //		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
 //		public static const MTVImage:String="";
 //		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
-=======
-		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
-		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
-		public static const MTVImage:String="";
-		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
->>>>>>> origin/master
+
 
 		//发布
 //		public static const DataBaseURL:String="C:/YZYDOUYUData.db";
