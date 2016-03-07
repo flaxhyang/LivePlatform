@@ -4,12 +4,12 @@ package douyu.ctrl
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import douyu.command.GiftCommand;
 	
 	public class LinkTM extends EventDispatcher
 	{
 		
 		private var ywctrl:YWCtrl=YWCtrl.instant;
+		private var rmc:ReserviceMsgCtrl=ReserviceMsgCtrl.instant;
 		
 		private var socket:Link=Link.instant;
 		
@@ -31,7 +31,7 @@ package douyu.ctrl
 		{
 			socket.removeEventListener(Link.LINK_OK,isLinkHandle);
 //			socket.setTHwelcome(welcomefun);
-//			socket.setGetMsg(msg_decode);
+			socket.setGetMsg(rmc.msg_decode);
 			socket.setGift(ywctrl.addYW);
 		}
 		

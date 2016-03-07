@@ -22,7 +22,7 @@ package douyu.data
 //		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
 //		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
 //		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="";
+//		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
 //		public static const MTVImage:String="";
 //		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
 
@@ -70,6 +70,7 @@ package douyu.data
 		 *  music 播放完成 
 		 */
 		public function music_stop():void{
+			_playMusicdata=null;
 			this.dispatchEvent(new Event(MUSIC_PLAY_COMPLETE));
 		}
 		

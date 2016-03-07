@@ -90,7 +90,7 @@ package douyu.view.video
 				}
 				case "NetStream.Play.Stop":
 				{
-					trace("stop")
+					trace("stop mv")
 					this.dispatchEvent(new Event(STOP_VIDEO_EVENT));
 					break;
 				}
