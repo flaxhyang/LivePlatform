@@ -58,15 +58,17 @@ package douyu.ctrl
 				smt.deletTiao(pid.otId);
 			}else if(pid.otType==1){
 			
-				//第一个点歌的
-				if(infodata.rowMusicData.length==1){
-					trace("1")
-					showTop(pid.otId,0);
-					return;
-				}
+//				//第一个点歌的
+//				if(infodata.rowMusicData.length==1){
+//					trace("1")
+//					showTop(pid.otId,0);
+//					return;
+//				}
+//				
 				
-				
-				for (var j:int = 0; j < infodata.rowMusicData.length; j++) 
+//				
+				var rmdl:int=infodata.rowMusicData.length;
+				for (var j:int = 0; j < rmdl; j++) 
 				{
 					if(pid.otId==infodata.rowMusicData[j].selectPlayer.id){
 						CurrNo=j;
@@ -75,28 +77,50 @@ package douyu.ctrl
 					}
 				}
 				if(currSortMd==null)return;
-				if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
-					infodata.rowMusicData.push(currSortMd);
-					trace("2")
-					showTop(currSortMd.selectPlayer.id);
+				
+				rmdl=infodata.rowMusicData.length-1;
+				if(CurrNo==0 || CurrNo>=rmdl){
+//					showTop(pid.otId,CurrNo);
+					trace("s=1")
+				}else if(currSortMd.selectPlayer.currYW>=infodata.rowMusicData[CurrNo-1].selectPlayer.currYW && currSortMd.selectPlayer.currYW<=infodata.rowMusicData[CurrNo+1].selectPlayer.currYW){
+//					showTop(pid.otId,CurrNo);
+					trace("s=2")
 				}else{
-					for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
+					for (var i:int = rmdl; i >=0 ; i--) 
 					{
-						if(currSortMd.selectPlayer.currYW>infodata.rowMusicData[i].selectPlayer.currYW){
-							infodata.rowMusicData.splice(i,0,currSortMd);
-							trace("3")
-							showTop(currSortMd.selectPlayer.id,i);
+						if(currSortMd.selectPlayer.currYW>=infodata.rowMusicData[i].selectPlayer.currYW){
+							CurrNo=i+1;
+							trace("s=3")
 							break;
 						}
-					}	
+					}
+					
 				}
+				showTop(pid.otId,CurrNo);
+				infodata.rowMusicData.splice(CurrNo,0,currSortMd);
+				
+//				if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
+//					infodata.rowMusicData.push(currSortMd);
+//					trace("2")
+//					showTop(currSortMd.selectPlayer.id);
+//				}else{
+//					for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
+//					{
+//						if(currSortMd.selectPlayer.currYW>infodata.rowMusicData[i].selectPlayer.currYW){
+//							infodata.rowMusicData.splice(i,0,currSortMd);
+//							trace("3")
+//							showTop(currSortMd.selectPlayer.id,i);
+//							break;
+//						}
+//					}	
+//				}
 			}
 		}
 		
 		
 		private function showTop(playerId:int,No:uint):void{
-			trace(No)
-			if(No>InfoData.selectMusicTopMax){
+//			trace(No)
+			if(No>InfoData.selectMusicTopMax-2){
 				isSorting=false;
 				sorting();
 			}else{
