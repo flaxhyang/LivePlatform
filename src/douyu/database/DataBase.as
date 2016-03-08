@@ -202,14 +202,12 @@ package douyu.database
 			{  
 				var row:Object = result.data[0]; 
 				
-//				currPd.totleYW=row.sumYW+currPd.currYW;
-//				currPd.currYW=row.currYW+currPd.currYW-currPd.OperationYW;
-				
 				currPd.totleYW=row.sumYW+currPd.OPerationAddYW;
 				currPd.currYW=row.currYW-currPd.OperationCutYW+currPd.OPerationAddYW;
 				
 				this.dispatchEvent(new Event(SEARCH_YWTOP_COMPLETE));
 			}else{
+				currPd.currYW=currPd.OPerationAddYW;
 				this.dispatchEvent(new Event(SEARCH_YWTOP_FAIL));
 			}	
 		}
@@ -219,6 +217,7 @@ package douyu.database
 			SelectStmt.removeEventListener(SQLEvent.RESULT, selectMTVResult);
 			SelectStmt.removeEventListener(SQLErrorEvent.ERROR, selectMTVErrorHandle);
 			//
+			currPd.currYW=currPd.OPerationAddYW;
 			this.dispatchEvent(new Event(SEARCH_YWTOP_FAIL));
 		}
 		

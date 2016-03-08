@@ -292,8 +292,8 @@ package douyu.ctrl
 			},3800)
 			
 			setTimeout(function():void{
-				gc.gift_fish("3","3",9)
-			},9000);
+				gc.gift_fish("7","7",9)
+			},15000);
 //			
 			return;
 			
@@ -307,13 +307,13 @@ package douyu.ctrl
 											md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=3;
-				sp.nick="3";
+				sp.id=8;
+				sp.nick="8";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
 				
-			},9000)
+			},3900)
 			
 			
 		

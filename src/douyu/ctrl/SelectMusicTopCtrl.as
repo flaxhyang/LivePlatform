@@ -54,39 +54,6 @@ package douyu.ctrl
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.deletTiao(pid.otId);
 			}else if(pid.otType==1){
-				pid.otId;
-//				CurrNo=-1;
-//				var rmdl:int=infodata.rowMusicData.length;
-//				for (var j:int = 0; j < rmdl; j++) 
-//				{
-//					if(pid.otId==infodata.rowMusicData[j].selectPlayer.id){
-//						CurrNo=j;
-//						currSortMd=infodata.rowMusicData.splice(CurrNo,1)[0];
-//						break;
-//					}
-//				}
-//				if(currSortMd==null || CurrNo<0)return;
-				
-//				rmdl=infodata.rowMusicData.length-1;
-//				if(CurrNo==0 || CurrNo>=rmdl){
-//				}else if(currSortMd.selectPlayer.currYW>=infodata.rowMusicData[CurrNo-1].selectPlayer.currYW && currSortMd.selectPlayer.currYW<=infodata.rowMusicData[CurrNo].selectPlayer.currYW){
-//				}else{
-//					CurrNo=-1;
-//					for (var i:int = rmdl; i >=0 ; i--) 
-//					{
-//						if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[i].selectPlayer.currYW){
-//							CurrNo=i+1;
-//							break;
-//						}
-//					}
-//					
-//					CurrNo=CurrNo<0?0:CurrNo;
-//					
-//				}
-//				infodata.rowMusicData.splice(CurrNo,0,currSortMd);
-				
-//				isSorting=false;
-//				sorting();
 				
 				var tmp:MusicData;	
 				for (var i:int = 0; i < infodata.rowMusicData.length; i++) 

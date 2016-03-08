@@ -84,7 +84,6 @@ package douyu.command
 				{
 					trace("新人")
 					insertYWTop();
-
 					break;
 				}
 				case 3://扣礼物的人
@@ -131,7 +130,6 @@ package douyu.command
 						isOperaing=false;
 						operation();
 					}else{
-						changeSelectTop();
 						changeYWTop();
 						this.dispatchEvent(new Event(CURRYW_COMPLETE));
 					}
