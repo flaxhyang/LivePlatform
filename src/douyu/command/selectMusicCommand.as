@@ -66,7 +66,7 @@ package douyu.command
 		
 		
 		/**
-		 * 没有找到music，搜寻下首排队歌曲
+		 * 搜寻下首排队歌曲
 		 * @param event
 		 */		
 		protected function musicSearchOver(event:Event=null):void
@@ -82,26 +82,14 @@ package douyu.command
 			PlayMusic();
 		}
 		
-		
-		
-		
-		
 		/**
 		 * 
 		 * @param event
 		 */		
 		protected function newMusicHandle(event:Event):void
 		{
-			
-			//搜寻 下一首
-			musicSearchOver();
-			
-			//
-//			trace("搜寻成功")
-			//
-			//点歌榜逻辑
+			//显示点歌榜逻辑
 			var newMD:MusicData=ifdt.getMusicData(ifdt.rowMusicData.length-1);
-			
 			if(newMD.selectPlayer!=null){
 				smtc.addNewOP(newMD.selectPlayer,1);
 			}
@@ -127,6 +115,10 @@ package douyu.command
 			if(isStop){
 				stopMusic();
 			}
+			
+			//搜寻 下一首
+			musicSearchOver();
+			return;
 		}		
 		
 		//------------------------------------play  music

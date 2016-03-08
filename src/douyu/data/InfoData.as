@@ -11,21 +11,21 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
-//		public static const MTVImage:String="";
-//		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
+		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
+		public static const MTVImage:String="";
+		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
 
-		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
-		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
-		public static const MTVImage:String="";
-		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
+//		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+//		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
+//		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+//		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
+//		public static const MTVImage:String="";
+//		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
 
 
 		//发布
@@ -109,6 +109,13 @@ package douyu.data
 			}
 			_rowMusicData.push(md);
 			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
+			
+//			for (var i:int = 0; i < _rowMusicData.length; i++) 
+//			{
+//				trace(_rowMusicData[i].selectPlayer.id)
+//			}
+			
+			
 		}
 		
 		//获取player 位置

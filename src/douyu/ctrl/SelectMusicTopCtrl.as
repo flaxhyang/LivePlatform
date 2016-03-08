@@ -1,6 +1,7 @@
 package douyu.ctrl
 {
 	import flash.events.Event;
+	import flash.ui.MultitouchInputMode;
 	
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
@@ -35,7 +36,6 @@ package douyu.ctrl
 		 *                2：送鱼丸的人，在点歌排行里；
 		 */		
 		public function Sort(SortId:int=-1,type:int=1):void{
-//			trace(infodata.rowMusicData.length)
 			sortPlayerId.push(new OPerationTiao(SortId,type));
 			sorting();
 		}
@@ -44,95 +44,90 @@ package douyu.ctrl
 	
 		
 		private function sorting():void{
-			
 			if(isSorting || sortPlayerId.length==0){
 				return;
 			}
-			
 			isSorting=true;
 			
 			var pid:OPerationTiao=sortPlayerId.shift();
-		
 			if(pid.otType==2){
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.deletTiao(pid.otId);
 			}else if(pid.otType==1){
-			
-//				//第一个点歌的
-//				if(infodata.rowMusicData.length==1){
-//					trace("1")
-//					showTop(pid.otId,0);
-//					return;
+				pid.otId;
+//				CurrNo=-1;
+//				var rmdl:int=infodata.rowMusicData.length;
+//				for (var j:int = 0; j < rmdl; j++) 
+//				{
+//					if(pid.otId==infodata.rowMusicData[j].selectPlayer.id){
+//						CurrNo=j;
+//						currSortMd=infodata.rowMusicData.splice(CurrNo,1)[0];
+//						break;
+//					}
 //				}
-//				
+//				if(currSortMd==null || CurrNo<0)return;
 				
-//				
-				var rmdl:int=infodata.rowMusicData.length;
-				for (var j:int = 0; j < rmdl; j++) 
+//				rmdl=infodata.rowMusicData.length-1;
+//				if(CurrNo==0 || CurrNo>=rmdl){
+//				}else if(currSortMd.selectPlayer.currYW>=infodata.rowMusicData[CurrNo-1].selectPlayer.currYW && currSortMd.selectPlayer.currYW<=infodata.rowMusicData[CurrNo].selectPlayer.currYW){
+//				}else{
+//					CurrNo=-1;
+//					for (var i:int = rmdl; i >=0 ; i--) 
+//					{
+//						if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[i].selectPlayer.currYW){
+//							CurrNo=i+1;
+//							break;
+//						}
+//					}
+//					
+//					CurrNo=CurrNo<0?0:CurrNo;
+//					
+//				}
+//				infodata.rowMusicData.splice(CurrNo,0,currSortMd);
+				
+//				isSorting=false;
+//				sorting();
+				
+				var tmp:MusicData;	
+				for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
 				{
-					if(pid.otId==infodata.rowMusicData[j].selectPlayer.id){
-						CurrNo=j;
-						currSortMd=infodata.rowMusicData.splice(CurrNo,1)[0];
-						break;
-					}
-				}
-				if(currSortMd==null)return;
-				
-				rmdl=infodata.rowMusicData.length-1;
-				if(CurrNo==0 || CurrNo>=rmdl){
-//					showTop(pid.otId,CurrNo);
-					trace("s=1")
-				}else if(currSortMd.selectPlayer.currYW>=infodata.rowMusicData[CurrNo-1].selectPlayer.currYW && currSortMd.selectPlayer.currYW<=infodata.rowMusicData[CurrNo+1].selectPlayer.currYW){
-//					showTop(pid.otId,CurrNo);
-					trace("s=2")
-				}else{
-					for (var i:int = rmdl; i >=0 ; i--) 
+					for (var j:int = i; j < infodata.rowMusicData.length; j++) 
 					{
-						if(currSortMd.selectPlayer.currYW>=infodata.rowMusicData[i].selectPlayer.currYW){
-							CurrNo=i+1;
-							trace("s=3")
-							break;
+						if(infodata.rowMusicData[i].selectPlayer.currYW<infodata.rowMusicData[j].selectPlayer.currYW){
+							tmp=infodata.rowMusicData[i];
+							infodata.rowMusicData[i]=infodata.rowMusicData[j];
+							infodata.rowMusicData[j]=tmp;
 						}
 					}
 					
 				}
-				showTop(pid.otId,CurrNo);
-				infodata.rowMusicData.splice(CurrNo,0,currSortMd);
 				
-//				if(currSortMd.selectPlayer.currYW<=infodata.rowMusicData[infodata.rowMusicData.length-1].selectPlayer.currYW){
-//					infodata.rowMusicData.push(currSortMd);
-//					trace("2")
-//					showTop(currSortMd.selectPlayer.id);
-//				}else{
-//					for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
-//					{
-//						if(currSortMd.selectPlayer.currYW>infodata.rowMusicData[i].selectPlayer.currYW){
-//							infodata.rowMusicData.splice(i,0,currSortMd);
-//							trace("3")
-//							showTop(currSortMd.selectPlayer.id,i);
-//							break;
-//						}
-//					}	
-//				}
+				for (var k:int = 0; k < infodata.rowMusicData.length; k++) 
+				{
+					if(pid.otId==infodata.rowMusicData[k].selectPlayer.id){
+						CurrNo=k;
+						break;
+					}
+				}
+				
+				
+				
+				showTop(pid.otId,CurrNo);
 			}
 		}
 		
 		
 		private function showTop(playerId:int,No:uint):void{
-//			trace(No)
-			if(No>InfoData.selectMusicTopMax-2){
-				isSorting=false;
-				sorting();
-			}else{
+//			if(No>=InfoData.selectMusicTopMax){
+//				isSorting=false;
+//				sorting();
+//			}else{
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.showTiao(playerId,No);
-			}
-//			trace("playerid="+playerId,"No="+No)
-//			for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
-//			{
-//				trace(infodata.rowMusicData[i].selectPlayer.id);
 //			}
-//			trace("---------------------------------------------")
+			
+			
+			
 		
 		}
 		

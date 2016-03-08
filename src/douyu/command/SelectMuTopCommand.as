@@ -39,6 +39,7 @@ package douyu.command
 		}
 		
 		public function addNewOP(player:PlayerData,type:int):void{
+//			trace("player.id="+player.id,"type="+type);
 			var opPlaer:PlayerData=new PlayerData();
 			opPlaer.id=player.id;
 			opPlaer.currYW=player.currYW;
@@ -81,7 +82,9 @@ package douyu.command
 				}
 				case 2://送礼物的人
 				{
+					trace("新人")
 					insertYWTop();
+
 					break;
 				}
 				case 3://扣礼物的人
@@ -180,6 +183,8 @@ package douyu.command
 		{
 			//刷新 鱼丸总榜
 			thtc.getTHData();
+			//
+			changeSelectTop();
 			//
 			isOperaing=false;
 			operation();	

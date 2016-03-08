@@ -165,7 +165,7 @@ package douyu.ctrl
 				
 			},3200)
 			
-//			return;
+//			return
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -246,6 +246,8 @@ package douyu.ctrl
 				
 			},3600)
 			
+//			return;
+			
 			
 //			setTimeout(function():void{
 //				gc.gift_fish("5","5",9)
@@ -269,7 +271,7 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},3200)
+			},3700)
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -287,7 +289,13 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},3200)
+			},3800)
+			
+			setTimeout(function():void{
+				gc.gift_fish("3","3",9)
+			},9000);
+//			
+			return;
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -299,13 +307,18 @@ package douyu.ctrl
 											md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=8;
-				sp.nick="8";
+				sp.id=3;
+				sp.nick="3";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
 				
-			},3200)
+			},9000)
+			
+			
+		
+			
+			return 
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -323,7 +336,9 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},3200)
+			},4000)
+			
+			
 			
 //			setTimeout(function():void{
 //				gc.gift_fish("9","9",9)
@@ -347,8 +362,9 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},3200)
+			},4100)
 			
+//			return;
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -366,7 +382,9 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},3200)
+			},4200)
+			
+//			return
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -384,9 +402,9 @@ package douyu.ctrl
 				
 				smc.selectMusic(md);
 				
-			},3200)
+			},4300)
 
-//			return
+			return
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();

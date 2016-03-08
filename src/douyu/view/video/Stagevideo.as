@@ -85,12 +85,12 @@ package douyu.view.video
 				}
 				case "NetStream.Play.Start":
 				{
-					trace("start")
+//					trace("start")
 					break;
 				}
 				case "NetStream.Play.Stop":
 				{
-					trace("stop mv")
+//					trace("stop mv")
 					this.dispatchEvent(new Event(STOP_VIDEO_EVENT));
 					break;
 				}

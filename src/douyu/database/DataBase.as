@@ -229,7 +229,7 @@ package douyu.database
 		 * @param people
 		 */		
 		public function insertPlayer(people:PlayerData):void{
-			var sql:String = "INSERT INTO people (nameid,name,messages,sumYW,currYW) VALUES ('"+people.id+"', '"+people.nick+"', '"+people.notice+"', '"+people.totleYW+"', '"+people.OPerationAddYW+"')";
+			var sql:String = "INSERT INTO people (nameid,name,messages,sumYW,currYW) VALUES ('"+people.id+"', '"+people.nick+"', '"+people.notice+"', '"+people.OPerationAddYW+"', '"+people.OPerationAddYW+"')";
 			insertPlayerStmt.text = sql;
 			insertPlayerStmt.addEventListener(SQLEvent.RESULT, InsertSpResult);
 			insertPlayerStmt.addEventListener(SQLErrorEvent.ERROR, InserSpError);  
