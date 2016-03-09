@@ -95,7 +95,7 @@ package douyu.ctrl
 //				{
 //					trace(infodata.rowMusicData[i2].selectPlayer.id)
 //				}
-//				trace("-----------------------------------------")
+//				trace("-------------------"+pid.otId,fromNo,toNo)
 				
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.showTiao(pid.otId,fromNo,toNo);

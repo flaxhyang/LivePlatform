@@ -226,7 +226,26 @@ package douyu.ctrl
 				
 			},3500)
 			
-//			return;
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				//				md.mName="一次就好";
+				//				md.playerName="杨宗纬";
+				
+				md.ismv=true;
+				md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=3;
+				sp.nick="3";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},4500)
+			
+			return;
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -273,6 +292,8 @@ package douyu.ctrl
 				
 			},3700)
 			
+//			return;
+			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;
@@ -291,11 +312,11 @@ package douyu.ctrl
 				
 			},3800)
 			
-			setTimeout(function():void{
-				gc.gift_fish("6","6",9)
-			},10000);
+//			setTimeout(function():void{
+//				gc.gift_fish("6","6",9)
+//			},10000);
 //			
-			return;
+//			return;
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -318,7 +339,7 @@ package douyu.ctrl
 			
 		
 			
-			return 
+//			return 
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -330,8 +351,8 @@ package douyu.ctrl
 											md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=9;
-				sp.nick="9";
+				sp.id=10;
+				sp.nick="10";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
@@ -356,8 +377,8 @@ package douyu.ctrl
 											md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=10;
-				sp.nick="10";
+				sp.id=11;
+				sp.nick="11";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
@@ -376,8 +397,8 @@ package douyu.ctrl
 				md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=11;
-				sp.nick="11";
+				sp.id=12;
+				sp.nick="12";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
@@ -396,8 +417,8 @@ package douyu.ctrl
 				md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=12;
-				sp.nick="12";
+				sp.id=6;
+				sp.nick="6";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
