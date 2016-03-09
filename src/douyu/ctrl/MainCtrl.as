@@ -292,8 +292,8 @@ package douyu.ctrl
 			},3800)
 			
 			setTimeout(function():void{
-				gc.gift_fish("7","7",9)
-			},15000);
+				gc.gift_fish("6","6",9)
+			},10000);
 //			
 			return;
 			

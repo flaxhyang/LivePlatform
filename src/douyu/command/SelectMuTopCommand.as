@@ -158,9 +158,6 @@ package douyu.command
 				}
 			}else{
 				infodata.rowMusicData[currOPTopNum].selectPlayer.currYW=db.currPd.currYW;
-//				infodata.rowMusicData[currOPTopNum].selectPlayer.totleYW=db.currPd.totleYW;
-//				trace(infodata.rowMusicData.length);
-				
 				smtc.Sort(infodata.rowMusicData[currOPTopNum].selectPlayer.id);
 			}
 		

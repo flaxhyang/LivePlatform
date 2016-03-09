@@ -9,6 +9,7 @@ package douyu.view.showlayer
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
+	import flash.net.dns.AAAARecord;
 	
 	import douyu.data.ImageData;
 	import douyu.data.InfoData;
@@ -29,8 +30,8 @@ package douyu.view.showlayer
 		
 		private var backbitmapdata:BitmapData;
 		
-		private var showTop:Vector.<int>=new Vector.<int>();
-		private var tiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
+//		private var showTop:Vector.<int>=new Vector.<int>();
+//		private var tiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
 		
 		
 //		private var tiaoCurrNo:int;//要移动的条的数组位置
@@ -50,104 +51,282 @@ package douyu.view.showlayer
 			showSpMask.graphics.drawRect(sceenRect.x,sceenRect.y,sceenRect.width,sceenRect.height);
 			showSpMask.graphics.endFill();
 			this.addChild(showSpMask);
-			
 			showSp.mask=showSpMask;
 		}
 		
-		public function showTiao(playerId:int,movestep:int):void{
-			var currStep:int=showTop.indexOf(playerId);
 		
-			if(currStep==-1){
+		private var showTiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
+		
+		public function showTiao(pid:int,fromStep:int,toStep:int):void{
+			if(fromStep==toStep){
 				//新建
-				showTop.push(playerId);
-				if(movestep<InfoData.selectMusicTopMax){
-					createTiao(movestep);
-				}
-			}
-			moveTiao(playerId,movestep);
-		}
-		
-		public function deletTiao(id:int=0):void{
-			var deleteNum:int=0;
-			var stnum:int=showTop.indexOf(id);
-			if(stnum>-1){
-				showTop.splice(stnum,1);
-				for (var i:int = 0; i < tiaoArr.length; i++) 
-				{
-					if(tiaoArr[i].solayerId==id){
-						this.removeChild(tiaoArr[i]);
-						tiaoArr.splice(i,1);
-						deleteNum=i;
-						break;
-					}
-				}
-				if(showTop.length>=InfoData.selectMusicTopMax){
-					createTiao(InfoData.selectMusicTopMax-1);
-				}
-				downTiao(deleteNum);
-				
-			}else{
-				this.dispatchEvent(new Event(MOVE_COMPLETE));
-			}
-		}
-		
-		private function moveTiao(playerId:int,toNo:int):void{
-			var tiaoCurrNo:int=tiaoArr.length-1;
-			for (var i:int = 0; i < tiaoArr.length; i++) 
-			{
-				if(playerId==tiaoArr[i].solayerId){
-					tiaoArr[i].setYW(infodata.rowMusicData[toNo].selectPlayer.currYW);
-					tiaoArr[i].setMusicName(infodata.rowMusicData[toNo].mName);
-					tiaoCurrNo=i;
-					break;
-				}
-			}
-			var movetiao:Tiao=tiaoArr.splice(tiaoCurrNo,1)[0];
-			tiaoArr.splice(toNo,0,movetiao);
-			var beginNo:int=tiaoCurrNo>toNo?toNo:tiaoCurrNo;
-			downTiao(beginNo);
-		}
-		
-		private function downTiao(No:int):void{
-			var xmove:int=0;
-			for (var i:int = No; i < tiaoArr.length; i++) 
-			{
-//				trace("ywnum="+tiaoArr[i].ywNum);
-				xmove=0;
-				if(tiaoArr[i].ywNum<=0){
-					xmove=120;
-				}
-//				trace("xmove="+xmove);
-				if(i==tiaoArr.length-1){
-					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut,onComplete:moveComplete});
+				if(fromStep<=InfoData.selectMusicTopMax){
+					newTiao(pid,fromStep);
+					showing(toStep);
 				}else{
-					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut});
+					opreationOver();
+				}
+			}else if(fromStep>toStep){
+				//向上
+				
+				//移动后的位置 没到显示位置
+				if(toStep>InfoData.selectMusicTopMax){
+					opreationOver();
+					return;
+				}
+				
+				
+				//移动的条是否需要新建
+				if(fromStep>InfoData.selectMusicTopMax){
+					newTiao(pid,toStep);
+					showing(toStep);
+				}else{
+					moveTiao(fromStep,toStep);
+				}
+				
+				
+			}else if(fromStep<toStep){
+				//向下
+				if(fromStep>InfoData.selectMusicTopMax){
+					opreationOver();
+					return;
+				}
+				
+				if(toStep>InfoData.selectMusicTopMax){
+					disTiao(fromStep);
+				}else{
+					moveTiao(fromStep,toStep);
 				}
 			}
 		}
 		
-		private function createTiao(No:int):void{
+		
+		public function deletTiao(id:int):void{
+			var currnum:int=-1;
+			for (var i:int = 0; i < showTiaoArr.length; i++) 
+			{
+				if(id==showTiaoArr[i].solayerId){
+					currnum=i	
+				}
+			}
+			
+			if(currnum>-1){
+				disTiao(currnum);
+			}else{
+				opreationOver();
+				return;
+			}
+			
+		
+			
+		}
+		
+		
+		private function newTiao(pid:int,No:int):void{
 			var tiao:Tiao=new Tiao(backbitmapdata);
 			var mu:MusicData=infodata.rowMusicData[No];
 			tiao.setWord(mu.selectPlayer.id,mu.selectPlayer.nick,mu.mName,mu.selectPlayer.currYW);
-			tiaoArr.splice(No,0,tiao);
+			showTiaoArr.splice(No,0,tiao);
 			tiao.y=No*Yspase;
 			tiao.x=sceenRect.width;
 			this.addChild(tiao);
 		}
 		
 		
+		private function moveTiao(fromStep:int,toStep:int):void{
+			var movetiao:Tiao=showTiaoArr.splice(fromStep,1)[0];
+			showTiaoArr.splice(toStep,0,movetiao);
+			
+			var No:int=fromStep>toStep?toStep:fromStep;
+			showing(No);
+		}
+		
+		private function showing(No:int):void{
+			var xmove:int=0;
+			for (var i:int = No; i < showTiaoArr.length; i++) 
+			{
+				//				trace("ywnum="+tiaoArr[i].ywNum);
+				xmove=0;
+				if(showTiaoArr[i].ywNum<=0){
+					xmove=120;
+				}
+				//				trace("xmove="+xmove);
+				if(i==showTiaoArr.length-1){
+					TweenLite.to(showTiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut,onComplete:moveComplete});
+				}else{
+					TweenLite.to(showTiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut});
+				}
+			}
+		}
+		
+		private function disTiao(no:int):void{
+			var deTiao:Tiao=showTiaoArr.splice(no,1)[0];
+			TweenLite.to(deTiao,0.6,{alpha:0,onComplete:function deleComplete():void{
+				deTiao.parent.removeChild(deTiao);
+				
+				var need:int=InfoData.selectMusicTopMax-showTiaoArr.length;
+				
+				for (var i:int = 1; i <= need; i++) 
+				{
+					var newnum:int=showTiaoArr.length+i;
+					if(newnum<=infodata.rowMusicData.length-1){
+						newTiao(infodata.rowMusicData[newnum].selectPlayer.id,newnum);
+					}
+					
+				}
+				
+				showing(no);
+			}});
+			
+			
+			
+			
+			
+		}
+		
+		private function opreationOver():void{
+			this.dispatchEvent(new Event(MOVE_COMPLETE));
+		}
+		
+		
+//		private function getNo(pid:int):int{
+//			var no:int=-1;
+//			for (var i:int = 0; i < showTiaoArr.length; i++) 
+//			{
+//				if(pid==showTiaoArr[i].solayerId){
+//					no=i;
+//					return no;
+//				}
+//			}
+//			return no;
+//		}
+		
+		
+		
+//		public function showTiao(playerId:int,movestep:int):void{
+//			var currStep:int=showTop.indexOf(playerId);
+//		
+//			if(currStep==-1){
+//				//新建
+//				showTop.push(playerId);
+//				if(movestep<InfoData.selectMusicTopMax){
+//					createTiao(movestep);
+//				}else{
+//					this.dispatchEvent(new Event(MOVE_COMPLETE));
+//					return;
+//				}
+//			}else{
+//				var currtiaoNum:int;
+//				for (var i:int = 0; i < showTop.length; i++) 
+//				{
+//					if(playerId==showTop[i]){
+//						currtiaoNum=i;
+//						break;
+//					}
+//				}
+//				
+//				if(currtiaoNum>InfoData.selectMusicTopMax){
+//					createTiao(movestep);
+//				}
+//				
+//			}
+//			moveTiao(playerId,movestep);
+//		}
+		
+//		public function deletTiao(id:int=0):void{
+//			var deleteNum:int=0;
+//			var stnum:int=showTop.indexOf(id);
+//			if(stnum>-1){
+//				showTop.splice(stnum,1);
+//				for (var i:int = 0; i < tiaoArr.length; i++) 
+//				{
+//					if(tiaoArr[i].solayerId==id){
+//						this.removeChild(tiaoArr[i]);
+//						tiaoArr.splice(i,1);
+//						deleteNum=i;
+//						break;
+//					}
+//				}
+//				if(showTop.length>=InfoData.selectMusicTopMax){
+//					createTiao(InfoData.selectMusicTopMax-1);
+//				}
+//				downTiao(deleteNum);
+//				
+//			}else{
+//				this.dispatchEvent(new Event(MOVE_COMPLETE));
+//			}
+//		}
+		
+//		private function moveTiao(playerId:int,toNo:int):void{
+//			var tiaoCurrNo:int=-1;
+//			for (var i:int = 0; i < tiaoArr.length; i++) 
+//			{
+//				if(playerId==tiaoArr[i].solayerId){
+//					tiaoArr[i].setYW(infodata.rowMusicData[toNo].selectPlayer.currYW);
+//					tiaoArr[i].setMusicName(infodata.rowMusicData[toNo].mName);
+//					tiaoCurrNo=i;
+//					break;
+//				}
+//			}
+//			if(tiaoCurrNo>-1){
+//				var movetiao:Tiao=tiaoArr.splice(tiaoCurrNo,1)[0];
+//				tiaoArr.splice(toNo,0,movetiao);
+//			}else{
+//				tiaoCurrNo=toNo;
+//			}
+//			var beginNo:int=tiaoCurrNo>toNo?toNo:tiaoCurrNo;
+//			
+//			downTiao(beginNo);
+//		}
+		
+//		private function downTiao(No:int):void{
+//			var xmove:int=0;
+//			for (var i:int = No; i < tiaoArr.length; i++) 
+//			{
+////				trace("ywnum="+tiaoArr[i].ywNum);
+//				xmove=0;
+//				if(tiaoArr[i].ywNum<=0){
+//					xmove=120;
+//				}
+////				trace("xmove="+xmove);
+//				if(i==tiaoArr.length-1){
+//					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut,onComplete:moveComplete});
+//				}else{
+//					TweenLite.to(tiaoArr[i],0.8,{y:i*Yspase,x:xmove,ease:Back.easeInOut});
+//				}
+//			}
+//		}
+		
+//		private function createTiao(No:int):void{
+//			var tiao:Tiao=new Tiao(backbitmapdata);
+//			var mu:MusicData=infodata.rowMusicData[No];
+//			tiao.setWord(mu.selectPlayer.id,mu.selectPlayer.nick,mu.mName,mu.selectPlayer.currYW);
+//			tiaoArr.splice(No,0,tiao);
+//			tiao.y=No*Yspase;
+//			tiao.x=sceenRect.width;
+//			this.addChild(tiao);
+//		}
+		
+		
 		private function moveComplete():void{
+			deletMaxLimit();
 			agaSort();
 			this.dispatchEvent(new Event(MOVE_COMPLETE));
 		}
 		
 		private function agaSort():void{
-			for (var i:int = 0; i < tiaoArr.length; i++) 
+			for (var i:int = 0; i < showTiaoArr.length; i++) 
 			{
-				tiaoArr[i].setNo(i);
+				showTiaoArr[i].setNo(i);
 				
 			}	
+		}
+		
+		private function deletMaxLimit():void{
+			if(showTiaoArr.length>InfoData.selectMusicTopMax){
+				disTiao(InfoData.selectMusicTopMax+1);
+			};
+			
 		}
 		
 		
