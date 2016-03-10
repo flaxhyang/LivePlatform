@@ -33,7 +33,6 @@ package douyu.view.showlayer
 //		private var showTop:Vector.<int>=new Vector.<int>();
 //		private var tiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
 		
-		
 //		private var tiaoCurrNo:int;//要移动的条的数组位置
 		
 		public function SelectMusicTop()
@@ -57,22 +56,70 @@ package douyu.view.showlayer
 		
 		private var showTiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
 		
-		public function showTiao(pid:int,fromStep:int,toStep:int):void{
+		public function showTiao(pid:int):void{
+			
+			trace(pid);
+			trace("-----------------------------")
+			var fromStep:int;
+			var toStep:int;
+			
+			for (var i3:int = 0; i3 < infodata.rowMusicData.length; i3++) 
+			{
+				if(pid==infodata.rowMusicData[i3].selectPlayer.id){
+					fromStep=i3;
+					break;
+				}
+			}
+			
+			
+			//bubble sort
+			var tmp:MusicData;	
+			for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
+			{
+				for (var j:int = 0; j < infodata.rowMusicData.length-i-1; j++) 
+				{
+					if(infodata.rowMusicData[j].selectPlayer.currYW<infodata.rowMusicData[j+1].selectPlayer.currYW){
+						tmp=infodata.rowMusicData[j];
+						infodata.rowMusicData[j]=infodata.rowMusicData[j+1];
+						infodata.rowMusicData[j+1]=tmp;
+					}
+				}
+				
+			}
+			//quickSort
+			//				quickSort(0,infodata.rowMusicData.length-1);
+			
+			for (var k:int = 0; k < infodata.rowMusicData.length; k++) 
+			{
+				if(pid==infodata.rowMusicData[k].selectPlayer.id){
+					toStep=k;
+					break;
+				}
+			}
+			
+			
+			for (var i2:int = 0; i2 < infodata.rowMusicData.length; i2++) 
+			{
+				trace(infodata.rowMusicData[i2].selectPlayer.id)
+			}
+			trace("-------------------"+pid,fromStep,toStep)
+			
+			
 			
 			var isshowNo:int=-1;
-			for (var i:int = 0; i < showTiaoArr.length; i++) 
+			for (var i4:int = 0; i4 < showTiaoArr.length; i4++) 
 			{
-				if(pid==showTiaoArr[i].solayerId){
-					isshowNo=i;
+				if(pid==showTiaoArr[i4].solayerId){
+					isshowNo=i4;
 					break;
 				}
 			}
 			
 			if(isshowNo==-1){
 				//新建
-				if(fromStep<InfoData.selectMusicTopMax){
-					newTiao(pid,fromStep);
-					showing(fromStep);
+				if(toStep<InfoData.selectMusicTopMax){
+					newTiao(pid,toStep);
+					showing(toStep);
 				}else{
 					opreationOver();
 				}
@@ -108,6 +155,7 @@ package douyu.view.showlayer
 					moveTiao(fromStep,toStep);
 				}
 			}
+			opreationOver();
 		}
 		
 		
@@ -124,7 +172,6 @@ package douyu.view.showlayer
 				disTiao(currnum);
 			}else{
 				opreationOver();
-				return;
 			}
 			
 		}

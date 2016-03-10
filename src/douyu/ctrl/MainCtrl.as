@@ -129,11 +129,11 @@ package douyu.ctrl
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;
-				md.mName="屌丝之歌";
-				md.playerName="花粥";
+//				md.mName="屌丝之歌";
+//				md.playerName="花粥";
 				
-//							md.ismv=true;
-//							md.mvid=386;
+							md.ismv=true;
+							md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
 				sp.id=9557731;
@@ -226,26 +226,9 @@ package douyu.ctrl
 				
 			},3500)
 			
+//			return;
 			
-			setTimeout(function():void{
-				var md:MusicData=new MusicData();
-				md.ismv=false;
-				//				md.mName="一次就好";
-				//				md.playerName="杨宗纬";
-				
-				md.ismv=true;
-				md.mvid=386;
-				
-				var sp:PlayerData=new PlayerData();
-				sp.id=3;
-				sp.nick="3";
-				md.selectPlayer=sp;
-				
-				smc.selectMusic(md);
-				
-			},4500)
 			
-			return;
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -264,6 +247,27 @@ package douyu.ctrl
 				smc.selectMusic(md);
 				
 			},3600)
+			
+			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				//				md.mName="一次就好";
+				//				md.playerName="杨宗纬";
+				
+				md.ismv=true;
+				md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=5;
+				sp.nick="5";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+				
+			},4500)
+			
+			return;
 			
 //			return;
 			

@@ -47,6 +47,7 @@ package douyu.ctrl
 			if(isSorting || sortPlayerId.length==0){
 				return;
 			}
+//			trace("start")
 			isSorting=true;
 			
 			var pid:OPerationTiao=sortPlayerId.shift();
@@ -54,42 +55,42 @@ package douyu.ctrl
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.deletTiao(pid.otId);
 			}else if(pid.otType==1){
-				var fromNo:int;
-				var toNo:int;
-				
-				for (var i3:int = 0; i3 < infodata.rowMusicData.length; i3++) 
-				{
-					if(pid.otId==infodata.rowMusicData[i3].selectPlayer.id){
-						fromNo=i3;
-						break;
-					}
-				}
-				
-				
-				//bubble sort
-				var tmp:MusicData;	
-				for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
-				{
-					for (var j:int = 0; j < infodata.rowMusicData.length-i-1; j++) 
-					{
-						if(infodata.rowMusicData[j].selectPlayer.currYW<infodata.rowMusicData[j+1].selectPlayer.currYW){
-							tmp=infodata.rowMusicData[j];
-							infodata.rowMusicData[j]=infodata.rowMusicData[j+1];
-							infodata.rowMusicData[j+1]=tmp;
-						}
-					}
-					
-				}
-				//quickSort
-//				quickSort(0,infodata.rowMusicData.length-1);
-				
-				for (var k:int = 0; k < infodata.rowMusicData.length; k++) 
-				{
-					if(pid.otId==infodata.rowMusicData[k].selectPlayer.id){
-						toNo=k;
-						break;
-					}
-				}
+//				var fromNo:int;
+//				var toNo:int;
+//				
+//				for (var i3:int = 0; i3 < infodata.rowMusicData.length; i3++) 
+//				{
+//					if(pid.otId==infodata.rowMusicData[i3].selectPlayer.id){
+//						fromNo=i3;
+//						break;
+//					}
+//				}
+//				
+//				
+//				//bubble sort
+//				var tmp:MusicData;	
+//				for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
+//				{
+//					for (var j:int = 0; j < infodata.rowMusicData.length-i-1; j++) 
+//					{
+//						if(infodata.rowMusicData[j].selectPlayer.currYW<infodata.rowMusicData[j+1].selectPlayer.currYW){
+//							tmp=infodata.rowMusicData[j];
+//							infodata.rowMusicData[j]=infodata.rowMusicData[j+1];
+//							infodata.rowMusicData[j+1]=tmp;
+//						}
+//					}
+//					
+//				}
+//				//quickSort
+////				quickSort(0,infodata.rowMusicData.length-1);
+//				
+//				for (var k:int = 0; k < infodata.rowMusicData.length; k++) 
+//				{
+//					if(pid.otId==infodata.rowMusicData[k].selectPlayer.id){
+//						toNo=k;
+//						break;
+//					}
+//				}
 				
 //				for (var i2:int = 0; i2 < infodata.rowMusicData.length; i2++) 
 //				{
@@ -98,12 +99,14 @@ package douyu.ctrl
 //				trace("-------------------"+pid.otId,fromNo,toNo)
 				
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
-				smt.showTiao(pid.otId,fromNo,toNo);
+//				smt.showTiao(pid.otId,fromNo,toNo);
+				smt.showTiao(pid.otId);
 			}
 		}
 		
 		protected function moveCompleteHandle(event:Event):void
 		{
+//			trace("complete")
 			smt.removeEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 			isSorting=false;
 			sorting();
