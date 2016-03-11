@@ -57,12 +57,8 @@ package douyu.view.showlayer
 		private var showTiaoArr:Vector.<Tiao>=new Vector.<Tiao>();
 		
 		public function showTiao(pid:int):void{
-			
-			trace(pid);
-			trace("-----------------------------")
-			var fromStep:int;
-			var toStep:int;
-			
+			var fromStep:int=0;
+			var toStep:int=0;
 			for (var i3:int = 0; i3 < infodata.rowMusicData.length; i3++) 
 			{
 				if(pid==infodata.rowMusicData[i3].selectPlayer.id){
@@ -73,21 +69,21 @@ package douyu.view.showlayer
 			
 			
 			//bubble sort
-			var tmp:MusicData;	
-			for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
-			{
-				for (var j:int = 0; j < infodata.rowMusicData.length-i-1; j++) 
-				{
-					if(infodata.rowMusicData[j].selectPlayer.currYW<infodata.rowMusicData[j+1].selectPlayer.currYW){
-						tmp=infodata.rowMusicData[j];
-						infodata.rowMusicData[j]=infodata.rowMusicData[j+1];
-						infodata.rowMusicData[j+1]=tmp;
-					}
-				}
-				
-			}
+//			var tmp:MusicData;	
+//			for (var i:int = 0; i < infodata.rowMusicData.length; i++) 
+//			{
+//				for (var j:int = 0; j < infodata.rowMusicData.length-i-1; j++) 
+//				{
+//					if(infodata.rowMusicData[j].selectPlayer.currYW<infodata.rowMusicData[j+1].selectPlayer.currYW){
+//						tmp=infodata.rowMusicData[j];
+//						infodata.rowMusicData[j]=infodata.rowMusicData[j+1];
+//						infodata.rowMusicData[j+1]=tmp;
+//					}
+//				}
+//				
+//			}
 			//quickSort
-			//				quickSort(0,infodata.rowMusicData.length-1);
+			quickSort(0,infodata.rowMusicData.length-1);
 			
 			for (var k:int = 0; k < infodata.rowMusicData.length; k++) 
 			{
@@ -103,7 +99,7 @@ package douyu.view.showlayer
 				trace(infodata.rowMusicData[i2].selectPlayer.id)
 			}
 			trace("-------------------"+pid,fromStep,toStep)
-			
+//			
 			
 			
 			var isshowNo:int=-1;
@@ -259,6 +255,54 @@ package douyu.view.showlayer
 			}
 			
 		}
+		
+		
+		
+		
+		private function quickSort(start:int,end:int):void{
+			if(start<end){
+				var i:int=start;
+				var j:int=end;
+				while(i<j){
+					
+					var vi:int=infodata.rowMusicData[i].selectPlayer.currYW;
+					var vj:int=	infodata.rowMusicData[j].selectPlayer.currYW;
+					
+					while(i<j && infodata.rowMusicData[i].selectPlayer.currYW>=infodata.rowMusicData[j].selectPlayer.currYW)
+					{
+						j--;
+					}
+					if(infodata.rowMusicData[i].selectPlayer.currYW<infodata.rowMusicData[j].selectPlayer.currYW){
+						swap(i,j)
+					}
+					
+					while(i<j&&infodata.rowMusicData[i].selectPlayer.currYW>infodata.rowMusicData[j].selectPlayer.currYW) 
+					{
+						i++;
+					}
+					
+					if(infodata.rowMusicData[i].selectPlayer.currYW<infodata.rowMusicData[j].selectPlayer.currYW){
+						swap(i,j)
+					}
+					
+				}
+				if(i-start>1){
+					quickSort(start,i-1);
+				}
+				if(end-i>1){
+					quickSort(i+1,end);
+				}
+				
+			}
+		}
+		
+		private function swap(i:int,j:int):void{
+			var temp:MusicData;
+			temp=infodata.rowMusicData[i];
+			infodata.rowMusicData[i]=infodata.rowMusicData[j];
+			infodata.rowMusicData[j]=temp;
+		}
+		
 		
 		
 		private static var _instant:SelectMusicTop;
