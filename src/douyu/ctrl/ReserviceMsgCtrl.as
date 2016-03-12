@@ -15,7 +15,7 @@ package douyu.ctrl
 		}
 		
 		
-		public function msg_decode(id:String,nick:String,msg:String):void{
+		public function msg_decode(id:int,nick:String,msg:String):void{
 			rmc.decodeMsg(id,nick,msg);
 		}
 		

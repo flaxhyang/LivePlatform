@@ -3,12 +3,14 @@ package douyu.command
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import douyu.ctrl.THTopCtrl;
 	import douyu.data.vo.PlayerData;
 	
 	
 	public class GiftCommand extends EventDispatcher
 	{
 		private var smtc:SelectMuTopCommand=SelectMuTopCommand.instant;
+		private var tht:THTopCtrl=THTopCtrl.instant;
 		
 		private var giftQueyeIsRun:Boolean=false;
 		private var _giftQueueArr:Vector.<PlayerData>=new Vector.<PlayerData>();
@@ -42,9 +44,10 @@ package douyu.command
 		 *点歌 扣鱼丸  
 		 */		
 		public function cutYWForSelect(pd:PlayerData,ywnum:uint):void{
-			var playerdata:PlayerData=pd;
-			playerdata.OperationCutYW=ywnum;
-			smtc.addNewOP(playerdata,4);
+			if(!tht.isTH(pd.id)){
+				pd.OperationCutYW=ywnum;
+				smtc.addNewOP(pd,4);
+			}
 		}
 		
 		

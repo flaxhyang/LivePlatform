@@ -155,7 +155,10 @@ package douyu.command
 		}
 		
 		
-		private function  stopMusic():void{
+		/**
+		 * 停止 music 
+		 */		
+		public function  stopMusic():void{
 			if(ifdt.playMusicdata==null){
 				ctrlvideo.stop();
 				return;

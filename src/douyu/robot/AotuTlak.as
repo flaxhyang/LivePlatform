@@ -27,9 +27,9 @@ package douyu.robot
 				s1=0;
 			}
 			if(s1){
-				socketlink.sendMsg("点播成功！请等待点歌榜的刷新信息![emot:dy109]");
+				socketlink.sendMsg(nick+"点播成功！请等待点歌榜的刷新信息![emot:dy109]");
 			}else{
-				socketlink.sendMsg("[emot:dy109]点播成功了！请等待点歌榜的刷新信息!");
+				socketlink.sendMsg(nick+"[emot:dy109]点播成功了！请等待点歌榜的刷新信息!");
 			}
 			s1++;
 		}

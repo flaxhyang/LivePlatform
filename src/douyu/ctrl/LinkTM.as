@@ -19,6 +19,12 @@ package douyu.ctrl
 		}
 		
 		public function linkInit():void{
+			trace("link .......................")
+			
+			//			socket.setTHwelcome(welcomefun);
+			socket.setGetMsg(rmc.msg_decode);
+			socket.setGift(ywctrl.addYW);
+			
 			socket.addEventListener(Link.LINK_OK,isLinkHandle);
 			socket.initService(193466);
 		}
@@ -30,9 +36,7 @@ package douyu.ctrl
 		private function isLinkHandle(event:Event):void
 		{
 			socket.removeEventListener(Link.LINK_OK,isLinkHandle);
-//			socket.setTHwelcome(welcomefun);
-			socket.setGetMsg(rmc.msg_decode);
-			socket.setGift(ywctrl.addYW);
+
 		}
 		
 		

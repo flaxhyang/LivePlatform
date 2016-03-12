@@ -27,11 +27,27 @@ package douyu.ctrl
 			infodata.addEventListener(InfoData.THTOP_DATA_CHANGE,THTopChangeHandle);
 			db.getTHTopData(TopNum);
 		}
-		
+	
 		private function THTopChangeHandle(event:Event):void
 		{
 			infodata.removeEventListener(InfoData.THTOP_DATA_CHANGE,THTopChangeHandle);
 			thtop.setData(infodata.THDatas);
+		}
+		
+		/**
+		 * 判断是否在土豪榜里
+		 * @param id
+		 * @return 
+		 */		
+		public function isTH(id:int):int{
+			var thNum:int=-1;
+			for (var i:int = 0; i < infodata.THDatas.length; i++) 
+			{
+				if(infodata.THDatas[i].id==id){
+					return i;
+				}
+			}
+			return thNum; 
 		}
 		
 		private static var _instant:THTopCtrl;
