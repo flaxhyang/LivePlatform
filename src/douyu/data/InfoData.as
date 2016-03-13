@@ -7,10 +7,12 @@ package douyu.data
 	
 	import douyu.data.vo.MusicData;
 	import douyu.data.vo.PlayerData;
+	import douyu.robot.AotuTlak;
 
 	public class InfoData extends EventDispatcher
 	{
 		//work
+//		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
 //		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
 //		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
 //		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
@@ -19,20 +21,24 @@ package douyu.data
 //		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
-
-		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
-		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
-		public static const MTVImage:String="";
-		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
+//		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
+//		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+//		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
+//		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+//		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
+//		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
 
 
 		//发布
-//		public static const DataBaseURL:String="C:/YZYDOUYUData.db";
-//		public static const MTVURL:String="d:/mtv/";
+		public static const initVideoURL:String="c:/begin.mp4";
+		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
+		public static const AuthorityURL:String="c:/Authority.txt";
+		public static const MTVListURL:String="c:/mtvlist.txt";
+		public static const MTVURL:String="d:/mtv/";
+		public static const MP3BackGroundImage:String="c:/mp3background/";
+		
+		
 //		public static const MTVImage:String="d:/MTVImage/";
-//		public static const AuthorityURL:String="C:/Authority.txt";
 //		public static const noticeURL:String="C:/Notice.txt";
 //		public static const mmURL:String="C:/MM.txt";
 //		public static const mmImage:String="d:/mmimage/";
@@ -65,7 +71,7 @@ package douyu.data
 		//---------------------------------------------------------------------------event 
 		
 //		
-		
+		private var at:AotuTlak=AotuTlak.instant;
 		
 		
 		/**
@@ -109,6 +115,10 @@ package douyu.data
 			}
 			_rowMusicData.push(md);
 			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
+			
+			if(md.selectPlayer!=null){
+				at.sendMsg(md.mName+" 点播成功！");
+			}
 			
 //			for (var i:int = 0; i < _rowMusicData.length; i++) 
 //			{

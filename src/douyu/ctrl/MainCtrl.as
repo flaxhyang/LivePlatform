@@ -8,6 +8,7 @@ package douyu.ctrl
 	
 	import douyu.data.InfoData;
 	import douyu.database.DataBase;
+	import douyu.tool.Tools;
 	
 	public class MainCtrl extends EventDispatcher
 	{
@@ -72,7 +73,7 @@ package douyu.ctrl
 			var mtvlistloader:URLLoader=new URLLoader();
 			var Request:URLRequest=new URLRequest(InfoData.MTVListURL);
 			mtvlistloader.addEventListener(Event.COMPLETE,function blackwordhandle():void{
-				ifdt.autoPlayMvNums=String(mtvlistloader.data).split(",");
+				ifdt.autoPlayMvNums=Tools.getRandomArr(String(mtvlistloader.data).split(","));
 				initComplete();
 			});
 			mtvlistloader.load(Request);
@@ -97,7 +98,7 @@ package douyu.ctrl
 		private function initComplete():void{
 			currInitStep++;
 			if(currInitStep===initStep){
-				ctrlvideo.play("/douyu/view/video/begin.mp4");
+				ctrlvideo.play(InfoData.initVideoURL);
 				mp3ctrl.init();
 				setTHTop();
 				cpmc.init();

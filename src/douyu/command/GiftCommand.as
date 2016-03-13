@@ -29,12 +29,12 @@ package douyu.command
 		 * @param num
 		 * 
 		 */		
-		public function gift_fish(id:String,nick:String,num:int):void{
-			var ywNum:Number=num/100;
+		public function gift_fish(id:int,nick:String,ywNum:Number):void{
+			
 			var player:PlayerData=new PlayerData();
-			player.id=int(id);
+			player.id=id;
 			player.nick=nick;
-			player.OPerationAddYW=num;
+			player.OPerationAddYW=ywNum;
 			
 			smtc.addNewOP(player,2);
 		}

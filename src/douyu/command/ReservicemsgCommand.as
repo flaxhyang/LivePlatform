@@ -113,9 +113,9 @@ package douyu.command
 				return;
 			}
 
-			var arr:Array=msg.split(exp2,msg.length);
-			if(arr.length==3){
-				selectMP3(arr[0],arr[2],currid,currnick);
+			var arr:Array=msg.split(exp2);
+			if(arr.length == 2){
+				selectMP3(arr[0],arr[1],currid,currnick);
 			}
 		}
 		

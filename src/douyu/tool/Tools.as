@@ -34,7 +34,7 @@ package douyu.tool
 		}
 		
 		
-		//生成一个随机排列的连续数组 array
+		//打乱现有数组
 		public static function getRandomArr(array:Array) : Array{
 			var returnArr:Array=new Array();
 			var tempArr:Array = new Array();
