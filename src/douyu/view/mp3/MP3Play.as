@@ -53,13 +53,14 @@ package douyu.view.mp3
 		
 		protected function soundPlayComplete(event:Event):void
 		{
-			sound.removeEventListener(Event.COMPLETE,onloadComplete);
+			
 			backGround.stopBackground();
 			infodata.music_stop();
 		}
 		
 		protected function onloadComplete(event:Event):void
 		{
+			sound.removeEventListener(Event.COMPLETE,onloadComplete);
 			if(infodata.playMusicdata.musicTime==0){
 				infodata.playMusicdata.musicTime=Math.round(sound.length/1000);	
 			}

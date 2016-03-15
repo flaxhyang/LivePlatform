@@ -9,6 +9,9 @@ package douyu.view.top
 	
 	public class THTiao extends Sprite
 	{
+		
+		public static const TiaoHeight:int=30;
+		
 		private var No1tf:TextFormat;
 		private var No2tf:TextFormat;
 		private var No3tf:TextFormat;
@@ -20,7 +23,7 @@ package douyu.view.top
 		
 		private var th:int;
 		
-		public function THTiao(height:int=24)
+		public function THTiao(height:int=30)
 		{
 			super();
 			th=height;
@@ -30,21 +33,21 @@ package douyu.view.top
 		}
 		public function init():void
 		{
-			No1tf=new TextFormat(InfoData.fontNames,13,0x00ff00,true);
+			No1tf=new TextFormat(InfoData.fontNames,14,0x00ff00,true);
 			No1tf.align=TextFormatAlign.CENTER;
 			
-			No2tf=new TextFormat(InfoData.fontNames,13,0xffff00,true);
+			No2tf=new TextFormat(InfoData.fontNames,14,0xffff00,true);
 			No2tf.align=TextFormatAlign.CENTER;
 			
-			No3tf=new TextFormat(InfoData.fontNames,13,0xffff00,true);
+			No3tf=new TextFormat(InfoData.fontNames,14,0xffff00,true);
 			No3tf.align=TextFormatAlign.CENTER;
 			
-			tf2=new TextFormat(InfoData.fontNames,13,0xffffff,true);
+			tf2=new TextFormat(InfoData.fontNames,14,0xffffff,true);
 			tf2.align=TextFormatAlign.CENTER;
 			
 			NumText=new TextField();
 			
-			NumText.width=20;
+			NumText.width=30;
 			NumText.height=th;
 			NumText.border=true;
 			NumText.borderColor=0x000000;
@@ -54,9 +57,9 @@ package douyu.view.top
 			
 			nameText=new TextField();
 			this.addChild(nameText);
-			nameText.width=80;
+			nameText.width=120;
 			nameText.height=th;
-			nameText.x=20;
+			nameText.x=30;
 			nameText.border=true;
 			nameText.borderColor=0x000000;
 			nameText.background=true;
@@ -67,9 +70,9 @@ package douyu.view.top
 			
 			ywText=new TextField();
 			this.addChild(ywText);
-			ywText.width=70;
+			ywText.width=100;
 			ywText.height=th;
-			ywText.x=100;
+			ywText.x=150;
 			ywText.border=true;
 			ywText.borderColor=0x000000;
 			ywText.background=true;
@@ -78,9 +81,9 @@ package douyu.view.top
 			
 			lyText=new TextField();
 			this.addChild(lyText);
-			lyText.width=205;
+			lyText.width=225;
 			lyText.height=th;
-			lyText.x=170;
+			lyText.x=250;
 			lyText.border=true;
 			lyText.borderColor=0x000000;
 			lyText.background=true;
@@ -91,6 +94,11 @@ package douyu.view.top
 			
 			
 			this.addChild(NumText);
+			
+			
+			
+//			NumText.y= nameText.y=  ywText.y=  lyText.y= 5
+			
 		}	
 		
 		private function setFormat(no:int):void{

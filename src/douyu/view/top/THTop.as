@@ -15,8 +15,8 @@ package douyu.view.top
 	
 	public class THTop extends Sprite
 	{
-		private var topW:int=405;
-		private var topH:int=136;
+		private var topW:int=505;
+		private var topH:int=200;
 		private var lineColor:int=0x000000;
 		private var backColor:int=0x212121;
 		//
@@ -59,10 +59,10 @@ package douyu.view.top
 			
 			var masksp:Shape=new Shape();
 			masksp.graphics.beginFill(0,0);
-			masksp.graphics.drawRect(0,0,title.width+2,115);
+			masksp.graphics.drawRect(0,0,title.width+2,topH-THTiao.TiaoHeight-2);
 			masksp.graphics.endFill();
 			this.addChild(masksp);
-			masksp.y=thsp.y=19;
+			masksp.y=thsp.y=THTiao.TiaoHeight+1;
 			masksp.x=thsp.x=title.x;
 			thsp.mask=masksp;
 			
@@ -77,7 +77,7 @@ package douyu.view.top
 				currt.init();
 				thsp.addChild(currt);
 				currt.setText(String(i+1),data[i].nick,String(data[i].totleYW),data[i].THMessage);
-				currt.y=i*24;
+				currt.y=i*THTiao.TiaoHeight;
 				textArr.push(currt);	
 			}
 		}

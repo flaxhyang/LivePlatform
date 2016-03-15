@@ -7,7 +7,6 @@ package douyu.view.mp3
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.FileListEvent;
 	import flash.events.TimerEvent;
 	import flash.filesystem.File;
 	import flash.geom.Rectangle;
