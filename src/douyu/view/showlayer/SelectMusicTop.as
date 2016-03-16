@@ -195,6 +195,13 @@ package douyu.view.showlayer
 		
 		private function showing(No:int):void{
 			var xmove:int=0;
+			
+			if(No>=showTiaoArr.length-1){
+			
+				this.dispatchEvent(new Event(MOVE_COMPLETE));
+				return;
+			}
+			
 			for (var i:int = No; i < showTiaoArr.length; i++) 
 			{
 				//				trace("ywnum="+tiaoArr[i].ywNum);

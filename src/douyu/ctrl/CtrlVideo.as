@@ -24,10 +24,10 @@ package douyu.ctrl
 		}
 		
 		public function initVideoScreen(completeFun:Function):void{
-			stageVideo.addEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,function initVideo():void{
+			stageVideo.addEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,function InItVideo():void{
 				stageVideo.addEventListener(Stagevideo.STOP_VIDEO_EVENT,stopVideoHandle);
 				completeFun();
-				stageVideo.removeEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,initVideo)
+				stageVideo.removeEventListener(Stagevideo.STAGEVIDEO_INITCOMPLETE,InItVideo)
 			});
 			stageVideo.initVideo();
 			
@@ -54,11 +54,11 @@ package douyu.ctrl
 		 * 停止mv
 		 */		
 		public function stop():void{
-			stageVideo.visible=false;
 			stageVideo.stopMTV();
 		}
 		
 		private function stopVideoHandle(event:Event):void{
+			stageVideo.visible=false;
 			infodata.music_stop();
 		}
 		

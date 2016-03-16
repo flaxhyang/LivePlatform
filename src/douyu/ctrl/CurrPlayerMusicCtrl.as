@@ -34,7 +34,7 @@ package douyu.ctrl
 		{
 			//开始播放点播歌曲时 修改点播人鱼丸
 			if(infodata.playMusicdata.selectPlayer!=null){
-				gc.cutYWForSelect(infodata.playMusicdata.selectPlayer,InfoData.cutYWforSelect);
+				gc.cutYWForSelect(infodata.playMusicdata.selectPlayer,InfoData.CUTYWforSelect);
 			}
 			//
 			mi.showInfo(infodata.playMusicdata);

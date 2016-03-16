@@ -54,7 +54,7 @@ package douyu.ctrl
 			
 		public function stopMp3():void{
 			mp3play.StopSound();
-			infodata.music_stop();
+			
 		}
 		
 		private static var _instant:MP3Ctrl;

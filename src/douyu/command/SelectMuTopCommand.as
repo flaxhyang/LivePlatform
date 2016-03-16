@@ -148,14 +148,17 @@ package douyu.command
 		}		
 		
 		//点歌列表数据修改
-		private function changeSelectTop():void{
+		private function changeSelectTop(issearch:Boolean=true):void{
 			currOPTopNum=infodata.getPlayerNum(_currOP.id);
 			if(currOPTopNum<0){
 				//操作 正在播放的
-				if(infodata.playMusicdata==null)return;
-				if(infodata.playMusicdata.selectPlayer.id==_currOP.id){
-					infodata.playMusicdata.selectPlayer.currYW=db.currPd.currYW;
-					infodata.changeMusicdata(infodata.playMusicdata);
+				if(issearch){
+					trace(infodata.playMusicdata.mName)
+					if(infodata.playMusicdata==null)return;
+					if(infodata.playMusicdata.selectPlayer.id==_currOP.id){
+						infodata.playMusicdata.selectPlayer.currYW=db.currPd.currYW;
+						infodata.changeMusicdata(infodata.playMusicdata);
+					}
 				}
 			}else{
 				infodata.rowMusicData[currOPTopNum].selectPlayer.currYW=db.currPd.currYW;
@@ -180,7 +183,7 @@ package douyu.command
 			//刷新 鱼丸总榜
 			thtc.getTHData();
 			//
-			changeSelectTop();
+			changeSelectTop(false);
 			//
 			isOperaing=false;
 			operation();	

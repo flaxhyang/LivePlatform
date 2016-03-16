@@ -1,7 +1,6 @@
 package douyu.ctrl
 {
 	import flash.events.Event;
-	import flash.ui.MultitouchInputMode;
 	
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
@@ -62,7 +61,7 @@ package douyu.ctrl
 		
 		protected function moveCompleteHandle(event:Event):void
 		{
-//			trace("complete")
+			trace("is  isSorting complete")
 			smt.removeEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 			isSorting=false;
 			sorting();

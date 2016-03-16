@@ -26,6 +26,9 @@ package douyu.ctrl
 			socket.setGift(ywctrl.addYW);
 			
 			socket.addEventListener(Link.LINK_OK,isLinkHandle);
+			
+			//longlong 194257
+			//me 193466
 			socket.initService(193466);
 		}
 		

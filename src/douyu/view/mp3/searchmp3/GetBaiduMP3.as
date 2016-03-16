@@ -111,7 +111,13 @@ package douyu.view.mp3.searchmp3
 							}
 							
 							if(!issearch){
-								not_find();	
+//								not_find();	\
+								musicId=jsonObject.song_list[0].song_id;
+								tempArtist=jsonObject.song_list[0].author;
+								param2["songid"]=musicId;
+								loadStep=2;
+								urlloader.load(req2);
+								issearch=true;
 							}
 							
 						}else{

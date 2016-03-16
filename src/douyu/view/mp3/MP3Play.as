@@ -53,8 +53,7 @@ package douyu.view.mp3
 		
 		protected function soundPlayComplete(event:Event):void
 		{
-			
-			backGround.stopBackground();
+			StopSound();
 			infodata.music_stop();
 		}
 		
@@ -69,7 +68,6 @@ package douyu.view.mp3
 		public function StopSound():void{
 			soundCh.stop();
 			backGround.stopBackground();
-			infodata.music_stop();
 		}
 		
 		

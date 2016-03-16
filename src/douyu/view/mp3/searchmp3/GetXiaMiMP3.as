@@ -44,7 +44,8 @@ package douyu.view.mp3.searchmp3
 		}
 		
 		public function getMp3(name:String,artist:String):void{
-			param["key"]=name+" "+ artist;
+			param["key"]=name+""+ artist;
+			param["key"]=name;
 			urlloader.load(req);
 		}
 		

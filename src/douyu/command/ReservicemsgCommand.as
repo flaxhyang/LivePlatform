@@ -51,7 +51,9 @@ package douyu.command
 				//如果是超级权限直接切歌
 				if(ac.isId(currid)){
 					//切歌
+					trace("qiege")
 					smc.stopMusic();
+					smc.PlayMusic();
 					return;
 				}
 				
@@ -60,11 +62,14 @@ package douyu.command
 				if(thnum>-1){
 					if(infodata.playMusicdata.selectPlayer==null){
 						smc.stopMusic();
+						smc.PlayMusic();
+						
 						return;
 					}else{
 						currnum=thtc.isTH(infodata.playMusicdata.selectPlayer.id);//当前播放歌曲人的 土豪排行
 						if(currnum==-1 || thnum<=currnum){
 							smc.stopMusic();
+							smc.PlayMusic();
 							return;
 						}
 					}

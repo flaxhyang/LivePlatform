@@ -7,6 +7,8 @@ package douyu.ctrl
 	import flash.net.URLRequest;
 	
 	import douyu.data.InfoData;
+	import douyu.data.vo.MusicData;
+	import douyu.data.vo.PlayerData;
 	import douyu.database.DataBase;
 	import douyu.tool.Tools;
 	
@@ -98,6 +100,9 @@ package douyu.ctrl
 		private function initComplete():void{
 			currInitStep++;
 			if(currInitStep===initStep){
+				var beginMD:MusicData=new MusicData();
+				beginMD.ismv=true;
+				ifdt.playMusicdata=beginMD;
 				ctrlvideo.play(InfoData.initVideoURL);
 				mp3ctrl.init();
 				setTHTop();

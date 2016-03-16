@@ -90,7 +90,7 @@ package douyu.view.video
 				}
 				case "NetStream.Play.Stop":
 				{
-//					trace("stop mv")
+					trace("stop mv")
 					this.dispatchEvent(new Event(STOP_VIDEO_EVENT));
 					break;
 				}
@@ -145,7 +145,7 @@ package douyu.view.video
 		
 		public function stopMTV():void{
 			netStream.close();
-			this.dispatchEvent(new Event(STOP_VIDEO_EVENT));
+//			this.dispatchEvent(new Event(STOP_VIDEO_EVENT));
 		}
 		
 		private static var _instant:Stagevideo;

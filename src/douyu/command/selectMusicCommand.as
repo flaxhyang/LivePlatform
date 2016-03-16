@@ -79,6 +79,7 @@ package douyu.command
 		
 		protected function musicPlayComplete(event:Event):void
 		{
+			trace("aaaaaaaaaaaaaaaaaaaaaa")
 			PlayMusic();
 		}
 		
@@ -88,15 +89,18 @@ package douyu.command
 		 */		
 		protected function newMusicHandle(event:Event):void
 		{
-			//显示点歌榜逻辑
-			var newMD:MusicData=ifdt.getMusicData(ifdt.rowMusicData.length-1);
-			if(newMD.selectPlayer!=null){
-				smtc.addNewOP(newMD.selectPlayer,1);
-			}
+			trace("2")
 			//是否切断歌曲
 //			trace("new music!")
 			var isStop:Boolean=false;
 			
+			//显示点歌榜逻辑
+			var newMD:MusicData=ifdt.getMusicData(ifdt.rowMusicData.length-1);
+			if(newMD.selectPlayer!=null){
+				smtc.addNewOP(newMD.selectPlayer,1);
+			}else{
+				isStop=true;
+			}
 
 			
 			if(ifdt.playMusicdata==null){
@@ -114,6 +118,8 @@ package douyu.command
 			}
 			if(isStop){
 				stopMusic();
+				
+				PlayMusic();
 			}
 			
 			//搜寻 下一首
@@ -122,7 +128,8 @@ package douyu.command
 		}		
 		
 		//------------------------------------play  music
-		private function PlayMusic():void{
+		public function PlayMusic():void{
+			trace("1")
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.deleteSTMusicData(0);
 				
@@ -159,10 +166,6 @@ package douyu.command
 		 * 停止 music 
 		 */		
 		public function  stopMusic():void{
-			if(ifdt.playMusicdata==null){
-				ctrlvideo.stop();
-				return;
-			}
 			if(ifdt.playMusicdata.ismv){
 				ctrlvideo.stop();					
 			}else{
