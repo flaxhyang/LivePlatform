@@ -10,11 +10,11 @@ package
 	import douyu.view.MainView;
 	import douyu.view.video.Stagevideo;
 	
-//	[SWF(width="1920", height="1080",backgroundColor="0x000000")]
+	[SWF(width="1920", height="1080",backgroundColor="0x000000")]
 //	[SWF(width="1600", height="900",backgroundColor="0x000000")]
 //	[SWF(width="1280", height="720",backgroundColor="0x000000")]
 //	[SWF(width="1470", height="827",backgroundColor="0x000000")]
-	[SWF(width="870", height="427",backgroundColor="0x000000")]
+//	[SWF(width="870", height="427",backgroundColor="0x000000")]
 	public class LivePlatform extends Sprite
 	{
 		private var infodata:InfoData=InfoData.instant;

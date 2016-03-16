@@ -21,21 +21,21 @@ package douyu.data
 //		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
-		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
-		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
-		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
-		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
+//		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
+//		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+//		public static const AuthorityURL:String="G:/FBWORK/LivePlatform/TempFile/Authority.txt";
+//		public static const MTVListURL:String="G:/FBWORK/LivePlatform/TempFile/mtvlist.txt";
+//		public static const MTVURL:String="G:/FBWORK/LivePlatform/TempFile/mtv/";
+//		public static const MP3BackGroundImage:String="G:/FBWORK/LivePlatform/TempFile/mp3background/";
 
 
 		//发布
-//		public static const initVideoURL:String="c:/begin.mp4";
-//		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
-//		public static const AuthorityURL:String="c:/Authority.txt";
-//		public static const MTVListURL:String="c:/mtvlist.txt";
-//		public static const MTVURL:String="d:/mtv/";
-//		public static const MP3BackGroundImage:String="c:/mp3background/";
+		public static const initVideoURL:String="c:/begin.mp4";
+		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
+		public static const AuthorityURL:String="c:/Authority.txt";
+		public static const MTVListURL:String="c:/mtvlist.txt";
+		public static const MTVURL:String="d:/mtv/";
+		public static const MP3BackGroundImage:String="c:/mp3background/";
 		
 		
 //		public static const MTVImage:String="d:/MTVImage/";

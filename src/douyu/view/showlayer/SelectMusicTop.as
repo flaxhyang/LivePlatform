@@ -196,7 +196,7 @@ package douyu.view.showlayer
 		private function showing(No:int):void{
 			var xmove:int=0;
 			
-			if(No>=showTiaoArr.length-1){
+			if(showTiaoArr.length==0 && No==0){
 			
 				this.dispatchEvent(new Event(MOVE_COMPLETE));
 				return;
