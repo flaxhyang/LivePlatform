@@ -51,9 +51,11 @@ package douyu.ctrl
 			
 			var pid:OPerationTiao=sortPlayerId.shift();
 			if(pid.otType==2){
+//				trace("delet")
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.deletTiao(pid.otId);
 			}else if(pid.otType==1){
+//				trace("new tiao")
 				smt.addEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 				smt.showTiao(pid.otId);
 			}
@@ -61,7 +63,7 @@ package douyu.ctrl
 		
 		protected function moveCompleteHandle(event:Event):void
 		{
-			trace("is  isSorting complete")
+//			trace("is  isSorting complete")
 			smt.removeEventListener(SelectMusicTop.MOVE_COMPLETE,moveCompleteHandle);
 			isSorting=false;
 			sorting();

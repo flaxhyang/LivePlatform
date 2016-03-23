@@ -12,13 +12,13 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-//		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
-//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
-//		public static const MTVImage:String="";
-//		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
+		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
+		public static const MTVImage:String="";
+		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
 //		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
@@ -30,18 +30,15 @@ package douyu.data
 
 
 		//发布
-		public static const initVideoURL:String="c:/begin.mp4";
-		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
-		public static const AuthorityURL:String="c:/Authority.txt";
-		public static const MTVListURL:String="c:/mtvlist.txt";
-		public static const MTVURL:String="d:/mtv/";
-		public static const MP3BackGroundImage:String="c:/mp3background/";
+//		public static const initVideoURL:String="c:/begin.mp4";
+//		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
+//		public static const AuthorityURL:String="c:/Authority.txt";
+//		public static const MTVListURL:String="c:/mtvlist.txt";
+//		public static const MTVURL:String="d:/mtv/";
+//		public static const MP3BackGroundImage:String="c:/mp3background/";
 		
 		
-//		public static const MTVImage:String="d:/MTVImage/";
-//		public static const noticeURL:String="C:/Notice.txt";
-//		public static const mmURL:String="C:/MM.txt";
-//		public static const mmImage:String="d:/mmimage/";
+
 		
 		
 		public static const fontNames:String = "Microsoft YaHei,微软雅黑,MSYaHei,SimHei,Roboto,Arial,_sans";
@@ -113,12 +110,13 @@ package douyu.data
 					deleteSTMusicData(newMusicNum);
 				}
 			}
-			_rowMusicData.push(md);
-			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
 			
 			if(md.selectPlayer!=null){
 				at.sendMsg(md.mName+" 点播成功！");
 			}
+			
+			_rowMusicData.push(md);
+			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
 			
 //			for (var i:int = 0; i < _rowMusicData.length; i++) 
 //			{
@@ -132,8 +130,10 @@ package douyu.data
 		public function getPlayerNum(id:int):int{
 			for (var i:int = 0; i < _rowMusicData.length; i++) 
 			{
-				if(_rowMusicData[i].selectPlayer.id==id){
-					return i;
+				if(_rowMusicData[i].selectPlayer!==null){
+					if(_rowMusicData[i].selectPlayer.id==id){
+						return i;
+					}
 				}
 			}
 			
@@ -157,6 +157,7 @@ package douyu.data
 		//删除点歌榜的值
 		public var deletSeleteMusicPid:int;
 		public function deleteSTMusicData(num:int):MusicData{
+//			trace("delete  _rowMusicData")
 			var tmd:MusicData=_rowMusicData.splice(num,1)[0];
 			if(tmd.selectPlayer==null)return tmd;
 			deletSeleteMusicPid=tmd.selectPlayer.id;

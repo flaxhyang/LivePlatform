@@ -44,7 +44,7 @@ package douyu.command
 		 *点歌 扣鱼丸  
 		 */		
 		public function cutYWForSelect(pd:PlayerData,ywnum:uint):void{
-			if(!tht.isTH(pd.id)){
+			if(tht.isTH(pd.id)==-1){
 				pd.OperationCutYW=ywnum;
 				smtc.addNewOP(pd,4);
 			}

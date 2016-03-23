@@ -264,7 +264,7 @@ package douyu.database
 		
 		protected function changePlayerdataComplete(event:SQLEvent):void
 		{
-//			trace( "updata  ok ");
+			trace( "updata  ok ");
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
 			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));
@@ -272,7 +272,7 @@ package douyu.database
 		
 		protected function changePlayerdataError(event:SQLErrorEvent):void
 		{
-//			trace( "updata  error ");
+			trace( "updata  error ");
 			changePlayerStmt.removeEventListener(SQLEvent.RESULT,changePlayerdataComplete);
 			changePlayerStmt.removeEventListener(SQLErrorEvent.ERROR,changePlayerdataError);
 			this.dispatchEvent(new Event(CHANGE_YWTOP_COMPLETE));

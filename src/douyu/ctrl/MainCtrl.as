@@ -8,8 +8,8 @@ package douyu.ctrl
 	
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
-	import douyu.data.vo.PlayerData;
 	import douyu.database.DataBase;
+	import douyu.tool.Test;
 	import douyu.tool.Tools;
 	
 	public class MainCtrl extends EventDispatcher
@@ -116,7 +116,8 @@ package douyu.ctrl
 		//搜歌 
 		public function selectMusic():void{
 
-			
+			var test:Test=Test.instant;
+			test.test();
 		}
 		
 		

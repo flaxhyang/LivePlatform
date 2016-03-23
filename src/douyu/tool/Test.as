@@ -20,7 +20,7 @@ package douyu.tool
 		
 		public function test():void{
 			
-			//			return;
+						return;
 			//temp
 			var md:MusicData=new MusicData();
 			md.ismv=false;
@@ -30,8 +30,10 @@ package douyu.tool
 			//			md.mvid=301;
 			
 			var sp:PlayerData=new PlayerData();
-			sp.id=212467;
-			sp.nick="flaxhyang";
+//			sp.id=212467;
+//			sp.nick="flaxhyang";
+			sp.id=4;
+			sp.nick="4";
 			md.selectPlayer=sp;
 			
 			smc.selectMusic(md);
@@ -39,17 +41,17 @@ package douyu.tool
 			
 			//			
 			
-			return;
+//			return;
 			
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
 				md.ismv=false;
-				//				md.mName="屌丝之歌";
-				//				md.playerName="花粥";
+								md.mName="屌丝之歌";
+								md.playerName="花粥";
 				
-				md.ismv=true;
-				md.mvid=386;
+//				md.ismv=true;
+//				md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
 				sp.id=9557731;
@@ -61,7 +63,7 @@ package douyu.tool
 				smc.selectMusic(md);
 			},3100);
 			
-			//			return;
+//					return;
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -73,8 +75,10 @@ package douyu.tool
 				md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=1;
-				sp.nick="1";
+//				sp.id=1;
+//				sp.nick="1";
+				sp.id=212467;
+				sp.nick="flaxhyang";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
@@ -122,7 +126,7 @@ package douyu.tool
 			},3400)
 			
 			
-			//			return
+//						return
 			
 			setTimeout(function():void{
 				var md:MusicData=new MusicData();
@@ -142,7 +146,12 @@ package douyu.tool
 				
 			},3500)
 			
-			//			return;
+			
+//						setTimeout(function():void{
+//							gc.gift_fish(4,"4",9)
+//						},9000);
+			
+						return;
 			
 			
 			
@@ -175,8 +184,8 @@ package douyu.tool
 				md.mvid=386;
 				
 				var sp:PlayerData=new PlayerData();
-				sp.id=5;
-				sp.nick="5";
+				sp.id=6;
+				sp.nick="6";
 				md.selectPlayer=sp;
 				
 				smc.selectMusic(md);
@@ -184,11 +193,11 @@ package douyu.tool
 			},4500)
 			
 			
-			setTimeout(function():void{
-				gc.gift_fish("212467","5",9)
-			},9000);
-			
-			return;
+//			setTimeout(function():void{
+//				gc.gift_fish(212467,"5",9)
+//			},9000);
+//			
+//			return;
 			
 			//			return;
 			
@@ -215,7 +224,7 @@ package douyu.tool
 				
 				smc.selectMusic(md);
 				
-			},3700)
+			},4700)
 			
 			//			return;
 			
@@ -235,7 +244,7 @@ package douyu.tool
 				
 				smc.selectMusic(md);
 				
-			},3800)
+			},4800)
 			
 			//			setTimeout(function():void{
 			//				gc.gift_fish("6","6",9)
@@ -259,10 +268,27 @@ package douyu.tool
 				
 				smc.selectMusic(md);
 				
-			},3900)
+			},4900)
 			
 			
-			
+			setTimeout(function():void{
+				var md:MusicData=new MusicData();
+				md.ismv=false;
+				//				md.mName="屌丝之歌";
+				//				md.playerName="花粥";
+				
+				md.ismv=true;
+				md.mvid=386;
+				
+				var sp:PlayerData=new PlayerData();
+				sp.id=212467;
+				sp.nick="flaxhyang";
+				//				sp.id=1;
+				//				sp.nick="调调";
+				md.selectPlayer=sp;
+				
+				smc.selectMusic(md);
+			},5000);
 			
 			//			return 
 			
@@ -282,7 +308,7 @@ package douyu.tool
 				
 				smc.selectMusic(md);
 				
-			},4000)
+			},5100)
 			
 			
 			
@@ -308,7 +334,7 @@ package douyu.tool
 				
 				smc.selectMusic(md);
 				
-			},4100)
+			},5200)
 			
 			//			return;
 			
@@ -328,7 +354,7 @@ package douyu.tool
 				
 				smc.selectMusic(md);
 				
-			},4200)
+			},5300)
 			
 			//			return
 			
@@ -419,7 +445,7 @@ package douyu.tool
 			//			return;
 			
 			setTimeout(function():void{
-				gc.gift_fish("212467","flaxhyang",9)
+				gc.gift_fish(212467,"flaxhyang",9)
 			},15000);
 			
 			

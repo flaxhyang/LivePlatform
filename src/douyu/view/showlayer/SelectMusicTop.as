@@ -194,14 +194,13 @@ package douyu.view.showlayer
 		}
 		
 		private function showing(No:int):void{
-			var xmove:int=0;
-			
-			if(showTiaoArr.length==0 && No==0){
-			
-				this.dispatchEvent(new Event(MOVE_COMPLETE));
+			No=0;
+			if(No==showTiaoArr.length){
+				opreationOver();
 				return;
 			}
 			
+			var xmove:int=0;
 			for (var i:int = No; i < showTiaoArr.length; i++) 
 			{
 				//				trace("ywnum="+tiaoArr[i].ywNum);
@@ -222,18 +221,11 @@ package douyu.view.showlayer
 			var deTiao:Tiao=showTiaoArr.splice(no,1)[0];
 			TweenLite.to(deTiao,0.6,{alpha:0,onComplete:function deleComplete():void{
 				deTiao.parent.removeChild(deTiao);
-				
-				var need:int=InfoData.selectMusicTopMax-showTiaoArr.length;
-				
-				for (var i:int = 1; i <= need; i++) 
-				{
-					var newnum:int=showTiaoArr.length;
-					if(newnum<=infodata.rowMusicData.length-1){
-						newTiao(infodata.rowMusicData[newnum].selectPlayer.id,newnum);
-					}
-					
+				//					
+				var needNum:int=InfoData.selectMusicTopMax-1;
+				if(needNum<=infodata.rowMusicData.length-1){
+					newTiao(infodata.rowMusicData[needNum].selectPlayer.id,needNum);
 				}
-				
 				showing(no);
 			}});
 		}
@@ -257,9 +249,11 @@ package douyu.view.showlayer
 		}
 		
 		private function deletMaxLimit():void{
-			
-			while(showTiaoArr.length>InfoData.selectMusicTopMax){
-				disTiao(showTiaoArr.length-1);
+			if(showTiaoArr.length>InfoData.selectMusicTopMax){
+				var deTiao:Tiao=showTiaoArr.splice(showTiaoArr.length-1,1)[0];
+				TweenLite.to(deTiao,0.6,{alpha:0,onComplete:function deleComplete():void{
+					deTiao.parent.removeChild(deTiao);
+				}});
 			}
 			
 		}

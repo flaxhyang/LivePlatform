@@ -44,9 +44,7 @@ package douyu.command
 		 */		
 		public function selectMusic(md:MusicData):void{
 			TempSelectPlayerRow.push(md);
-			
 			selectNextMusic();
-			
 		}
 		
 		//---------------------------------------------------------------------------
@@ -79,7 +77,6 @@ package douyu.command
 		
 		protected function musicPlayComplete(event:Event):void
 		{
-			trace("aaaaaaaaaaaaaaaaaaaaaa")
 			PlayMusic();
 		}
 		
@@ -89,7 +86,7 @@ package douyu.command
 		 */		
 		protected function newMusicHandle(event:Event):void
 		{
-			trace("2")
+//			trace("2")
 			//是否切断歌曲
 //			trace("new music!")
 			var isStop:Boolean=false;
@@ -99,28 +96,31 @@ package douyu.command
 			if(newMD.selectPlayer!=null){
 				smtc.addNewOP(newMD.selectPlayer,1);
 			}else{
-				isStop=true;
+//				isStop=true;
+				stopMusic();
+				PlayMusic();
 			}
 
 			
-			if(ifdt.playMusicdata==null){
-				isStop=true;
-			}else{
-				//当前播放歌曲 不是点播歌曲
-				if(ifdt.playMusicdata.selectPlayer==null){
-					isStop=true;
-				}				
-				
-				//当前播放歌曲 不是点播歌曲，是土豪联播歌曲，也可以切换
-//				if(ifdt.playMusicdata.selectPlayer!=null && ifdt.playMusicdata.listSelectPlayer==true){
+//			if(ifdt.playMusicdata==null){
+//				isStop=true;
+//			}else{
+//				//当前播放歌曲 不是点播歌曲
+			
+//				if(ifdt.playMusicdata.selectPlayer==null){
 //					isStop=true;
-//				}
-			}
-			if(isStop){
-				stopMusic();
-				
-				PlayMusic();
-			}
+//				}				
+//				
+//				//当前播放歌曲 不是点播歌曲，是土豪联播歌曲，也可以切换
+////				if(ifdt.playMusicdata.selectPlayer!=null && ifdt.playMusicdata.listSelectPlayer==true){
+////					isStop=true;
+////				}
+//			}
+//			if(isStop){
+//				stopMusic();
+//				
+//				PlayMusic();
+//			}
 			
 			//搜寻 下一首
 			musicSearchOver();
@@ -129,12 +129,10 @@ package douyu.command
 		
 		//------------------------------------play  music
 		public function PlayMusic():void{
-			trace("1")
+//			trace("1")
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.deleteSTMusicData(0);
-				
 				ifdt.playMusicdata=md;
-				
 				if(md.ismv){
 					ctrlvideo.play(InfoData.MTVURL+md.musicUrl);
 				}else{

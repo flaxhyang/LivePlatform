@@ -11,6 +11,7 @@ package douyu.command
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
 	import douyu.data.vo.PlayerData;
+	import douyu.robot.AotuTlak;
 	
 	public class ReservicemsgCommand extends EventDispatcher
 	{
@@ -26,6 +27,7 @@ package douyu.command
 		private var ac:AuthorityCtrl=AuthorityCtrl.instant;
 		private var thtc:THTopCtrl=THTopCtrl.instant;
 		private var infodata:InfoData=InfoData.instant;
+		private var at:AotuTlak=AotuTlak.instant;
 		
 		private var currid:int;
 		private var currnick:String;
@@ -51,7 +53,6 @@ package douyu.command
 				//如果是超级权限直接切歌
 				if(ac.isId(currid)){
 					//切歌
-					trace("qiege")
 					smc.stopMusic();
 					smc.PlayMusic();
 					return;
@@ -63,16 +64,21 @@ package douyu.command
 					if(infodata.playMusicdata.selectPlayer==null){
 						smc.stopMusic();
 						smc.PlayMusic();
-						
+						at.sendMsg("土豪切歌成功等待延时！");
 						return;
 					}else{
 						currnum=thtc.isTH(infodata.playMusicdata.selectPlayer.id);//当前播放歌曲人的 土豪排行
 						if(currnum==-1 || thnum<=currnum){
 							smc.stopMusic();
 							smc.PlayMusic();
+							at.sendMsg("土豪切歌成功等待延时！");
 							return;
+						}else{
+							at.sendMsg("切不了 比你大的土豪！");
 						}
 					}
+				}else{
+					at.sendMsg("当了土豪才能切切切！");
 				}
 				//切歌失败
 				

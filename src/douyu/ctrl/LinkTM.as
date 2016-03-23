@@ -4,6 +4,8 @@ package douyu.ctrl
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import douyu.robot.AotuTlak;
+	
 	
 	public class LinkTM extends EventDispatcher
 	{
@@ -12,6 +14,8 @@ package douyu.ctrl
 		private var rmc:ReserviceMsgCtrl=ReserviceMsgCtrl.instant;
 		
 		private var socket:Link=Link.instant;
+		
+		private var at:AotuTlak=AotuTlak.instant;
 		
 		public function LinkTM(target:IEventDispatcher=null)
 		{
@@ -29,7 +33,7 @@ package douyu.ctrl
 			
 			//longlong 194257
 			//me 193466
-			socket.initService(193466);
+			socket.initService(194257);
 		}
 		
 		public function sendMsg(msg:String):void{
@@ -39,6 +43,8 @@ package douyu.ctrl
 		private function isLinkHandle(event:Event):void
 		{
 			socket.removeEventListener(Link.LINK_OK,isLinkHandle);
+			
+			at.sendMsg("连接ok");
 
 		}
 		

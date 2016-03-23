@@ -82,7 +82,7 @@ package douyu.command
 				}
 				case 2://送礼物的人
 				{
-					trace("新人")
+//					trace("新人")
 					insertYWTop();
 					break;
 				}
@@ -153,7 +153,7 @@ package douyu.command
 			if(currOPTopNum<0){
 				//操作 正在播放的
 				if(issearch){
-					trace(infodata.playMusicdata.mName)
+//					trace(infodata.playMusicdata.mName)
 					if(infodata.playMusicdata==null)return;
 					if(infodata.playMusicdata.selectPlayer.id==_currOP.id){
 						infodata.playMusicdata.selectPlayer.currYW=db.currPd.currYW;
@@ -164,7 +164,6 @@ package douyu.command
 				infodata.rowMusicData[currOPTopNum].selectPlayer.currYW=db.currPd.currYW;
 				smtc.Sort(infodata.rowMusicData[currOPTopNum].selectPlayer.id);
 			}
-		
 		}
 		
 		//送鱼丸的人，加鱼丸的操作
