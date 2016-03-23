@@ -33,7 +33,7 @@ package douyu.ctrl
 			
 			//longlong 194257
 			//me 193466
-			socket.initService(194257);
+			socket.initService(193466);
 		}
 		
 		public function sendMsg(msg:String):void{
