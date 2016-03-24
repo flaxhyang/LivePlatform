@@ -12,13 +12,12 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-//		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
-//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-//		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
-//		public static const MTVImage:String="";
-//		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
+		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
+		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
+		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
 //		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
@@ -30,12 +29,12 @@ package douyu.data
 
 
 		//发布
-		public static const initVideoURL:String="c:/begin.mp4";
-		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
-		public static const AuthorityURL:String="c:/Authority.txt";
-		public static const MTVListURL:String="c:/mtvlist.txt";
-		public static const MTVURL:String="d:/mtv/";
-		public static const MP3BackGroundImage:String="c:/mp3background/";
+//		public static const initVideoURL:String="c:/begin.mp4";
+//		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
+//		public static const AuthorityURL:String="c:/Authority.txt";
+//		public static const MTVListURL:String="c:/mtvlist.txt";
+//		public static const MTVURL:String="d:/mtv/";
+//		public static const MP3BackGroundImage:String="c:/mp3background/";
 		
 		
 
@@ -57,11 +56,14 @@ package douyu.data
 		//-----------------------------------------------------------------------------data change event
 		public static const THTOP_DATA_CHANGE:String="thtop_data_change";
 		public static const MUSIC_NOT_FIND:String="music_not_find";//没有找到歌曲
-		public static const NEW_MUSIC_DATA:String="new_music_data";//点新歌
+		public static const MUSIC_FIND_OK:String="music_find_ok";//搜到要播放的歌曲（费点播时）
+		public static const NEW_SELECT_MUSIC_DATA:String="new_select_music_data";//点新歌
+		
 	    public static const DELET_MUSIC_DATA:String="delet_music_data";//删除点歌帮信息
 		public static const MUSIC_PLAY_COMPLETE:String="music_play_complete";//歌曲播放完成
 		public static const MUSIC_PLAYING_EVENT:String="music_playing_event";//歌曲开始播放
-		public static const PLAY_MUSIC_DATACHANGE:String="play_music_datachange";//修改当前播放的歌的信息
+		public static const PlAY_MUSIC_DATACHANGE:String="play_music_datachange";//当前播放歌曲 信息改变
+	
 		
 		
 		
@@ -75,7 +77,6 @@ package douyu.data
 		 *  music 播放完成 
 		 */
 		public function music_stop():void{
-//			_playMusicdata=null;
 			this.dispatchEvent(new Event(MUSIC_PLAY_COMPLETE));
 		}
 		
@@ -87,8 +88,8 @@ package douyu.data
 		} 		
 		
 		//----------------------------------------------------------------------------数据 组
-//		public var newMusicData:MusicData;
-		
+
+		// 点歌列表
 		private var _rowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
 		/**
 		 * 排队播放列表
@@ -103,25 +104,19 @@ package douyu.data
 		public function setRowMusicData(md:MusicData):void
 		{
 			//
-			if(md.selectPlayer!=null){
+			if(md.selectPlayer!=null && md.listSelectPlayer==false){
 				//如果是已经点歌的人，要先删除 以前点过的歌tiao
 				var newMusicNum:int=getPlayerNum(md.selectPlayer.id);
 				if(newMusicNum>=0){
 					deleteSTMusicData(newMusicNum);
 				}
-			}
-			
-			if(md.selectPlayer!=null){
+				_rowMusicData.push(md);
 				at.sendMsg(md.mName+" 点播成功！");
+				this.dispatchEvent(new Event(NEW_SELECT_MUSIC_DATA));
+			}else {
+				_playMusicdata=md;
+				this.dispatchEvent(new Event(MUSIC_FIND_OK));
 			}
-			
-			_rowMusicData.push(md);
-			this.dispatchEvent(new Event(NEW_MUSIC_DATA));
-			
-//			for (var i:int = 0; i < _rowMusicData.length; i++) 
-//			{
-//				trace(_rowMusicData[i].selectPlayer.id)
-//			}
 			
 			
 		}
@@ -165,7 +160,18 @@ package douyu.data
 			return tmd;
 		}
 		
-		
+		//土豪 默认列表
+		private var _thRowMusicData:Vector.<MusicData>=new Vector.<MusicData>();
+
+		public function get thRowMusicData():Vector.<MusicData>
+		{
+			return _thRowMusicData;
+		}
+
+		public function setThRowMusicData(value:MusicData):void
+		{
+			_thRowMusicData.push(value);
+		}
 		
 		
 		private var _playMusicdata:MusicData
@@ -183,11 +189,17 @@ package douyu.data
 			_playMusicdata = value;
 			this.dispatchEvent(new Event(MUSIC_PLAYING_EVENT));
 		}
+		
+		/**
+		 * 查询鱼丸回来的数据，当前music已经在播放中  & 播放中 修改喇叭
+		 * @param value
+		 */		
 		public function changeMusicdata(value:MusicData):void{
 			_playMusicdata = value;
-			this.dispatchEvent(new Event(PLAY_MUSIC_DATACHANGE));
+			this.dispatchEvent(new Event(PlAY_MUSIC_DATACHANGE));
 		}
 		
+		//------------
 		private var _autoPlayMvNums:Array;
 		/**
 		 * 自动播放歌单列表
@@ -202,6 +214,8 @@ package douyu.data
 		{
 			_autoPlayMvNums = value;
 		}
+		
+		
 		//------------
 		private var _THDatas:Vector.<PlayerData> 
 		/**

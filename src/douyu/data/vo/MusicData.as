@@ -8,8 +8,7 @@ package douyu.data.vo
 		//是否是 mv
 		public var ismv:Boolean=true;
 		
-		//是否为 自动歌单播放
-		public var listSelectPlayer:Boolean=false;
+		
 		
 		
 		//mv
@@ -21,9 +20,13 @@ package douyu.data.vo
 		
 		
 		public var musicUrl:String;// music  url
-		public var musicTime:int=0;//歌曲 时常
+		public var musicTime:int=0;//歌曲 时长
 		public var mName:String;//歌名
 		public var playerName:String;//演唱者
+		
+		
+		//是否为 土豪自动歌单播放
+		public var listSelectPlayer:Boolean=false;
 		public var selectPlayer:PlayerData=null;
 		
 	}

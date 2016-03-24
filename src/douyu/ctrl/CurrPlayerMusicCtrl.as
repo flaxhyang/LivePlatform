@@ -22,13 +22,9 @@ package douyu.ctrl
 		
 		public function init():void{
 			infodata.addEventListener(InfoData.MUSIC_PLAYING_EVENT,playingMusicHnadle);
-			infodata.addEventListener(InfoData.PLAY_MUSIC_DATACHANGE,changedatahandle);
+			infodata.addEventListener(InfoData.PlAY_MUSIC_DATACHANGE,changedatahandle);
 		}
 		
-		protected function changedatahandle(event:Event):void
-		{
-			mi.setYWTiao(infodata.playMusicdata.selectPlayer.currYW);
-		}
 		
 		protected function playingMusicHnadle(event:Event):void
 		{
@@ -39,6 +35,13 @@ package douyu.ctrl
 			//
 			mi.showInfo(infodata.playMusicdata);
 		}		
+		
+		protected function changedatahandle(event:Event):void
+		{
+			mi.setYWTiao(infodata.playMusicdata.selectPlayer.currYW);
+			//
+			//修改 喇叭
+		}
 		
 		/**
 		 * 其他操作yw的时候，修改 鱼丸数 

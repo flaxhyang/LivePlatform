@@ -53,8 +53,8 @@ package douyu.command
 				//如果是超级权限直接切歌
 				if(ac.isId(currid)){
 					//切歌
-					smc.stopMusic();
-					smc.PlayMusic();
+					smc.cutMusic();
+					at.sendMsg("老大切歌无人能挡！");
 					return;
 				}
 				
@@ -62,27 +62,22 @@ package douyu.command
 				var currnum:int;
 				if(thnum>-1){
 					if(infodata.playMusicdata.selectPlayer==null){
-						smc.stopMusic();
-						smc.PlayMusic();
+						smc.cutMusic();
 						at.sendMsg("土豪切歌成功等待延时！");
 						return;
 					}else{
 						currnum=thtc.isTH(infodata.playMusicdata.selectPlayer.id);//当前播放歌曲人的 土豪排行
 						if(currnum==-1 || thnum<=currnum){
-							smc.stopMusic();
-							smc.PlayMusic();
+							smc.cutMusic();
 							at.sendMsg("土豪切歌成功等待延时！");
 							return;
 						}else{
-							at.sendMsg("切不了 比你大的土豪！");
+							at.sendMsg("切不动比你大的土豪！");
 						}
 					}
 				}else{
 					at.sendMsg("当了土豪才能切切切！");
 				}
-				//切歌失败
-				
-				
 			}
 			
 			//去掉空格
@@ -134,6 +129,7 @@ package douyu.command
 		private function  selectMV(no:int,id:int,nick:String):void{
 			if(no<300){
 				if(!ac.isId(id)){
+					
 					return;
 				}
 			}

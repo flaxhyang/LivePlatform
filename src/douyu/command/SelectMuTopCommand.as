@@ -152,13 +152,10 @@ package douyu.command
 			currOPTopNum=infodata.getPlayerNum(_currOP.id);
 			if(currOPTopNum<0){
 				//操作 正在播放的
-				if(issearch){
-//					trace(infodata.playMusicdata.mName)
-					if(infodata.playMusicdata==null)return;
-					if(infodata.playMusicdata.selectPlayer.id==_currOP.id){
-						infodata.playMusicdata.selectPlayer.currYW=db.currPd.currYW;
-						infodata.changeMusicdata(infodata.playMusicdata);
-					}
+				if(infodata.playMusicdata==null)return;
+				if(infodata.playMusicdata.selectPlayer.id==_currOP.id){
+					infodata.playMusicdata.selectPlayer.currYW=db.currPd.currYW;
+					infodata.changeMusicdata(infodata.playMusicdata);
 				}
 			}else{
 				infodata.rowMusicData[currOPTopNum].selectPlayer.currYW=db.currPd.currYW;

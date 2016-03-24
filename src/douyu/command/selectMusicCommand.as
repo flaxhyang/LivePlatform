@@ -52,7 +52,8 @@ package douyu.command
 			//
 			ifdt.addEventListener(InfoData.MUSIC_PLAY_COMPLETE,musicPlayComplete);
 			ifdt.addEventListener(InfoData.MUSIC_NOT_FIND,musicSearchOver);
-			ifdt.addEventListener(InfoData.NEW_MUSIC_DATA,newMusicHandle);
+			ifdt.addEventListener(InfoData.MUSIC_FIND_OK,nextPlayerMusic);
+			ifdt.addEventListener(InfoData.NEW_SELECT_MUSIC_DATA,newMusicHandle);
 			ifdt.addEventListener(InfoData.DELET_MUSIC_DATA,deletMusicdataHnadle);
 			//
 		}
@@ -77,11 +78,12 @@ package douyu.command
 		
 		protected function musicPlayComplete(event:Event):void
 		{
-			PlayMusic();
+			PlayNextMusic();
+			
 		}
 		
 		/**
-		 * 
+		 * 点歌榜 有新点歌
 		 * @param event
 		 */		
 		protected function newMusicHandle(event:Event):void
@@ -95,32 +97,11 @@ package douyu.command
 			var newMD:MusicData=ifdt.getMusicData(ifdt.rowMusicData.length-1);
 			if(newMD.selectPlayer!=null){
 				smtc.addNewOP(newMD.selectPlayer,1);
-			}else{
-//				isStop=true;
-				stopMusic();
-				PlayMusic();
 			}
-
 			
-//			if(ifdt.playMusicdata==null){
-//				isStop=true;
-//			}else{
-//				//当前播放歌曲 不是点播歌曲
-			
-//				if(ifdt.playMusicdata.selectPlayer==null){
-//					isStop=true;
-//				}				
-//				
-//				//当前播放歌曲 不是点播歌曲，是土豪联播歌曲，也可以切换
-////				if(ifdt.playMusicdata.selectPlayer!=null && ifdt.playMusicdata.listSelectPlayer==true){
-////					isStop=true;
-////				}
-//			}
-//			if(isStop){
-//				stopMusic();
-//				
-//				PlayMusic();
-//			}
+			if(ifdt.playMusicdata.selectPlayer == null || ifdt.playMusicdata.listSelectPlayer==true){
+				cutMusic();
+			}
 			
 			//搜寻 下一首
 			musicSearchOver();
@@ -128,26 +109,36 @@ package douyu.command
 		}		
 		
 		//------------------------------------play  music
-		public function PlayMusic():void{
-//			trace("1")
+		private function PlayNextMusic():void{
 			if(ifdt.rowMusicData.length>0){
 				var md:MusicData=ifdt.deleteSTMusicData(0);
-				ifdt.playMusicdata=md;
-				if(md.ismv){
-					ctrlvideo.play(InfoData.MTVURL+md.musicUrl);
-				}else{
-					mp3ctrl.playMp3(md);
-				}
+				playmusic(md);
+			}else if(ifdt.thRowMusicData.length>0){
+				selectMusic(ifdt.thRowMusicData.shift());
 			}else{
-				//ctrlvideo.play("/douyu/view/video/begin.mp4");
-				//判断 土豪 播放列表
-				
-				//判断自动播放列表
-				selectMusic(plc.playAutoList());
+				selectMusic(plc.playAutoList())
 			}
 		}
 		
 		
+		private function nextPlayerMusic(evt:Event):void{
+			isSelecting=false;
+			playmusic(ifdt.playMusicdata);
+		}
+		/**
+		 * 播放歌曲
+		 * @param md
+		 */		
+		private function playmusic(md:MusicData):void{
+			ifdt.playMusicdata=md;
+			if(md.ismv){
+				ctrlvideo.play(InfoData.MTVURL+md.musicUrl);
+			}else{
+				mp3ctrl.playMp3(md);
+			}
+		}
+		
+		//点歌搜寻
 		private function selectNextMusic():void{
 			if(isSelecting){return}
 			isSelecting=true;
@@ -163,7 +154,7 @@ package douyu.command
 		/**
 		 * 停止 music 
 		 */		
-		public function  stopMusic():void{
+		private function  stopMusic():void{
 			if(ifdt.playMusicdata.ismv){
 				ctrlvideo.stop();					
 			}else{
@@ -172,8 +163,13 @@ package douyu.command
 		}
 		
 		
-		
-		
+		/**
+		 *  切歌 
+		 */		
+		public function cutMusic():void{
+			stopMusic();
+			PlayNextMusic();
+		}
 		
 		
 		
