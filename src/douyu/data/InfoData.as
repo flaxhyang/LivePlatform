@@ -12,12 +12,12 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
-		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
-		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
-		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
-		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
-		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+//		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
+//		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
+//		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
+//		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
+//		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
+//		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		
 		//home
 //		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
@@ -29,12 +29,12 @@ package douyu.data
 
 
 		//发布
-//		public static const initVideoURL:String="c:/begin.mp4";
-//		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
-//		public static const AuthorityURL:String="c:/Authority.txt";
-//		public static const MTVListURL:String="c:/mtvlist.txt";
-//		public static const MTVURL:String="d:/mtv/";
-//		public static const MP3BackGroundImage:String="c:/mp3background/";
+		public static const initVideoURL:String="c:/begin.mp4";
+		public static const DataBaseURL:String="c:/YZYDOUYUData.db";
+		public static const AuthorityURL:String="c:/Authority.txt";
+		public static const MTVListURL:String="c:/mtvlist.txt";
+		public static const MTVURL:String="d:/mtv/";
+		public static const MP3BackGroundImage:String="c:/mp3background/";
 		
 		
 
