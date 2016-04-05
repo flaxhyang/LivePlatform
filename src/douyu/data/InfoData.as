@@ -12,12 +12,15 @@ package douyu.data
 	public class InfoData extends EventDispatcher
 	{
 		//work
-		public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
+		//public static const initVideoURL:String="D:/ASWORK/LivePlatform/TempFile/begin.mp4";
+		//public static const initVideoURL:String="http://60.10.3.99/v4.music.126.net/20160325174529/631e2001f9ad02f3093e996ac99c6e06/web/cloudmusic/OCIiOCAxMjQwIDAyIiEhIg==/mv/486094/c16d51f7a0df9b4699d7e5023bbb4769.mp4";
+		public static const initVideoURL:String="http://60.10.3.99/20160325174529/631e2001f9ad02f3093e996ac99c6e06/web/cloudmusic/OCIiOCAxMjQwIDAyIiEhIg==/mv/486094/c16d51f7a0df9b4699d7e5023bbb4769.mp4";
 		public static const DataBaseURL:String="D:/ASWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
 		public static const AuthorityURL:String="D:/ASWORK/LivePlatform/TempFile/Authority.txt";
 		public static const MTVListURL:String="D:/ASWORK/LivePlatform/TempFile/mtvlist.txt";
 		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
 		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
+		public static const AUTOMSGURL:String="D:/ASWORK/LivePlatform/TempFile/word.txt";
 		
 		//home
 //		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
