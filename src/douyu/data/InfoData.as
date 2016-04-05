@@ -21,7 +21,7 @@ package douyu.data
 		public static const MTVURL:String="D:/ASWORK/LivePlatform/TempFile/mtv/";
 		public static const MP3BackGroundImage:String="D:/ASWORK/LivePlatform/TempFile/mp3background/";
 		public static const AUTOMSGURL:String="D:/ASWORK/LivePlatform/TempFile/word.txt";
-		
+
 		//home
 //		public static const initVideoURL:String="G:/FBWORK/LivePlatform/TempFile/begin.mp4";
 //		public static const DataBaseURL:String="G:/FBWORK/LivePlatform/TempFile/YZYDOUYUData0317.db";
