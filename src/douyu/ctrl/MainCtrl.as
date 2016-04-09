@@ -9,6 +9,7 @@ package douyu.ctrl
 	import douyu.data.InfoData;
 	import douyu.data.vo.MusicData;
 	import douyu.database.DataBase;
+	import douyu.robot.XPRobot;
 	import douyu.tool.Test;
 	import douyu.tool.Tools;
 	
@@ -109,7 +110,8 @@ package douyu.ctrl
 				cpmc.init();
 				link.linkInit();
 				//temp
-				selectMusic();
+				//selectMusic();
+				XPRobot.instant.MPStart();
 			}
 		}
 		
